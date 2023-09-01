@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="95">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <df root="/home/quislant/Ricardo/Research/PostTesis/SpecBarriers/power8/common"
+        name="0">
+      <in>transaction-lock.h</in>
+      <in>transaction-ticket.h</in>
+      <in>transaction.c</in>
+      <in>transaction.h</in>
+    </df>
+    <df root="/home/quislant/Ricardo/Research/PostTesis/SpecBarriers/power8/lib"
+        name="1">
+      <in>avltree.c</in>
+      <in>avltree.h</in>
+      <in>bitmap.c</in>
+      <in>bitmap.h</in>
+      <in>hash.c</in>
+      <in>hash.h</in>
+      <in>hashtable.c</in>
+      <in>hashtable.h</in>
+      <in>heap.c</in>
+      <in>heap.h</in>
+      <in>list.c</in>
+      <in>list.h</in>
+      <in>map.h</in>
+      <in>memory.c</in>
+      <in>memory.h</in>
+      <in>mt19937ar.c</in>
+      <in>mt19937ar.h</in>
+      <in>pair.c</in>
+      <in>pair.h</in>
+      <in>queue.c</in>
+      <in>queue.h</in>
+      <in>random.c</in>
+      <in>random.h</in>
+      <in>rbtree.c</in>
+      <in>rbtree.h</in>
+      <in>set.h</in>
+      <in>thread.c</in>
+      <in>thread.h</in>
+      <in>timer.h</in>
+      <in>tm-cs-lock.h</in>
+      <in>tm-cs-ticket.h</in>
+      <in>tm-cs.h</in>
+      <in>tm-ord.h</in>
+      <in>tm-sb-lock.h</in>
+      <in>tm-sb-ticket.h</in>
+      <in>tm-sb.h</in>
+      <in>tm.h</in>
+      <in>types.h</in>
+      <in>utility.h</in>
+      <in>vector.c</in>
+      <in>vector.h</in>
+    </df>
+    <df root="/home/quislant/Ricardo/Research/PostTesis/SpecBarriers/power8/recurrence"
+        name="2">
+      <df name="results">
+        <df name="z_figs">
+        </df>
+        <df name="z_py">
+        </df>
+      </df>
+      <in>recurrence.c</in>
+    </df>
+  </logicalFolder>
+  <projectmakefile>/home/quislant/Ricardo/Research/PostTesis/SpecBarriers/power8/recurrence/Makefile.seq</projectmakefile>
+  <confs>
+    <conf name="Default" type="0">
+      <toolsSet>
+        <developmentServer>localhost</developmentServer>
+        <platform>2</platform>
+      </toolsSet>
+      <compile>
+        <compiledirpicklist>
+          <compiledirpicklistitem>.</compiledirpicklistitem>
+          <compiledirpicklistitem>${AUTO_FOLDER}</compiledirpicklistitem>
+        </compiledirpicklist>
+        <compiledir>${AUTO_FOLDER}</compiledir>
+        <compilecommandpicklist>
+          <compilecommandpicklistitem>${MAKE} ${ITEM_NAME}.o</compilecommandpicklistitem>
+          <compilecommandpicklistitem>${AUTO_COMPILE}</compilecommandpicklistitem>
+        </compilecommandpicklist>
+        <compilecommand>${AUTO_COMPILE}</compilecommand>
+      </compile>
+      <dbx_gdbdebugger version="1">
+        <gdb_pathmaps>
+        </gdb_pathmaps>
+        <gdb_interceptlist>
+          <gdbinterceptoptions gdb_all="false" gdb_unhandled="true" gdb_unexpected="true"/>
+        </gdb_interceptlist>
+        <gdb_options>
+          <DebugOptions>
+          </DebugOptions>
+        </gdb_options>
+        <gdb_buildfirst gdb_buildfirst_overriden="false" gdb_buildfirst_old="false"/>
+      </dbx_gdbdebugger>
+      <nativedebugger version="1">
+        <engine>gdb</engine>
+      </nativedebugger>
+      <runprofile version="9">
+        <runcommandpicklist>
+          <runcommandpicklistitem>"${OUTPUT_PATH}"</runcommandpicklistitem>
+        </runcommandpicklist>
+        <runcommand>"${OUTPUT_PATH}"</runcommand>
+        <rundir>.</rundir>
+        <buildfirst>false</buildfirst>
+        <terminal-type>0</terminal-type>
+        <remove-instrumentation>0</remove-instrumentation>
+        <environment>
+        </environment>
+      </runprofile>
+    </conf>
+  </confs>
+</configurationDescriptor>

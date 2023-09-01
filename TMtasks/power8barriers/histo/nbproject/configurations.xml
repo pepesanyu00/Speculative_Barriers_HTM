@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="95">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <df root="/home/quislant/Ricardo/Research/PostTesis/SpecBarriers/power8/histo"
+        name="0">
+      <in>main.c</in>
+      <in>parboil.c</in>
+      <in>util.c</in>
+    </df>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>/home/quislant/Ricardo/Research/PostTesis/SpecBarriers/power8/histo/Makefile</itemPath>
+    </logicalFolder>
+  </logicalFolder>
+  <sourceFolderFilter>^(nbproject)$</sourceFolderFilter>
+  <sourceRootList>
+    <Elem>/home/quislant/Ricardo/Research/PostTesis/SpecBarriers/power8/histo</Elem>
+  </sourceRootList>
+  <projectmakefile>/home/quislant/Ricardo/Research/PostTesis/SpecBarriers/power8/histo/Makefile</projectmakefile>
+  <confs>
+    <conf name="Default" type="0">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>false</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <codeAssistance>
+      </codeAssistance>
+      <makefileType>
+        <makeTool>
+          <buildCommandWorkingDir>/home/quislant/Ricardo/Research/PostTesis/SpecBarriers/power8/histo</buildCommandWorkingDir>
+          <buildCommand>${MAKE} -f Makefile</buildCommand>
+          <cleanCommand>${MAKE} -f Makefile clean</cleanCommand>
+          <executablePath></executablePath>
+        </makeTool>
+      </makefileType>
+      <item path="/home/quislant/Ricardo/Research/PostTesis/SpecBarriers/power8/histo/main.c"
+            ex="false"
+            tool="0"
+            flavor2="2">
+      </item>
+      <item path="/home/quislant/Ricardo/Research/PostTesis/SpecBarriers/power8/histo/parboil.c"
+            ex="false"
+            tool="0"
+            flavor2="2">
+      </item>
+      <item path="/home/quislant/Ricardo/Research/PostTesis/SpecBarriers/power8/histo/util.c"
+            ex="false"
+            tool="0"
+            flavor2="2">
+      </item>
+    </conf>
+  </confs>
+</configurationDescriptor>

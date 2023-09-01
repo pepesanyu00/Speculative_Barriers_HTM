@@ -1,0 +1,6 @@
+El paralelismo de esta aplicación está muy restringido.
+Cada nodo tiene de 1 a 6 edges (el segundo número de los pares de los ficheros de entrada -- la y en el código)
+y el parallel for se hace para cada edge. Probando con muchos threads se ralentiza mucho la ejecución.
+
+Al final he programado una versión en la que el front se divide entre el número de hilos y los fronts se separan con una barrera.
+He tenido problemas con el ticket lock y he optado por poner un lock normal con test and set. Parece que puede tener relación con el spin wait que evita el lemming effect, que al no tener una instrucción "pause" (x86) dentro satura la red de interconeción a la memoria. En PowerPC hay instrucciones para bajar la prioridad del thread en los spin loops ("yield", "or 31, 31, 31") y optimizar energía y no saturar la red (evitar el llamado "tight loop"). Pero no he sacado nada en claro.

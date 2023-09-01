@@ -1,0 +1,21 @@
+
+CFLAGS +=
+
+PROG := ssca2cut_SB
+
+SRCS += \
+  alg_radix_smp.c \
+  computeGraph.c \
+  cutClusters.c \
+  createPartition.c \
+  genScalData.c \
+  getUserParameters.c \
+  globals.c \
+  ssca2cut.c \
+  $(LIB)/memory.c \
+  $(LIB)/mt19937ar.c \
+  $(LIB)/random.c \
+  $(LIB)/thread.c \
+
+#
+OBJS := ${SRCS:.c=.o}

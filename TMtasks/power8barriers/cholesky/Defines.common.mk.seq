@@ -1,0 +1,11 @@
+
+CFLAGS +=
+
+PROG := cholesky_SEQ
+
+SRCS += \
+	cholesky.c \
+	$(LIB)/thread.c \
+#
+OBJS := ${SRCS:.c=.o}
+
