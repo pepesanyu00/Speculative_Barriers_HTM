@@ -142,46 +142,8 @@ extern volatile uint32_t g_lock_var;
 
 //Funciones para el fichero de estadísticas
 int statsFileInit(int argc, char **argv, long thCount);
-inline unsigned long profileAbortStatus(texasru_t cause, long thread, long xid){
-  stats[thread][xid].xabortCount++;
-  if(_TEXASRU_ABORT(cause)) {
-    stats[thread][xid].explicitAborts++;
-    if(_TEXASRU_FAILURE_CODE(cause) == LOCK_TAKEN) stats[thread][xid].explicitAbortsSubs++;
-    else if(_TEXASRU_FAILURE_CODE(cause) == VALIDATION_ERROR) {
-      stats[thread][xid].explicitAbortsAddPath++;
-      return 1;
-    }
-  } else if(_TEXASRU_DISALLOWED(cause)) {
-    stats[thread][xid].disallowedAborts++;
-    if(_TEXASRU_FAILURE_PERSISTENT(cause)) stats[thread][xid].persistentAborts++;
-  } else if(_TEXASRU_NESTING_OVERFLOW(cause)) {
-    stats[thread][xid].nestingAborts++;
-    if(_TEXASRU_FAILURE_PERSISTENT(cause)) stats[thread][xid].persistentAborts++;
-  } else if(_TEXASRU_FOOTPRINT_OVERFLOW(cause)) {
-    stats[thread][xid].footprintAborts++;
-    if(_TEXASRU_FAILURE_PERSISTENT(cause)) stats[thread][xid].persistentAborts++;
-  } else if(_TEXASRU_SELF_INDUCED_CONFLICT(cause)) {
-    stats[thread][xid].selfInducedAborts++;
-    if(_TEXASRU_FAILURE_PERSISTENT(cause)) stats[thread][xid].persistentAborts++;
-  } else if(_TEXASRU_NON_TRANSACTIONAL_CONFLICT(cause)) {
-    stats[thread][xid].nontransactAborts++;
-  } else if(_TEXASRU_TRANSACTION_CONFLICT(cause)) {
-    stats[thread][xid].transactAborts++;
-  } else if(_TEXASRU_TRANSLATION_INVALIDATION_CONFLICT(cause)) {
-    stats[thread][xid].tlbAborts++;
-  } else if(_TEXASRU_IMPLEMENTAION_SPECIFIC(cause)) {
-    stats[thread][xid].implementationAborts++;
-  } else if(_TEXASRU_INSTRUCTION_FETCH_CONFLICT(cause)) {
-    stats[thread][xid].fetchAborts++;
-  } else {
-    stats[thread][xid].otherAborts++;
-  }
-  return 0;
-}
-inline void profileCommit(long thread, long xid, long retries){
-  stats[thread][xid].xcommitCount++;
-  stats[thread][xid].retryCCount += retries;
-}
+extern inline unsigned long profileAbortStatus(texasru_t cause, long thread, long xid);
+extern inline void profileCommit(long thread, long xid, long retries);
 extern inline void profileFallback(long thread, long xid, long retries);
 int dumpStats(float time, int ver);
 

@@ -129,7 +129,7 @@ int statsFileInit(int argc, char **argv, long thCount) {
 }
 
 //La modifico para que devuelva si fue VALIDATION_ERROR
-inline unsigned long profileAbortStatus(texasru_t cause, long thread, long xid) {
+unsigned long profileAbortStatus(texasru_t cause, long thread, long xid) {
   stats[thread][xid].xabortCount++;
   if(_TEXASRU_ABORT(cause)) {
     stats[thread][xid].explicitAborts++;
@@ -166,7 +166,7 @@ inline unsigned long profileAbortStatus(texasru_t cause, long thread, long xid) 
   return 0;
 }
 
-inline void profileCommit(long thread, long xid, long retries) {
+void profileCommit(long thread, long xid, long retries) {
   stats[thread][xid].xcommitCount++;
   stats[thread][xid].retryCCount += retries;
 }
