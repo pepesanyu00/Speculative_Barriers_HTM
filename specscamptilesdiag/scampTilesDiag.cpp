@@ -125,6 +125,7 @@ void scamp(vector<DTYPE> &tSeries, vector<DTYPE> &means, vector<DTYPE> &norms,
     {
       //Sin protección en el acceso al profile hace falta barrera
 #pragma omp for schedule(dynamic) nowait
+      TX_DESCRIPTOR_INIT()
       for (ITYPE tilej = tileii; tilej < profileLength; tilej += maxTileWidth)
       {
         //Para recorrer en diagonal los tiles
