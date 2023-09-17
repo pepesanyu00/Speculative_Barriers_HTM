@@ -125,7 +125,6 @@ void scamp(vector<DTYPE> &tSeries, vector<DTYPE> &means, vector<DTYPE> &norms,
     {
       //Sin protección en el acceso al profile hace falta barrera
 #pragma omp for schedule(dynamic) nowait
-      TX_DESCRIPTOR_INIT()
       for (ITYPE tilej = tileii; tilej < profileLength; tilej += maxTileWidth)
       {
         //Para recorrer en diagonal los tiles
@@ -257,7 +256,7 @@ void scamp(vector<DTYPE> &tSeries, vector<DTYPE> &means, vector<DTYPE> &norms,
           cout << "Lower triangle | tid: " << tid << " tilei(ini,fin): " << iini << "," << ifin << " tilej(ini,fin): " << jini << "," << jfin << endl;
 #endif
         }
-      }SB_BARRIER(tid) //Barrera implícita omp si no se pone nowait
+      }TX_DESCRIPTOR_INIT();SB_BARRIER(tid) //Barrera implícita omp si no se pone nowait
 #ifdef DEBUG
       cout << "-------------------------" << endl;
 #endif
