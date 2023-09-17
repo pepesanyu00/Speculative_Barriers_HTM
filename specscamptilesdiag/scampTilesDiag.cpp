@@ -256,7 +256,7 @@ void scamp(vector<DTYPE> &tSeries, vector<DTYPE> &means, vector<DTYPE> &norms,
           cout << "Lower triangle | tid: " << tid << " tilei(ini,fin): " << iini << "," << ifin << " tilej(ini,fin): " << jini << "," << jfin << endl;
 #endif
         }
-      }TX_DESCRIPTOR_INIT();SB_BARRIER(tid) //Barrera implícita omp si no se pone nowait
+      }ITYPE tid = omp_get_thread_num();TX_DESCRIPTOR_INIT();SB_BARRIER(tid); //Barrera implícita omp si no se pone nowait
 #ifdef DEBUG
       cout << "-------------------------" << endl;
 #endif
