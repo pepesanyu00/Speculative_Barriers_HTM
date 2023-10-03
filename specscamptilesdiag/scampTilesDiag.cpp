@@ -14,6 +14,7 @@
 #include "tm.h"
 #include "thread.h"
 #include "tm-sb.h"
+#include "transaction.h"
 #define MIN(a, b) (((a) < (b)) ? (a) : (b))
 #define MAX(a, b) (((a) > (b)) ? (a) : (b))
 
