@@ -142,9 +142,9 @@ extern volatile uint32_t g_lock_var;
 
 //Funciones para el fichero de estadísticas
 int statsFileInit(int argc, char **argv, long thCount);
-extern inline unsigned long profileAbortStatus(texasru_t cause, long thread, long xid);
-extern inline void profileCommit(long thread, long xid, long retries);
-extern inline void profileFallback(long thread, long xid, long retries);
+unsigned long profileAbortStatus(texasru_t cause, long thread, long xid);
+void profileCommit(long thread, long xid, long retries);
+void profileFallback(long thread, long xid, long retries);
 int dumpStats(float time, int ver);
 
 //RIC
