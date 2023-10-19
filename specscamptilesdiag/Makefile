@@ -3,8 +3,8 @@ LFLAGS = -lm -fopenmp
 
 all: scampTilesDiag
 
-scampTilesDiag: scampTilesDiag.cpp transaction.c memory.c thread.c
-	g++ $(CFLAGS) scampTilesDiag.cpp transaction.c memory.c thread.c -o scampTilesDiag $(LFLAGS) -DSB
+scampTilesDiag: scampTilesDiag.cpp
+	g++ $(CFLAGS) scampTilesDiag.cpp -o scampTilesDiag $(LFLAGS) -DSB
 
 clean:
 	rm -f scampTilesDiag
