@@ -3,11 +3,11 @@
 
 #include <stdio.h>
 #include <assert.h>
-#ifndef X86
+//#ifndef X86
 //#include "transaction.h"
-#endif
+//#endif
 //#include "thread.h"
-#include "types.h"
+//#include "types.h"
 
 /* =============================================================================
  * RIC: SPECULATIVE BARRIERS
