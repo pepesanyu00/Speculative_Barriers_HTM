@@ -291,6 +291,15 @@ int main(int argc, char *argv[])
     }
     numThreads = atoi(argv[4]);
     TM_STARTUP(numThreads);
+
+    if(!statsFileInit(argc,argv,numThreads)){
+      cout << "Error abriendo o inicializando el archivo de estadísticas." << endl;
+      return 0;
+    }
+
+
+
+
     bool dumpProfile = (atoi(argv[5]) == 0) ? false : true;
     // Set the exclusion zone to 0.25
     exclusionZone = (ITYPE)(windowSize * 0.25);
@@ -417,6 +426,10 @@ int main(int argc, char *argv[])
     }
     statsFile.close();
     cout << endl;
+
+    if(!dumpStats(telapsed.count(),1)){
+      cout << "Error volcando las estadísticas." << endl;
+    }
 
     ALIGNED_ARRAY_DEL(profile);
     ALIGNED_ARRAY_DEL(profileIndex);
