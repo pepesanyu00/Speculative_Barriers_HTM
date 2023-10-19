@@ -56,7 +56,7 @@
 
 #define TM_BARRIER(thId)               SB_BARRIER(thId)
 #define TM_LAST_BARRIER(thId)          LAST_BARRIER(thId)
-
+#endif 
 
 #endif /* TM_H */
 
