@@ -107,9 +107,7 @@ void scamp(vector<DTYPE> &tSeries, vector<DTYPE> &means, vector<DTYPE> &norms,
     TM_THREAD_ENTER();
     // Suppossing ITYPE as uint32_t (we could index series up to 4G elements), to index profile_tmp we need more bits (uint64_t)
     //uint64_t my_offset = omp_get_thread_num() * profileLength;
-#ifdef DEBUG
     ITYPE tid = omp_get_thread_num();
-#endif
     DTYPE covariance, correlation;
 
     // Private profile initialization
@@ -258,11 +256,11 @@ void scamp(vector<DTYPE> &tSeries, vector<DTYPE> &means, vector<DTYPE> &norms,
           cout << "Lower triangle | tid: " << tid << " tilei(ini,fin): " << iini << "," << ifin << " tilej(ini,fin): " << jini << "," << jfin << endl;
 #endif
         }
-      }ITYPE tid = omp_get_thread_num();TX_DESCRIPTOR_INIT();SB_BARRIER(tid); //Barrera implícita omp si no se pone nowait
+      }TM_BARRIER(tid); //Barrera implícita omp si no se pone nowait
 #ifdef DEBUG
       cout << "-------------------------" << endl;
 #endif
-    }
+    }TM_LAST_BARRIER(tid);
   }
 }
 
@@ -292,6 +290,7 @@ int main(int argc, char *argv[])
       cout << "El tamaño del tile no es múltiplo del tamaño de línea de caché. La versión TM puede dar falsos conflictos." << endl;
     }
     numThreads = atoi(argv[4]);
+    TM_STARTUP(numThreads);
     bool dumpProfile = (atoi(argv[5]) == 0) ? false : true;
     // Set the exclusion zone to 0.25
     exclusionZone = (ITYPE)(windowSize * 0.25);
