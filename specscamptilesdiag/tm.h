@@ -4,9 +4,9 @@
 #include <stdio.h>
 #include <assert.h>
 #ifndef X86
-#include "transaction.h"
+//#include "transaction.h"
 #endif
-#include "thread.h"
+//#include "thread.h"
 #include "types.h"
 
 /* =============================================================================
