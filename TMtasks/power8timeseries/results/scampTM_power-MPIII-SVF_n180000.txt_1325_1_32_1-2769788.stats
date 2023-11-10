@@ -1,0 +1,24 @@
+-----------------------------------------
+Output file: ./results/scampTM_power-MPIII-SVF_n180000.txt_1325_1_32_1-2769788.stats
+----------------- Stats -----------------
+#Threads: 1
+
+Abort Count:  XID0: 2082843  XID1: 0  XID2: 0  XIDSB: 0 Total: 2082843
+Explicit aborts:  XID0: 14  XID1: 0  XID2: 0  XIDSB: 0 Total: 14
+  »     Subs:  XID0: 0  XID1: 0  XID2: 0  XIDSB: 0 Total: 0
+-Disallowed aborts:  XID0: 0  XID1: 0  XID2: 0  XIDSB: 0 Total: 0
+-Nesting overflow aborts:  XID0: 0  XID1: 0  XID2: 0  XIDSB: 0 Total: 0
+-Footprint overflow aborts:  XID0: 1725572  XID1: 0  XID2: 0  XIDSB: 0 Total: 1725572
+-Self-induced conflict aborts:  XID0: 0  XID1: 0  XID2: 0  XIDSB: 0 Total: 0
+  » Persistent:  XID0: 1725572  XID1: 0  XID2: 0  XIDSB: 0 Total: 1725572
+Non-transactional conflict aborts:  XID0: 227793  XID1: 0  XID2: 0  XIDSB: 0 Total: 227793
+Transactional conflict aborts:  XID0: 0  XID1: 0  XID2: 0  XIDSB: 0 Total: 0
+TLB invalidation aborts:  XID0: 110  XID1: 0  XID2: 0  XIDSB: 0 Total: 110
+Implementation specific aborts:  XID0: 129354  XID1: 0  XID2: 0  XIDSB: 0 Total: 129354
+Instruction fetch conflict aborts:  XID0: 0  XID1: 0  XID2: 0  XIDSB: 0 Total: 0
+Other aborts (deberían ser 0):  XID0: 0  XID1: 0  XID2: 0  XIDSB: 0 Total: 0
+Commits:  XID0: 496755665  XID1: 0  XID2: 0  XIDSB: 0 Total: 496755665
+Fallbacks:  XID0: 316932  XID1: 0  XID2: 0  XIDSB: 0 Total: 316932
+RetriesCommited:  XID0: 1132047  XID1: 0  XID2: 0  XIDSB: 0 Total: 1132047 PerXact: 0.002279
+RetriesFallbacked: XID0: 950796  XID1: 0  XID2: 0  XIDSB: 0 Total: 950796 PerXact: 3.000000
+RetriesAvg: 0.004190
