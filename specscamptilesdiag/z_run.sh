@@ -22,14 +22,16 @@ benchs=("./timeseries/power-MPIII-SVF_n180000.txt 1325"
 # "./timeseries/e0103.txt 500"
 #benchs=("./timeseries/power-MPIII-SVF.txt 1325" "./timeseries/seismology-MPIII-SVE.txt 50")
 
-hilos="1 2 4 8 16 32 64 128"
-n=4
+hilos="1"
+n=2
 #RIC una tirada con dump stats a 1. Se pone a 0 para las siguientes
 dumpStats=1
 for (( j=0; j<$n; j++ )); do
     for i in "${benchs[@]}"; do
         for t in $hilos; do
             echo "## $j ## $i $t"
+            ./scampTilesDiag $i 128 $t $dumpStats
+            ./scampTilesDiag $i 256 $t $dumpStats
             ./scampTilesDiag $i 512 $t $dumpStats
             ./scampTilesDiag $i 1024 $t $dumpStats
         done;
