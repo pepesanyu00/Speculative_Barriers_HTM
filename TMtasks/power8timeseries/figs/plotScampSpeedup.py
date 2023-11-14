@@ -69,7 +69,7 @@ for i in l:
             ["Tiles L=" + str(i), "scampTiles_%s_w%d_l"+str(i)+"_t%d_*"],
             ["TilesTM L=" + str(i) , "scampTilesTM_%s_w%d_l"+str(i)+"_t%d_x32_*"],]
 
-  colors = set1(np.linspace(0.0,1,len(linesv))) #Eligo los colores (cambiar ini y fin para variar los colores)
+  colors = set1(np.linspace(0.0,1,len(linesv))) #Elijo los colores (cambiar ini y fin para variar los colores)
                                                 #En blanco y negro (hago la media)
 
   tSeq = readTimeAvg(direc + (linesv[0][1]%(tseries,w,1)))

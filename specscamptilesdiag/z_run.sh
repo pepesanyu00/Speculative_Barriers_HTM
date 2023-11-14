@@ -8,12 +8,12 @@
 export OMP_PLACES=cores
 
 #Series cortas
-benchs=("./timeseries/power-MPIII-SVF_n180000.txt 1325"
+benchs=(#"./timeseries/power-MPIII-SVF_n180000.txt 1325"
 #    "./timeseries/seismology-MPIII-SVE_n180000.txt 50"
 #    "./timeseries/e0103_n180000.txt 500"
 #    "./timeseries/penguin_sample_TutorialMPweb.txt 800"
 #)
-        "./timeseries/audio-MPIII-SVD.txt 200"
+        #"./timeseries/audio-MPIII-SVD.txt 200"
         "./timeseries/human_activity-MPIII-SVC.txt 120")
 
 
@@ -22,7 +22,7 @@ benchs=("./timeseries/power-MPIII-SVF_n180000.txt 1325"
 # "./timeseries/e0103.txt 500"
 #benchs=("./timeseries/power-MPIII-SVF.txt 1325" "./timeseries/seismology-MPIII-SVE.txt 50")
 
-hilos="1"
+hilos="1 2 4 8 16 32 64 128"
 n=2
 #RIC una tirada con dump stats a 1. Se pone a 0 para las siguientes
 dumpStats=1
