@@ -34,11 +34,18 @@ for (( j=0; j<$n; j++ )); do
             ./specScampTilesDiag $i 256 $t $dumpStats
             ./specScampTilesDiag $i 512 $t $dumpStats
             ./specScampTilesDiag $i 1024 $t $dumpStats
-	    ./scampTilesDiag $i 128 $t $dumpStats
+	        ./scampTilesDiag $i 128 $t $dumpStats
             ./scampTilesDiag $i 256 $t $dumpStats
             ./scampTilesDiag $i 512 $t $dumpStats
             ./scampTilesDiag $i 1024 $t $dumpStats
-
+            ./scamp $i 128 $t $dumpStats
+            ./scamp $i 256 $t $dumpStats
+            ./scamp $i 512 $t $dumpStats
+            ./scamp $i 1024 $t $dumpStats
+            ./scampTilesUnprot $i 128 $t $dumpStats
+            ./scampTilesUnprot $i 256 $t $dumpStats
+            ./scampTilesUnprot $i 512 $t $dumpStats
+            ./scampTilesUnprot $i 1024 $t $dumpStats
         done;
     done;
     dumpStats=0
