@@ -187,7 +187,10 @@ void scamp(vector<DTYPE> &tSeries, vector<DTYPE> &means, vector<DTYPE> &norms,
           i = tilei;
         }
 #ifdef DEBUG
-        cout << "Upper triangle | tid: " << tid << " tilei(ini,fin): " << iini << "," << ifin << " tilej(ini,fin): " << jini << "," << jfin << endl;
+        #pragma omp critical
+        {
+          cout << "Upper triangle | tid: " << tid << " tilei(ini,fin): " << iini << "," << ifin << " tilej(ini,fin): " << jini << "," << jfin << endl;
+        }
 #endif
 
 
@@ -259,12 +262,18 @@ void scamp(vector<DTYPE> &tSeries, vector<DTYPE> &means, vector<DTYPE> &norms,
             j = tilej;
           }
 #ifdef DEBUG
+        #pragma omp critical
+        {  
           cout << "Lower triangle | tid: " << tid << " tilei(ini,fin): " << iini << "," << ifin << " tilej(ini,fin): " << jini << "," << jfin << endl;
+        }
 #endif
         }
       }TM_BARRIER(tid); //Barrera implícita omp si no se pone nowait
 #ifdef DEBUG
-      cout << "-------------------------" << endl;
+      #pragma omp critical
+      {
+        cout << "-------------------------" << endl;
+      }
 #endif
     }TM_LAST_BARRIER(tid);
   }
