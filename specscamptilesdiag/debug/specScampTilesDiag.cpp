@@ -176,7 +176,7 @@ void scamp(vector<DTYPE> &tSeries, vector<DTYPE> &means, vector<DTYPE> &norms,
               #pragma omp critical
               {
                 ITYPE orden2 = 0;
-                cout << "orden:" << orden << " i:" << i << " j:" << j << " tilej:" << tilej << " jj:" << jj << " jjj:" << jjj << endl;
+                cout << "orden:" << orden2 << " i:" << i << " j:" << j << " tilej:" << tilej << " jj:" << jj << " jjj:" << jjj << endl;
                 orden2++;
               }
             #endif
