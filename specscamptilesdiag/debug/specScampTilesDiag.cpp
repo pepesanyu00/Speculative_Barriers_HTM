@@ -164,6 +164,12 @@ void scamp(vector<DTYPE> &tSeries, vector<DTYPE> &means, vector<DTYPE> &norms,
           {
             covariance += (df[i - 1] * dg[jjj - 1] + df[jjj - 1] * dg[i - 1]);
             correlation = covariance * norms[i] * norms[jjj];
+            #ifdef DEBUG
+              #pragma omp critical
+              {
+                cout << "i:" << i << " j:" << j << " tilej:" << tilej << " jj:" << jj << " jjj" << jjj << endl;
+              }
+            #endif
 
             if (correlation > profile[i])
             {
@@ -186,12 +192,12 @@ void scamp(vector<DTYPE> &tSeries, vector<DTYPE> &means, vector<DTYPE> &norms,
 #endif
           i = tilei;
         }
-#ifdef DEBUG
+/*#ifdef DEBUG
         #pragma omp critical
         {
           cout << "Upper triangle | tid: " << tid << " tilei(ini,fin): " << iini << "," << ifin << " tilej(ini,fin): " << jini << "," << jfin << " profileLength:" << profileLength << " maxTileWidth:" << maxTileWidth << " maxTileHeight:"<< maxTileHeight << " exclusionZone:" << exclusionZone << endl;
         }
-#endif
+#endif*/
 
 
         /**************************************************************************/
