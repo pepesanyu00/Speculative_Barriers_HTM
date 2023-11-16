@@ -144,7 +144,7 @@ void scamp(vector<DTYPE> &tSeries, vector<DTYPE> &means, vector<DTYPE> &norms,
           #ifdef DEBUG
               #pragma omp critical
               {
-                cout << " iInicio:" << i << " j:" << j << " tilej:" << tilej << " jj:" << jj << endl;
+                cout << " iInicio:" << i << " tilej:" << tilej << " j:" << j " jj:" << jj << endl;
               }
           #endif
           covariance = 0;
@@ -173,7 +173,7 @@ void scamp(vector<DTYPE> &tSeries, vector<DTYPE> &means, vector<DTYPE> &norms,
             #ifdef DEBUG
               #pragma omp critical
               {
-                cout << " i:" << i << " j:" << j << " tilej:" << tilej << " jj:" << jj << " jjj:" << jjj << endl;
+                cout << " i:" << i << " tilej:" << tilej << " j:" << j << " jj:" << jj << " jjj:" << jjj << endl;
               }
             #endif
 
