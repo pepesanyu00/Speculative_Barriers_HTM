@@ -141,6 +141,14 @@ void scamp(vector<DTYPE> &tSeries, vector<DTYPE> &means, vector<DTYPE> &norms,
           //Si i==j ==> Coordenada de la diagonal principal. Sólo se calcula el upper triangle.
           //Si no, el upper triangle tb se calcula
           //Triángulo superior
+          #ifdef DEBUG
+              #pragma omp critical
+              {
+                ITYPE orden = 0;
+                cout << "orden:" << orden << " i0:" << i << " j0:" << j << " tilej0:" << tilej << " jj0:" << jj << " jjj0" << jjj << endl;
+                orden ++;
+              }
+          #endif
           covariance = 0;
           for (ITYPE wi = 0; wi < windowSize; wi++)
             covariance += ((tSeries[i + wi] - means[i]) * (tSeries[jj + wi] - means[jj]));
@@ -167,7 +175,9 @@ void scamp(vector<DTYPE> &tSeries, vector<DTYPE> &means, vector<DTYPE> &norms,
             #ifdef DEBUG
               #pragma omp critical
               {
-                cout << "i:" << i << " j:" << j << " tilej:" << tilej << " jj:" << jj << " jjj" << jjj << endl;
+                ITYPE orden2 = 0;
+                cout << "orden:" << orden << " i:" << i << " j:" << j << " tilej:" << tilej << " jj:" << jj << " jjj:" << jjj << endl;
+                orden2++;
               }
             #endif
 
