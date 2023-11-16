@@ -189,7 +189,7 @@ void scamp(vector<DTYPE> &tSeries, vector<DTYPE> &means, vector<DTYPE> &norms,
 #ifdef DEBUG
         #pragma omp critical
         {
-          cout << "Upper triangle | tid: " << tid << " tilei(ini,fin): " << iini << "," << ifin << " tilej(ini,fin): " << jini << "," << jfin << " profileLength:" << profileLength << " maxTileWidth:" << maxTileWidth << " maxTileHeight:"<< maxTileHeight << endl;
+          cout << "Upper triangle | tid: " << tid << " tilei(ini,fin): " << iini << "," << ifin << " tilej(ini,fin): " << jini << "," << jfin << " profileLength:" << profileLength << " maxTileWidth:" << maxTileWidth << " maxTileHeight:"<< maxTileHeight << " exclusionZone:" << exclusionZone << endl;
         }
 #endif
 
