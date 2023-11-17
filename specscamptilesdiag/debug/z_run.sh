@@ -30,7 +30,8 @@ for (( j=0; j<$n; j++ )); do
     for i in "${benchs[@]}"; do
         for t in $hilos; do
             echo "## $j ## $i $t"
-            ./specScampTilesDiag $i 12 $t $dumpStats
+            #./specScampTilesDiag $i 12 $t $dumpStats
+            ./scampTilesDiag $i 12 $t $dumpStats
         done;
     done;
     dumpStats=0
