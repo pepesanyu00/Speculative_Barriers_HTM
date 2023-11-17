@@ -227,6 +227,12 @@ void scamp(vector<DTYPE> &tSeries, vector<DTYPE> &means, vector<DTYPE> &norms,
             //Si i==j ==> Coordenada de la diagonal principal. Sólo se calcula el upper triangle.
             //Si no, el upper triangle tb se calcula
             //Triángulo superior
+            #ifdef DEBUG
+              #pragma omp critical
+              {
+                cout << " iInicio:" << i << " tilej:" << tilej << " ii:" << ii << endl;
+              }
+          #endif
             covariance = 0;
             for (ITYPE wi = 0; wi < windowSize; wi++)
               covariance += ((tSeries[ii + wi] - means[ii]) * (tSeries[j + wi] - means[j]));
@@ -250,6 +256,12 @@ void scamp(vector<DTYPE> &tSeries, vector<DTYPE> &means, vector<DTYPE> &norms,
                                      (j < profileLength);
                  iii++, j++)
             {
+              #ifdef DEBUG
+                #pragma omp critical
+                {
+                  cout << " iInicio:" << i << " tilej:" << tilej << " ii:" << ii << " iii:" << iii << endl;
+                }
+              #endif
               covariance += (df[iii - 1] * dg[j - 1] + df[j - 1] * dg[iii - 1]);
               correlation = covariance * norms[iii] * norms[j];
 
@@ -273,12 +285,12 @@ void scamp(vector<DTYPE> &tSeries, vector<DTYPE> &means, vector<DTYPE> &norms,
 #endif
             j = tilej;
           }
-#ifdef DEBUG
+/*#ifdef DEBUG
         #pragma omp critical
         {  
           cout << "Lower triangle | tid: " << tid << " tilei(ini,fin): " << iini << "," << ifin << " tilej(ini,fin): " << jini << "," << jfin << endl;
         }
-#endif
+#endif*/
         }
       }TM_BARRIER(tid); //Barrera implícita omp si no se pone nowait
 #ifdef DEBUG
