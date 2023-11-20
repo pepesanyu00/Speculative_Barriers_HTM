@@ -1,3 +1,6 @@
+# Programa que representa el matrix profile y sus tiles a partir de las coordenadas de cada punto.
+# Formato en el que lee las coordenadas: tileii:0 tilej:0 x:0 y:3
+# En esta carpeta (debug) están preparados los códigos para generar una salida que tenga este formato, meter esos datos en un archivo llamado salida.txt y ejecutar este programa.
 import sys
 
 

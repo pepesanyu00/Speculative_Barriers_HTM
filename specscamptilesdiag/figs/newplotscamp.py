@@ -65,20 +65,22 @@ set1 = plt.cm.get_cmap('Set1') #Obtengo el color map
 #Extraigo el tiempo del secuencial (se tomará para el secuencial el scamp no-vect con 1 hilo)
 for i in l:
   linesv = [
+            ["scamp"    , "scamp_%s_w%d_t%d_*"],
             ["TilesDiag L=" + str(i) , "scampTilesDiag_%s_w%d_l"+str(i)+"_t%d_*"],
             ["SpecTilesDiag L=" + str(i) , "specScampTilesDiag_%s_w%d_l"+str(i)+"_t%d_*"],
-            ["scamp"    , "scamp_%s_w%d_t%d_*"],
             ["scampUnprot L=" + str(i) , "scampTilesUnprot_%s_w%d_l"+str(i)+"_t%d_*"],]
 
   colors = set1(np.linspace(0.0,1,len(linesv))) #Elijo los colores (cambiar ini y fin para variar los colores)
                                                 #En blanco y negro (hago la media)
 
   tSeq = readTimeAvg(direc + (linesv[0][1]%(tseries,w,1)))
+  print("tseq:"+str(tSeq))
   for j in range(len(linesv)):
     timePerTh = []
     # Obtengo el tiempo para cada número de hilos
     for d in numThreads:
       timePerTh.append(readTimeAvg(direc + (linesv[j][1]%(tseries,w,d))))
+    print("timePerTh:"+str(timePerTh))
     #Convierto las listas en arrays para hacer cálculos más fácilmente (np.array)
     timePerTh = np.array(timePerTh)
     plt.plot(x, tSeq/timePerTh, color=colors[j], label=linesv[j][0], linewidth=ms,
