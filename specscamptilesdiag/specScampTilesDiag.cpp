@@ -21,7 +21,8 @@
 #define PATH_RESULTS "./results/"
 
 #define DTYPE double        /* DATA TYPE */
-#define ITYPE uint64_t /* INDEX TYPE */
+//#define ITYPE uint64_t /* INDEX TYPE */
+#define ITYPE double /* INDEX TYPE */
 
 #define ALIGN 64
 
