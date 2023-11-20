@@ -8,7 +8,7 @@ specScampTilesDiag: specScampTilesDiag.cpp transaction.c
 #	g++ $(CFLAGS) specScampTilesDiag.cpp transaction.c -o specScampTilesDiag $(LFLAGS) -DCS
 
 scampTilesDiag: scampTilesDiag.cpp
-	g++ $(CFLAGS) scampTilesDiag.cpp -o scampTilesDiag $(LFLAGS)
+	g++ $(CFLAGS) scampTilesDiag.cpp -o scampTilesDiag $(LFLAGS) -D DEBUG
 
 clean:
 	rm -f specScampTilesDiag
