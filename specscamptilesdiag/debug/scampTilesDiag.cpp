@@ -108,7 +108,7 @@ void scamp(vector<DTYPE> &tSeries, vector<DTYPE> &means, vector<DTYPE> &norms,
 #endif
     DTYPE covariance, correlation;
 
-    // Private profile initialization
+    // Private profile initializationn
     //for (uint64_t i = my_offset; i < (my_offset+profileLength); i++)
     //  profile_tmp[i] = -numeric_limits<DTYPE>::infinity();
 
