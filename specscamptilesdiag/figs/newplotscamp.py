@@ -38,17 +38,17 @@ else:
   exit(-1)
 
 
-'''titlesDict = {
-              "power-MPIII-SVF_n180000": "Power",
+titlesDict = {
+              #"power-MPIII-SVF_n180000": "Power",
               "seismology-MPIII-SVE_n180000": "Seismology",
-              "e0103_n180000": "ECG",
-              "penguin_sample_TutorialMPweb": "Penguin",
-             }'''
-titlesDict = {#"audio-MPIII-SVD": "Audio",
-              "human_activity-MPIII-SVC": "Human activity"}
+              #"e0103_n180000": "ECG",
+              #"penguin_sample_TutorialMPweb": "Penguin",
+              #"audio-MPIII-SVD": "Audio",
+              #"human_activity-MPIII-SVC": "Human activity"
+}
 
 direc="../results/"
-l=(128, 256, 512, 1024) # 8192 16384
+l=(128, 512, 2048, 8192) # 8192 16384
 numThreads = (1, 2, 4, 8, 16, 32, 64, 128)
 x = range(1,len(numThreads)+1)
 
@@ -74,7 +74,6 @@ for i in l:
                                                 #En blanco y negro (hago la media)
 
   tSeq = readTimeAvg(direc + (linesv[0][1]%(tseries,w,1)))
-  print("tseq:"+str(tSeq))
   for j in range(len(linesv)):
     timePerTh = []
     # Obtengo el tiempo para cada número de hilos

@@ -345,7 +345,6 @@ int main(int argc, char *argv[])
       tSeriesLength++;
     }
     tSeriesFile.close();
-    cout << "tSeriesLength:" << tSeriesLength << endl;
     tend = chrono::steady_clock::now();
     telapsed = tend - tstart;
     cout << "[OK] Read File Time: " << setprecision(2) << fixed << telapsed.count() << " seconds." << endl;
