@@ -197,12 +197,16 @@ int main(int argc, char *argv[])
     exclusionZone = (ITYPE)(windowSize * 0.25);
     omp_set_num_threads(numThreads);
 
+    if(!statsFileInit(argc,argv,numThreads)){
+      cout << "Error abriendo o inicializando el archivo de estadísticas." << endl;
+      return 0;
+    }
+
     vector<DTYPE> tSeries;
     string inputfilename = argv[1];
     stringstream tmp;
     tmp << PATH_RESULTS << argv[0] << "_" << inputfilename.substr(inputfilename.rfind('/') + 1, inputfilename.size() - 4 - inputfilename.rfind('/') - 1) << "_w" << windowSize << "_t" << numThreads << "_d" << dumpProfile << "_" << getpid() << ".csv";
     string outfilename = tmp.str();
-    cout << "Nombre del fichero: " << outfilename << endl;
     // Display info through console
     cout << endl;
     cout << "############################################################" << endl;
