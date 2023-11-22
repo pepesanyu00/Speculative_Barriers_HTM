@@ -26,18 +26,22 @@ void print_binding_info()
 {
   int my_place = omp_get_place_num();
   int place_num_procs = omp_get_place_num_procs(my_place);
-
+  fstream places("./results/places.txt", ios::app);
   string prtstr("Thread " + to_string(omp_get_thread_num()) + " bound to place " + to_string(my_place) + " which consists of " + to_string(place_num_procs) + " processors.");
+
+  places << prtstr << endl;
 
   cout << prtstr << endl;
   int *place_processors = new int[place_num_procs];
   omp_get_place_proc_ids(my_place, place_processors);
 
+
   for (int i = 0; i < place_num_procs; i++)
     cout << place_processors[i] << " ";
+    places << place_processors[i] << endl;
   cout << endl;
-
   delete[] place_processors;
+  places.close();
 }
 
 
