@@ -202,7 +202,7 @@ int main(int argc, char *argv[])
     stringstream tmp;
     tmp << PATH_RESULTS << argv[0] << "_" << inputfilename.substr(inputfilename.rfind('/') + 1, inputfilename.size() - 4 - inputfilename.rfind('/') - 1) << "_w" << windowSize << "_t" << numThreads << "_d" << dumpProfile << "_" << getpid() << ".csv";
     string outfilename = tmp.str();
-
+    cout << "Nombre del fichero: " << outfilename << endl;
     // Display info through console
     cout << endl;
     cout << "############################################################" << endl;
@@ -307,6 +307,10 @@ int main(int argc, char *argv[])
     statsFile.close();
 
     cout << endl;
+
+    if(!dumpStats(telapsed.count(),1)){
+      cout << "Error volcando las estadísticas." << endl;
+    }
   }
   catch (exception &e)
   {
