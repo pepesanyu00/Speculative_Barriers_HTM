@@ -64,11 +64,11 @@ void print_binding_info()
   omp_get_place_proc_ids(my_place, place_processors);
 
 
-  for (int i = 0; i < place_num_procs; i++)
+  /*for (int i = 0; i < place_num_procs; i++)
     cout << place_processors[i] << " ";
     places << place_processors[i] << endl;
   cout << endl;
-  delete[] place_processors;
+  delete[] place_processors;*/
   places.close();
 }
 
