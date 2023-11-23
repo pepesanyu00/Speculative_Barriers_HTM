@@ -7,14 +7,14 @@ specScampTilesDiag: specScampTilesDiag.cpp transaction.c
 	g++ $(CFLAGS) specScampTilesDiag.cpp transaction.c -o specScampTilesDiag $(LFLAGS) -DSB
 #	g++ $(CFLAGS) specScampTilesDiag.cpp transaction.c -o specScampTilesDiag $(LFLAGS) -DCS
 
-scampTilesDiag: scampTilesDiag.cpp
-	g++ $(CFLAGS) scampTilesDiag.cpp -o scampTilesDiag $(LFLAGS)
+scampTilesDiag: scampTilesDiag.cpp transaction.c
+	g++ $(CFLAGS) scampTilesDiag.cpp transaction.c -o scampTilesDiag $(LFLAGS)
 
-scamp: scamp.cpp
-	g++ $(CFLAGS) scamp.cpp -o scamp $(LFLAGS)
+scamp: scamp.cpp transaction.c
+	g++ $(CFLAGS) scamp.cpp transaction.c -o scamp $(LFLAGS)
 
-scampTilesUnprot: scampTilesUnprot.cpp
-	g++ $(CFLAGS) scampTilesUnprot.cpp -o scampTilesUnprot $(LFLAGS)
+scampTilesUnprot: scampTilesUnprot.cpp transaction.c
+	g++ $(CFLAGS) scampTilesUnprot.cpp transaction.c -o scampTilesUnprot $(LFLAGS)
 
 clean:
 	rm -f scampTilesDiag specScampTilesDiag scamp scampTilesUnprot
