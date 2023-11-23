@@ -1,0 +1,28 @@
+-----------------------------------------
+Output file: ./results/specScampTilesDiag./timeseries/seismology-MPIII-SVE_n180000.txt-50-128-4-1-3698877.stats
+----------------- Stats -----------------
+#Threads: 4
+Verification passed.
+
+Time(s): 27.143751
+
+Abort Count:  XID0: 0 0 0 0  XID1: 0 0 0 0  XID2: 0 0 0 0  XIDSB: 166895 159213 154623 139494 Total: 620225
+Explicit aborts:  XID0: 0 0 0 0  XID1: 0 0 0 0  XID2: 0 0 0 0  XIDSB: 0 0 0 0 Total: 0
+  »     Subs:  XID0: 0 0 0 0  XID1: 0 0 0 0  XID2: 0 0 0 0  XIDSB: 0 0 0 0 Total: 0
+  »  AddPath:  XID0: 0 0 0 0  XID1: 0 0 0 0  XID2: 0 0 0 0  XIDSB: 0 0 0 0 Total: 0
+-Disallowed aborts:  XID0: 0 0 0 0  XID1: 0 0 0 0  XID2: 0 0 0 0  XIDSB: 0 0 0 0 Total: 0
+-Nesting overflow aborts:  XID0: 0 0 0 0  XID1: 0 0 0 0  XID2: 0 0 0 0  XIDSB: 0 0 0 0 Total: 0
+-Footprint overflow aborts:  XID0: 0 0 0 0  XID1: 0 0 0 0  XID2: 0 0 0 0  XIDSB: 46369 38744 28695 25978 Total: 139786
+-Self-induced conflict aborts:  XID0: 0 0 0 0  XID1: 0 0 0 0  XID2: 0 0 0 0  XIDSB: 0 0 0 0 Total: 0
+  » Persistent:  XID0: 0 0 0 0  XID1: 0 0 0 0  XID2: 0 0 0 0  XIDSB: 46369 38744 28695 25978 Total: 139786
+Non-transactional conflict aborts:  XID0: 0 0 0 0  XID1: 0 0 0 0  XID2: 0 0 0 0  XIDSB: 7615 6039 5381 5242 Total: 24277
+Transactional conflict aborts:  XID0: 0 0 0 0  XID1: 0 0 0 0  XID2: 0 0 0 0  XIDSB: 112896 114422 120541 108274 Total: 456133
+TLB invalidation aborts:  XID0: 0 0 0 0  XID1: 0 0 0 0  XID2: 0 0 0 0  XIDSB: 0 1 1 0 Total: 2
+Implementation specific aborts:  XID0: 0 0 0 0  XID1: 0 0 0 0  XID2: 0 0 0 0  XIDSB: 15 7 5 0 Total: 27
+Instruction fetch conflict aborts:  XID0: 0 0 0 0  XID1: 0 0 0 0  XID2: 0 0 0 0  XIDSB: 0 0 0 0 Total: 0
+Other aborts (deberían ser 0):  XID0: 0 0 0 0  XID1: 0 0 0 0  XID2: 0 0 0 0  XIDSB: 0 0 0 0 Total: 0
+Commits:  XID0: 0 0 0 0  XID1: 0 0 0 0  XID2: 0 0 0 0  XIDSB: 1 0 1 1 Total: 3
+Fallbacks:  XID0: 0 0 0 0  XID1: 0 0 0 0  XID2: 0 0 0 0  XIDSB: 0 0 0 0 Total: 0
+RetriesCommited:  XID0: 0 0 0 0  XID1: 0 0 0 0  XID2: 0 0 0 0  XIDSB: 0 0 0 1 Total: 1 PerXact: 0.333333
+RetriesFallbacked: XID0: 0 0 0 0  XID1: 0 0 0 0  XID2: 0 0 0 0  XIDSB: 0 0 0 0 Total: 0 PerXact: nan
+RetriesAvg: 0.333333

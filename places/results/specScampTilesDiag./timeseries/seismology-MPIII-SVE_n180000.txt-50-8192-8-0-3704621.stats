@@ -1,0 +1,28 @@
+-----------------------------------------
+Output file: ./results/specScampTilesDiag./timeseries/seismology-MPIII-SVE_n180000.txt-50-8192-8-0-3704621.stats
+----------------- Stats -----------------
+#Threads: 8
+Verification passed.
+
+Time(s): 14.298524
+
+Abort Count:  XID0: 0 0 0 0 0 0 0 0  XID1: 0 0 0 0 0 0 0 0  XID2: 0 0 0 0 0 0 0 0  XIDSB: 16829585 10830295 7998146 4290851 10023623 9050325 10274843 13858787 Total: 83156455
+Explicit aborts:  XID0: 0 0 0 0 0 0 0 0  XID1: 0 0 0 0 0 0 0 0  XID2: 0 0 0 0 0 0 0 0  XIDSB: 1 0 0 0 2 3 0 4 Total: 10
+  »     Subs:  XID0: 0 0 0 0 0 0 0 0  XID1: 0 0 0 0 0 0 0 0  XID2: 0 0 0 0 0 0 0 0  XIDSB: 0 0 0 0 0 0 0 0 Total: 0
+  »  AddPath:  XID0: 0 0 0 0 0 0 0 0  XID1: 0 0 0 0 0 0 0 0  XID2: 0 0 0 0 0 0 0 0  XIDSB: 0 0 0 0 0 0 0 0 Total: 0
+-Disallowed aborts:  XID0: 0 0 0 0 0 0 0 0  XID1: 0 0 0 0 0 0 0 0  XID2: 0 0 0 0 0 0 0 0  XIDSB: 0 0 0 0 0 0 0 0 Total: 0
+-Nesting overflow aborts:  XID0: 0 0 0 0 0 0 0 0  XID1: 0 0 0 0 0 0 0 0  XID2: 0 0 0 0 0 0 0 0  XIDSB: 0 0 0 0 0 0 0 0 Total: 0
+-Footprint overflow aborts:  XID0: 0 0 0 0 0 0 0 0  XID1: 0 0 0 0 0 0 0 0  XID2: 0 0 0 0 0 0 0 0  XIDSB: 2416852 825485 497827 317695 793316 978752 871457 1451101 Total: 8152485
+-Self-induced conflict aborts:  XID0: 0 0 0 0 0 0 0 0  XID1: 0 0 0 0 0 0 0 0  XID2: 0 0 0 0 0 0 0 0  XIDSB: 0 0 0 0 0 0 0 0 Total: 0
+  » Persistent:  XID0: 0 0 0 0 0 0 0 0  XID1: 0 0 0 0 0 0 0 0  XID2: 0 0 0 0 0 0 0 0  XIDSB: 2416852 825485 497827 317695 793316 978752 871457 1451101 Total: 8152485
+Non-transactional conflict aborts:  XID0: 0 0 0 0 0 0 0 0  XID1: 0 0 0 0 0 0 0 0  XID2: 0 0 0 0 0 0 0 0  XIDSB: 958259 407782 309045 167371 385811 331462 441146 704198 Total: 3705074
+Transactional conflict aborts:  XID0: 0 0 0 0 0 0 0 0  XID1: 0 0 0 0 0 0 0 0  XID2: 0 0 0 0 0 0 0 0  XIDSB: 13453184 9596940 7190830 3805780 8844470 7740046 8962173 11702817 Total: 71296240
+TLB invalidation aborts:  XID0: 0 0 0 0 0 0 0 0  XID1: 0 0 0 0 0 0 0 0  XID2: 0 0 0 0 0 0 0 0  XIDSB: 0 0 0 0 2 0 0 0 Total: 2
+Implementation specific aborts:  XID0: 0 0 0 0 0 0 0 0  XID1: 0 0 0 0 0 0 0 0  XID2: 0 0 0 0 0 0 0 0  XIDSB: 1289 88 444 5 22 62 67 667 Total: 2644
+Instruction fetch conflict aborts:  XID0: 0 0 0 0 0 0 0 0  XID1: 0 0 0 0 0 0 0 0  XID2: 0 0 0 0 0 0 0 0  XIDSB: 0 0 0 0 0 0 0 0 Total: 0
+Other aborts (deberían ser 0):  XID0: 0 0 0 0 0 0 0 0  XID1: 0 0 0 0 0 0 0 0  XID2: 0 0 0 0 0 0 0 0  XIDSB: 0 0 0 0 0 0 0 0 Total: 0
+Commits:  XID0: 0 0 0 0 0 0 0 0  XID1: 0 0 0 0 0 0 0 0  XID2: 0 0 0 0 0 0 0 0  XIDSB: 0 1 1 0 1 1 1 1 Total: 6
+Fallbacks:  XID0: 0 0 0 0 0 0 0 0  XID1: 0 0 0 0 0 0 0 0  XID2: 0 0 0 0 0 0 0 0  XIDSB: 0 0 0 0 0 0 0 0 Total: 0
+RetriesCommited:  XID0: 0 0 0 0 0 0 0 0  XID1: 0 0 0 0 0 0 0 0  XID2: 0 0 0 0 0 0 0 0  XIDSB: 0 0 0 0 0 0 0 0 Total: 0 PerXact: 0.000000
+RetriesFallbacked: XID0: 0 0 0 0 0 0 0 0  XID1: 0 0 0 0 0 0 0 0  XID2: 0 0 0 0 0 0 0 0  XIDSB: 0 0 0 0 0 0 0 0 Total: 0 PerXact: nan
+RetriesAvg: 0.000000
