@@ -6,7 +6,7 @@
 # cores: Each place contains a core. If OMP_PLACES is not set, the default setting is cores.
 # num_places: Is the number of places.
 #export OMP_PLACES="{0:10:4},{10:10:4}"
-export OMP_PLACES=sockets
+export OMP_PLACES="{0,1}:20:8"
 
 #Series cortas
 benchs=(#"./timeseries/power-MPIII-SVF_n180000.txt 1325"
