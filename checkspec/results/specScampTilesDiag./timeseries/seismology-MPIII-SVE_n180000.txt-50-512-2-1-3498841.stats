@@ -1,0 +1,28 @@
+-----------------------------------------
+Output file: ./results/specScampTilesDiag./timeseries/seismology-MPIII-SVE_n180000.txt-50-512-2-1-3498841.stats
+----------------- Stats -----------------
+#Threads: 2
+Verification passed.
+
+Time(s): 43.835934
+
+Abort Count:  XID0: 0 0  XID1: 0 0  XID2: 0 0  XIDSB: 231423 132484 Total: 363907
+Explicit aborts:  XID0: 0 0  XID1: 0 0  XID2: 0 0  XIDSB: 0 0 Total: 0
+  »     Subs:  XID0: 0 0  XID1: 0 0  XID2: 0 0  XIDSB: 0 0 Total: 0
+  »  AddPath:  XID0: 0 0  XID1: 0 0  XID2: 0 0  XIDSB: 0 0 Total: 0
+-Disallowed aborts:  XID0: 0 0  XID1: 0 0  XID2: 0 0  XIDSB: 0 0 Total: 0
+-Nesting overflow aborts:  XID0: 0 0  XID1: 0 0  XID2: 0 0  XIDSB: 0 0 Total: 0
+-Footprint overflow aborts:  XID0: 0 0  XID1: 0 0  XID2: 0 0  XIDSB: 228590 131371 Total: 359961
+-Self-induced conflict aborts:  XID0: 0 0  XID1: 0 0  XID2: 0 0  XIDSB: 0 0 Total: 0
+  » Persistent:  XID0: 0 0  XID1: 0 0  XID2: 0 0  XIDSB: 228590 131371 Total: 359961
+Non-transactional conflict aborts:  XID0: 0 0  XID1: 0 0  XID2: 0 0  XIDSB: 2804 1092 Total: 3896
+Transactional conflict aborts:  XID0: 0 0  XID1: 0 0  XID2: 0 0  XIDSB: 0 0 Total: 0
+TLB invalidation aborts:  XID0: 0 0  XID1: 0 0  XID2: 0 0  XIDSB: 0 0 Total: 0
+Implementation specific aborts:  XID0: 0 0  XID1: 0 0  XID2: 0 0  XIDSB: 29 21 Total: 50
+Instruction fetch conflict aborts:  XID0: 0 0  XID1: 0 0  XID2: 0 0  XIDSB: 0 0 Total: 0
+Other aborts (deberían ser 0):  XID0: 0 0  XID1: 0 0  XID2: 0 0  XIDSB: 0 0 Total: 0
+Commits:  XID0: 0 0  XID1: 0 0  XID2: 0 0  XIDSB: 0 0 Total: 0
+Fallbacks:  XID0: 0 0  XID1: 0 0  XID2: 0 0  XIDSB: 0 0 Total: 0
+RetriesCommited:  XID0: 0 0  XID1: 0 0  XID2: 0 0  XIDSB: 0 0 Total: 0 PerXact: nan
+RetriesFallbacked: XID0: 0 0  XID1: 0 0  XID2: 0 0  XIDSB: 0 0 Total: 0 PerXact: nan
+RetriesAvg: nan

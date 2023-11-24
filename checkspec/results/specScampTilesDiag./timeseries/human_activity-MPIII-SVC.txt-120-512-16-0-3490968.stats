@@ -1,0 +1,28 @@
+-----------------------------------------
+Output file: ./results/specScampTilesDiag./timeseries/human_activity-MPIII-SVC.txt-120-512-16-0-3490968.stats
+----------------- Stats -----------------
+#Threads: 16
+Verification passed.
+
+Time(s): 0.025582
+
+Abort Count:  XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  XID1: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  XID2: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  XIDSB: 47763 38140 35150 53402 55069 63589 46412 33453 50263 67027 39643 34445 38915 40064 35689 23981 Total: 703005
+Explicit aborts:  XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  XID1: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  XID2: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  XIDSB: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 Total: 0
+  »     Subs:  XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  XID1: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  XID2: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  XIDSB: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 Total: 0
+  »  AddPath:  XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  XID1: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  XID2: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  XIDSB: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 Total: 0
+-Disallowed aborts:  XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  XID1: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  XID2: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  XIDSB: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 Total: 0
+-Nesting overflow aborts:  XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  XID1: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  XID2: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  XIDSB: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 Total: 0
+-Footprint overflow aborts:  XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  XID1: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  XID2: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  XIDSB: 1320 657 615 1051 998 2223 815 504 804 1879 2996 1078 2250 3764 761 633 Total: 22348
+-Self-induced conflict aborts:  XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  XID1: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  XID2: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  XIDSB: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 Total: 0
+  » Persistent:  XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  XID1: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  XID2: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  XIDSB: 1320 657 615 1051 998 2223 815 504 804 1879 2996 1078 2250 3764 761 633 Total: 22348
+Non-transactional conflict aborts:  XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  XID1: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  XID2: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  XIDSB: 2185 1409 1085 2028 1896 2218 1618 940 1751 2218 627 725 613 690 717 523 Total: 21243
+Transactional conflict aborts:  XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  XID1: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  XID2: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  XIDSB: 44246 36071 33446 50323 52175 59138 43979 32004 47698 62930 36009 32640 36052 35609 34211 22825 Total: 659356
+TLB invalidation aborts:  XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  XID1: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  XID2: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  XIDSB: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 Total: 0
+Implementation specific aborts:  XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  XID1: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  XID2: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  XIDSB: 12 3 4 0 0 10 0 5 10 0 11 2 0 1 0 0 Total: 58
+Instruction fetch conflict aborts:  XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  XID1: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  XID2: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  XIDSB: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 Total: 0
+Other aborts (deberían ser 0):  XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  XID1: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  XID2: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  XIDSB: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 Total: 0
+Commits:  XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  XID1: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  XID2: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  XIDSB: 1 0 0 1 1 1 1 1 0 0 1 1 1 1 1 0 Total: 11
+Fallbacks:  XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  XID1: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  XID2: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  XIDSB: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 Total: 0
+RetriesCommited:  XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  XID1: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  XID2: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  XIDSB: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 Total: 0 PerXact: 0.000000
+RetriesFallbacked: XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  XID1: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  XID2: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  XIDSB: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 Total: 0 PerXact: nan
+RetriesAvg: 0.000000
