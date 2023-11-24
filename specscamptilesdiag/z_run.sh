@@ -30,15 +30,15 @@ for (( j=0; j<$n; j++ )); do
     for i in "${benchs[@]}"; do
         for t in $hilos; do
             echo "## $j ## $i $t"
-            #./specScampTilesDiag $i 128 $t $dumpStats
-            #./specScampTilesDiag $i 512 $t $dumpStats
-            #./specScampTilesDiag $i 2048 $t $dumpStats
-            #./specScampTilesDiag $i 8192 $t $dumpStats
-	    #./scampTilesDiag $i 128 $t $dumpStats
-            #./scampTilesDiag $i 512 $t $dumpStats
-            #./scampTilesDiag $i 2048 $t $dumpStats
-            #./scampTilesDiag $i 8192 $t $dumpStats
-            #./scamp $i $t $dumpStats
+            ./specScampTilesDiag $i 128 $t $dumpStats
+            ./specScampTilesDiag $i 512 $t $dumpStats
+            ./specScampTilesDiag $i 2048 $t $dumpStats
+            ./specScampTilesDiag $i 8192 $t $dumpStats
+	    ./scampTilesDiag $i 128 $t $dumpStats
+            ./scampTilesDiag $i 512 $t $dumpStats
+            ./scampTilesDiag $i 2048 $t $dumpStats
+            ./scampTilesDiag $i 8192 $t $dumpStats
+            ./scamp $i $t $dumpStats
             ./scampTilesUnprot $i 128 $t $dumpStats
             ./scampTilesUnprot $i 512 $t $dumpStats
             ./scampTilesUnprot $i 2048 $t $dumpStats
