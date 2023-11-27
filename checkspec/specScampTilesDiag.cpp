@@ -145,6 +145,7 @@ void scamp(vector<DTYPE> &tSeries, vector<DTYPE> &means, vector<DTYPE> &norms,
             covariance += ((tSeries[i + wi] - means[i]) * (tSeries[jj + wi] - means[jj]));
 
           correlation = covariance * norms[i] * norms[jj];
+          TM_END(tid,0);
 
           if (correlation > profile[i])
           {
@@ -184,7 +185,6 @@ void scamp(vector<DTYPE> &tSeries, vector<DTYPE> &means, vector<DTYPE> &norms,
             ifin = i - 1;
 #endif
           i = tilei;
-          TM_END(tid,0);
         }
 #ifdef DEBUG
         cout << "Upper triangle | tid: " << tid << " tilei(ini,fin): " << iini << "," << ifin << " tilej(ini,fin): " << jini << "," << jfin << endl;
