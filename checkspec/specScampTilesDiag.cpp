@@ -113,7 +113,7 @@ void scamp(vector<DTYPE> &tSeries, vector<DTYPE> &means, vector<DTYPE> &norms,
     ITYPE iini, ifin, jini, jfin; //Sólo para imprimir
 #endif
 
-
+    TM_BEGIN(tid,0);
     for (ITYPE tileii = 0; tileii < profileLength; tileii += maxTileHeight)
     {
       //Sin protección en el acceso al profile hace falta barrera
@@ -191,7 +191,7 @@ void scamp(vector<DTYPE> &tSeries, vector<DTYPE> &means, vector<DTYPE> &norms,
 #endif
 
         //metemos checkspec a la mitad para evitar transacciones demasiado largas.
-        TM_STOP(tid,0);
+        TM_END(tid,0);
         /**************************************************************************/
         // Lower triangle
         if (tilei != tilej)
