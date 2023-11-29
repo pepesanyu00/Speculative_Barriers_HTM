@@ -74,7 +74,7 @@ void scamp(vector<DTYPE> &tSeries, vector<DTYPE> &means, vector<DTYPE> &norms,
   vector<DTYPE> profile_tmp(profileLength * numThreads);
   vector<ITYPE> profileIndex_tmp(profileLength * numThreads);
 
-#pragma omp parallel proc_bind(close)
+#pragma omp parallel proc_bind(spread)
   {
     // Suppossing ITYPE as uint32_t (we could index series up to 4G elements), to index profile_tmp we need more bits (uint64_t)
     uint64_t my_offset = omp_get_thread_num() * profileLength;

@@ -102,7 +102,7 @@ void scamp(vector<DTYPE> &tSeries, vector<DTYPE> &means, vector<DTYPE> &norms,
   //vector<DTYPE> profile_tmp(profileLength * numThreads);
   //vector<ITYPE> profileIndex_tmp(profileLength * numThreads);
 
-#pragma omp parallel //proc_bind(close)
+#pragma omp parallel proc_bind(spread)
   {
     TM_THREAD_ENTER();
     ITYPE tid = omp_get_thread_num();
