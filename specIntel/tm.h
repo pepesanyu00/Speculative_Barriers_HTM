@@ -5,6 +5,7 @@
 #include <assert.h>
 //#ifndef X86
 //#include "transaction.h"
+#include "rtmIntel.h"
 //#endif
 //#include "thread.h"
 //#include "types.h"
