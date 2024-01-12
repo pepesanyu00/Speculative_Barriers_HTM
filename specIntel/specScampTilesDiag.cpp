@@ -12,8 +12,9 @@
 #include <unistd.h> //For getpid(), used to get the pid to generate a unique filename
 #include <typeinfo> //To obtain type name as string
 #include "tm.h"
-#include <thread.h>
-#include "tm-sb.h"
+//#include "thread.h"
+//#include "tm-sb.h"
+//#include "transaction.h"
 #define MIN(a, b) (((a) < (b)) ? (a) : (b))
 #define MAX(a, b) (((a) > (b)) ? (a) : (b))
 
@@ -101,26 +102,18 @@ void scamp(vector<DTYPE> &tSeries, vector<DTYPE> &means, vector<DTYPE> &norms,
   //vector<DTYPE> profile_tmp(profileLength * numThreads);
   //vector<ITYPE> profileIndex_tmp(profileLength * numThreads);
 
-#pragma omp parallel //proc_bind(close)
+#pragma omp parallel //proc_bind(spread)
   {
-    // Suppossing ITYPE as uint32_t (we could index series up to 4G elements), to index profile_tmp we need more bits (uint64_t)
-    //uint64_t my_offset = omp_get_thread_num() * profileLength;
-#ifdef DEBUG
+    TM_THREAD_ENTER();
     ITYPE tid = omp_get_thread_num();
-#endif
     DTYPE covariance, correlation;
 
-    // Private profile initialization
-    //for (uint64_t i = my_offset; i < (my_offset+profileLength); i++)
-    //  profile_tmp[i] = -numeric_limits<DTYPE>::infinity();
-
-    // Go through diagonals
-    //#pragma omp for schedule(dynamic)
-    //for (ITYPE diag = exclusionZone + 1; diag < profileLength; diag++)
-    //{
+//NO ES IMPORTANTE
 #ifdef DEBUG
     ITYPE iini, ifin, jini, jfin; //Sólo para imprimir
 #endif
+
+
     for (ITYPE tileii = 0; tileii < profileLength; tileii += maxTileHeight)
     {
       //Sin protección en el acceso al profile hace falta barrera
@@ -133,10 +126,16 @@ void scamp(vector<DTYPE> &tSeries, vector<DTYPE> &means, vector<DTYPE> &norms,
         //ITYPE tilei = tileii;
         ITYPE i = tilei;
         ITYPE j = MIN(MAX(tilei + exclusionZone + 1, tilej), profileLength);
+
+
+//NO ES IMPORTANTE
 #ifdef DEBUG
         iini = i;
         jini = j;
 #endif
+
+
+
         for (ITYPE jj = j; jj < MIN(tilej + maxTileWidth, profileLength); jj++)
         {
           //Si i==j ==> Coordenada de la diagonal principal. Sólo se calcula el upper triangle.
@@ -176,6 +175,7 @@ void scamp(vector<DTYPE> &tSeries, vector<DTYPE> &means, vector<DTYPE> &norms,
               profile[jjj] = correlation;
               profileIndex[jjj] = i;
             }
+
 #ifdef DEBUG
             jfin = jjj;
 #endif
@@ -189,6 +189,8 @@ void scamp(vector<DTYPE> &tSeries, vector<DTYPE> &means, vector<DTYPE> &norms,
 #ifdef DEBUG
         cout << "Upper triangle | tid: " << tid << " tilei(ini,fin): " << iini << "," << ifin << " tilej(ini,fin): " << jini << "," << jfin << endl;
 #endif
+
+
         /**************************************************************************/
         // Lower triangle
         if (tilei != tilej)
@@ -197,10 +199,14 @@ void scamp(vector<DTYPE> &tSeries, vector<DTYPE> &means, vector<DTYPE> &norms,
           //Triángulo inferior
           ITYPE i = tilei + 1;
           ITYPE j = tilej;
+
+
 #ifdef DEBUG
           iini = i;
           jini = j;
 #endif
+
+
           for (ITYPE ii = i; ii < MIN(MIN(tilei + maxTileHeight, j - exclusionZone), profileLength); ii++)
           {
             //Si i==j ==> Coordenada de la diagonal principal. Sólo se calcula el upper triangle.
@@ -256,11 +262,11 @@ void scamp(vector<DTYPE> &tSeries, vector<DTYPE> &means, vector<DTYPE> &norms,
           cout << "Lower triangle | tid: " << tid << " tilei(ini,fin): " << iini << "," << ifin << " tilej(ini,fin): " << jini << "," << jfin << endl;
 #endif
         }
-      }SB_BARRIER(tid) //Barrera implícita omp si no se pone nowait
+      }TM_BARRIER(tid); //Barrera implícita omp si no se pone nowait
 #ifdef DEBUG
       cout << "-------------------------" << endl;
 #endif
-    }
+    }TM_LAST_BARRIER(tid);
   }
 }
 
@@ -290,6 +296,16 @@ int main(int argc, char *argv[])
       cout << "El tamaño del tile no es múltiplo del tamaño de línea de caché. La versión TM puede dar falsos conflictos." << endl;
     }
     numThreads = atoi(argv[4]);
+    TM_STARTUP(numThreads);
+
+    if(!statsFileInit(argc,argv,numThreads)){
+      cout << "Error abriendo o inicializando el archivo de estadísticas." << endl;
+      return 0;
+    }
+
+
+
+
     bool dumpProfile = (atoi(argv[5]) == 0) ? false : true;
     // Set the exclusion zone to 0.25
     exclusionZone = (ITYPE)(windowSize * 0.25);
@@ -329,7 +345,6 @@ int main(int argc, char *argv[])
       tSeriesLength++;
     }
     tSeriesFile.close();
-
     tend = chrono::steady_clock::now();
     telapsed = tend - tstart;
     cout << "[OK] Read File Time: " << setprecision(2) << fixed << telapsed.count() << " seconds." << endl;
@@ -416,6 +431,10 @@ int main(int argc, char *argv[])
     }
     statsFile.close();
     cout << endl;
+
+    if(!dumpStats(telapsed.count(),1)){
+      cout << "Error volcando las estadísticas." << endl;
+    }
 
     ALIGNED_ARRAY_DEL(profile);
     ALIGNED_ARRAY_DEL(profileIndex);

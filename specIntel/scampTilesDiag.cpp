@@ -11,9 +11,7 @@
 #include <omp.h>
 #include <unistd.h> //For getpid(), used to get the pid to generate a unique filename
 #include <typeinfo> //To obtain type name as string
-#include "tm.h"
-#include <thread.h>
-#include "tm-sb.h"
+
 #define MIN(a, b) (((a) < (b)) ? (a) : (b))
 #define MAX(a, b) (((a) > (b)) ? (a) : (b))
 
@@ -124,7 +122,7 @@ void scamp(vector<DTYPE> &tSeries, vector<DTYPE> &means, vector<DTYPE> &norms,
     for (ITYPE tileii = 0; tileii < profileLength; tileii += maxTileHeight)
     {
       //Sin protección en el acceso al profile hace falta barrera
-#pragma omp for schedule(dynamic) nowait
+#pragma omp for schedule(dynamic)
       for (ITYPE tilej = tileii; tilej < profileLength; tilej += maxTileWidth)
       {
         //Para recorrer en diagonal los tiles
@@ -256,7 +254,7 @@ void scamp(vector<DTYPE> &tSeries, vector<DTYPE> &means, vector<DTYPE> &norms,
           cout << "Lower triangle | tid: " << tid << " tilei(ini,fin): " << iini << "," << ifin << " tilej(ini,fin): " << jini << "," << jfin << endl;
 #endif
         }
-      }SB_BARRIER(tid) //Barrera implícita omp si no se pone nowait
+      } //Barrera implícita omp si no se pone nowait
 #ifdef DEBUG
       cout << "-------------------------" << endl;
 #endif

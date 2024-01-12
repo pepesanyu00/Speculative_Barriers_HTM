@@ -2,6 +2,7 @@
 #define SB_TM_H 1
 
 #include "barrier.h"
+#include "rtmIntel.h"
 
 //RIC
 
@@ -23,6 +24,13 @@
 #define BARRIER_DESCRIPTOR_INIT(numTh) g_specvars.barrier.nb_threads = numTh;   \
                                        g_specvars.barrier.remain     = numTh
 
+
+
+
+g_spec_vars_t g_specvars = {.tx_order = 1};
+
+
+
         /**
          * Start a transaction.
          *
@@ -32,25 +40,25 @@
          * @return
          *   None.
          */
-#define TM_START(thId, xId)                                                     \
-  assert(xId != SPEC_XACT_ID); /* Me aseguro de que no tiene mismo id que sb*/  \
-  if(!tx.speculative) {                                                         \
-    __label__ __p_failure;                                                      \
-    texasru_t __p_abortCause;                                                   \
-__p_failure:                                                                    \
-    __p_abortCause = __builtin_get_texasru ();                                  \
-    if(tx.retries) profileAbortStatus(__p_abortCause, thId, xId);               \
-    tx.retries++;                                                               \
-    if (tx.retries > MAX_RETRIES) {                                             \
-      unsigned int myticket = __sync_add_and_fetch(&(g_fallback_lock.ticket), 1); \
-      while(myticket != g_fallback_lock.turn) ;                                 \
-    } else {                                                                    \
-      while (g_fallback_lock.ticket >= g_fallback_lock.turn);                   \
-      if(!__builtin_tbegin(0)) goto __p_failure;                                \
-      if (g_fallback_lock.ticket >= g_fallback_lock.turn)                       \
-      __builtin_tabort(LOCK_TAKEN);/*Early subscription*/                       \
-    }                                                                           \
-  }
+#define TM_START(thId, xId)                                                         \
+  do{                                                                               \
+    assert(xId != SPEC_XACT_ID); /* Me aseguro de que no tiene mismo id que sb*/    \
+    if(!tx.speculative) {                                                           \
+      __label__ __p_failure;                                                        \
+      __p_failure:                                                                  \
+      if(tx.retries) profileAbortStatus(tx.status, thId, xId);                      \
+      tx.retries++;                                                                 \
+      if (tx.retries > MAX_RETRIES) {                                               \
+        unsigned int myticket = __sync_add_and_fetch(&(g_fallback_lock.ticket), 1); \
+        while (myticket != g_ticketlock.turn)                                       \
+          CPU_RELAX();                                                              \
+        break;                                                                      \
+      }                                                                             \
+    }                                                                               \
+    while (g_ticketlock.ticket >= g_ticketlock.turn)                                \
+      CPU_RELAX(); /* Avoid Lemming effect */                                       \
+  }while((__p_status = _xbegin()) != _XBEGIN_STARTED)                               
+
 
 /**
  * Try to commit a transaction. If successful, the function returns.
@@ -59,7 +67,7 @@ __p_failure:                                                                    
 #define TM_STOP(thId, xId)                                                      \
       if(!tx.speculative) {                                                     \
         if (tx.retries <= MAX_RETRIES) {                                        \
-          __builtin_tend(0);                                                    \
+          _xend();                                                    \
           profileCommit(thId, xId, tx.retries-1);                               \
         } else {                                                                \
           __sync_add_and_fetch(&(g_fallback_lock.turn), 1);                     \
@@ -71,7 +79,7 @@ __p_failure:                                                                    
         BEGIN_ESCAPE;                                                           \
         if (tx.order <= g_specvars.tx_order) {                                  \
           END_ESCAPE;                                                           \
-          __builtin_tend(0);                                                    \
+          _xend();                                                    \
           profileCommit(thId, SPEC_XACT_ID, tx.retries-1); /* ID de la xact especulativa abierta en SB_BARRIER*/ \
           /* Restore metadata */                                                \
           tx.speculative = 0;                                                   \
@@ -85,7 +93,7 @@ __p_failure:                                                                    
             BEGIN_ESCAPE;                                                       \
             while (tx.order > g_specvars.tx_order);                             \
             END_ESCAPE;                                                         \
-            __builtin_tend(0);                                                  \
+            _xend();                                                  \
             profileCommit(thId, SPEC_XACT_ID, tx.retries-1);                    \
             /* Restore metadata */                                              \
             tx.speculative = 0;                                                 \
@@ -115,7 +123,7 @@ __p_failure:                                                                    
      * intentar salirnos de la OUTER que abrimos la primera vez que pasamos 
      * con la barrera, y desactivar el modo especulativo porque con el while
      * anterior sabemos que el resto de txs atraveso ya la barrera anterior */  \
-    __builtin_tend(0);                                                          \
+    _xend();                                                          \
     profileCommit(thId, SPEC_XACT_ID, tx.retries-1);                            \
     /* Restore metadata */                                                      \
     tx.speculative = 0;                                                         \
@@ -134,10 +142,8 @@ __p_failure:                                                                    
     __sync_add_and_fetch(&(g_specvars.tx_order), 1);                            \
   } else {                                                                      \
     __label__ __p_failure;                                                      \
-    texasru_t __p_abortCause;                                                   \
 __p_failure:                                                                    \
-    __p_abortCause = __builtin_get_texasru ();                                  \
-    if(tx.retries) profileAbortStatus(__p_abortCause, thId, SPEC_XACT_ID);      \
+    if(tx.retries) profileAbortStatus(tx.status, thId, SPEC_XACT_ID);      \
     tx.retries++;                                                               \
     if (tx.order <= g_specvars.tx_order) {                                      \
       tx.speculative = 0;                                                       \
@@ -150,9 +156,9 @@ __p_failure:                                                                    
         tx.specLevel = tx.specMax;                                              \
       }                                                                         \
       while (g_fallback_lock.ticket >= g_fallback_lock.turn);                   \
-      if(!__builtin_tbegin(0)) goto __p_failure;                                \
+      if(!_xbegin()) goto __p_failure;                                \
       if (g_fallback_lock.ticket >= g_fallback_lock.turn)                       \
-      __builtin_tabort(LOCK_TAKEN);/*Early subscription*/                       \
+      _xabort(LOCK_TAKEN);/*Early subscription*/                       \
     }                                                                           \
   }
 
@@ -171,7 +177,7 @@ __p_failure:                                                                    
      * intentar salirnos de la OUTER que abrimos la primera vez que pasamos 
      * con la barrera, y desactivar el modo especulativo porque con el while
      * anterior sabemos que el resto de txs atraveso ya la barrera anterior */  \
-    __builtin_tend(0);                                                          \
+    _xend();                                                          \
     profileCommit(thId, SPEC_XACT_ID, tx.retries-1);                            \
     /* Restore metadata */                                                      \
     tx.speculative = 0;                                                         \
