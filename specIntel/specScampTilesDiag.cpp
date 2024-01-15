@@ -12,6 +12,7 @@
 #include <unistd.h> //For getpid(), used to get the pid to generate a unique filename
 #include <typeinfo> //To obtain type name as string
 #include "tm.h"
+//#include "rtmIntel.h"
 //#include "thread.h"
 //#include "tm-sb.h"
 //#include "transaction.h"
@@ -298,7 +299,7 @@ int main(int argc, char *argv[])
     numThreads = atoi(argv[4]);
     TM_STARTUP(numThreads);
 
-    if(!statsFileInit(argc,argv,numThreads)){
+    if(!statsFileInit(argc,argv,numThreads,1)){
       cout << "Error abriendo o inicializando el archivo de estadísticas." << endl;
       return 0;
     }
@@ -432,7 +433,7 @@ int main(int argc, char *argv[])
     statsFile.close();
     cout << endl;
 
-    if(!dumpStats(telapsed.count(),1)){
+    if(!dumpStats()){
       cout << "Error volcando las estadísticas." << endl;
     }
 

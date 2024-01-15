@@ -1,8 +1,7 @@
 #ifndef SB_TM_H
 #define SB_TM_H 1
 
-#include "barrier.h"
-#include "rtmIntel.h"
+//#include "rtmIntel.h"
 
 //RIC
 
@@ -19,15 +18,14 @@
                                     tx.retries = 0;                             \
                                     tx.specMax = MAX_SPEC;                      \
                                     tx.specLevel = tx.specMax;                  \
-                                    tx.speculative = 0
+                                    tx.speculative = 0;                         \
+                                    tx.status = 0
 
 #define BARRIER_DESCRIPTOR_INIT(numTh) g_specvars.barrier.nb_threads = numTh;   \
                                        g_specvars.barrier.remain     = numTh
 
 
 
-
-g_spec_vars_t g_specvars = {.tx_order = 1};
 
 
 

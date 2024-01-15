@@ -18,12 +18,25 @@ volatile unsigned int g_ticketlock_turn = 1;
 volatile char _gpad2[CACHE_BLOCK_SIZE];*/
 
 //RIC Archivo de estadísticas
+
+unsigned long barrierCounter = 0;
+
+
+
 char fname[256];
 long threadCount;
 long xactCount;
 struct Stats **stats;
 struct TicketLock g_ticketlock; //Inicializo en statsFileInit el ticketlock
 
+volatile int sense = 0;
+volatile int count = 0;
+
+pthread_mutex_t bar_lock;
+pthread_mutex_t global_lock;
+
+fback_lock_t g_fallback_lock = {.ticket = 0, .turn = 1};
+g_spec_vars_t g_specvars = {.tx_order = 1};
 
 int statsFileInit(int argc, char **argv, long thCount, long xCount)
 {
@@ -258,4 +271,33 @@ int dumpStats()
     free(stats[i]);
   free(stats);
   return 1;
+}
+
+  void Barrier_init() {
+  sense = 0;
+  count = 0;
+  pthread_mutex_init(&bar_lock, NULL);
+}
+
+void Barrier_non_breaking(int* local_sense, int id, int num_thr) {
+  volatile int ret;
+
+  if ((*local_sense) == 0)
+    (*local_sense) = 1;
+  else
+    (*local_sense) = 0;
+
+  pthread_mutex_lock(&bar_lock);
+  count++;
+  ret = (count == num_thr);
+  pthread_mutex_unlock(&bar_lock);
+
+  if (ret) {
+    count = 0;
+    sense = (*local_sense);
+  } else {
+    while (sense != (*local_sense)) {
+      //usleep(1);     // For non-simulator runs
+    }
+  }
 }

@@ -1,4 +1,4 @@
-CFLAGS = -O2 -Wall -std=c++11
+CFLAGS = -O2 -Wall -std=c++11 -march=native
 LFLAGS = -lm -fopenmp
 
 all: scamp scampTilesUnprot scampTilesDiag specScampTilesDiag
@@ -14,9 +14,9 @@ scampTilesUnprot: scampTilesUnprot.cpp
 scampTilesDiag: scampTilesDiag.cpp
 	g++ $(CFLAGS) scampTilesDiag.cpp -o scampTilesDiag $(LFLAGS)
 
-specScampTilesDiag: specScampTilesDiag.cpp
-	g++ $(CFLAGS) specScampTilesDiag.cpp -o specScampTilesDiag $(LFLAGS) -DSB
-#	g++ $(CFLAGS) specScampTilesDiag.cpp transaction.c -o specScampTilesDiag $(LFLAGS) -DCS
+specScampTilesDiag: specScampTilesDiag.cpp rtmIntel.c rtmIntel.h
+	g++ $(CFLAGS) specScampTilesDiag.cpp rtmIntel.c -o specScampTilesDiag $(LFLAGS) -mrtm -DSB
+#	g++ $(CFLAGS) specScampTilesDiag.cpp rtmIntel.c -o specScampTilesDiag $(LFLAGS) -DCS
 
 clean:
 	rm -f scamp scampTilesUnprot scampTilesDiag specScampTilesDiag
