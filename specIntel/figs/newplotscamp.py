@@ -39,18 +39,18 @@ else:
 
 
 titlesDict = {
-              #"power-MPIII-SVF_n180000": "Power",
-              #"seismology-MPIII-SVE_n180000": "Seismology",
+              "power-MPIII-SVF_n180000": "Power",
+              "seismology-MPIII-SVE_n180000": "Seismology",
               #"seismology-MPIII-SVE": "Seismology",
-              #"e0103_n180000": "ECG",
-              #"penguin_sample_TutorialMPweb": "Penguin",
-              #"audio-MPIII-SVD": "Audio",
+              "e0103_n180000": "ECG",
+              "penguin_sample_TutorialMPweb": "Penguin",
+              "audio-MPIII-SVD": "Audio",
               "human_activity-MPIII-SVC": "Human activity"
 }
 
 direc="../results/"
 l=(128, 512, 2048, 8192) # 8192 16384
-numThreads = (1, 2, 4, 8, 16, 32, 64, 128)
+numThreads = (1, 2, 4, 8, 16, 32, 64, 96)
 x = range(1,len(numThreads)+1)
 
 lfs = 20 #33 #label font size
