@@ -44,7 +44,7 @@
         BEGIN_ESCAPE;                                                           \
         if (tx.order <= g_specvars.tx_order) {                                  \
           END_ESCAPE;                                                           \
-          _xend(0);                                                 \
+          _xend();                                                 \
           profileCommit(thId, SPEC_XACT_ID, tx.retries-1); /* ID de la xact especulativa abierta en SB_BARRIER*/ \
           /* Restore metadata */                                                \
           tx.speculative = 0;                                                   \
@@ -58,7 +58,7 @@
             BEGIN_ESCAPE;                                                       \
             while (tx.order > g_specvars.tx_order);                             \
             END_ESCAPE;                                                         \
-            _xend(0);                                               \
+            _xend();                                               \
             profileCommit(thId, SPEC_XACT_ID, tx.retries-1);                    \
             /* Restore metadata */                                              \
             tx.speculative = 0;                                                 \
