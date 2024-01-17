@@ -9,11 +9,11 @@
 #export OMP_PLACES="{0,1,2,3}:40:4"
 
 #Series cortas
-benchs=(#"./timeseries/power-MPIII-SVF_n180000.txt 1325"
-    #"./timeseries/seismology-MPIII-SVE_n180000.txt 50"
-    #"./timeseries/e0103_n180000.txt 500"
-    #"./timeseries/penguin_sample_TutorialMPweb.txt 800"
-    #    "./timeseries/audio-MPIII-SVD.txt 200"
+benchs=("./timeseries/power-MPIII-SVF_n180000.txt 1325"
+    "./timeseries/seismology-MPIII-SVE_n180000.txt 50"
+    "./timeseries/e0103_n180000.txt 500"
+    "./timeseries/penguin_sample_TutorialMPweb.txt 800"
+        "./timeseries/audio-MPIII-SVD.txt 200"
        "./timeseries/human_activity-MPIII-SVC.txt 120"
 )
 
