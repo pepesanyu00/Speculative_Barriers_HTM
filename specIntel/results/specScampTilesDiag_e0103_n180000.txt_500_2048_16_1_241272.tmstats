@@ -1,0 +1,20 @@
+-----------------------------------------
+Output file: ./results/specScampTilesDiag_e0103_n180000.txt_500_2048_16_1_241272.tmstats
+----------------- Stats -----------------
+#Threads: 16
+Abort Count: XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 Total: 0
+Explicit aborts: XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  Total: 0
+  »     Subs: XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  Total: 0
+Retry aborts: XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  Total: 0
+  »     Con: XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  Total: 0
+  »     Cap: XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  Total: 0
+Conflict aborts: XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  Total: 0
+Capacity aborts: XID0: 0 0 0 7956104 7601882 6591641 5981227 10680989 13526240 10385585 8765538 10359841 6589167 13003657 9674260 7434820  Total: 118550951
+Debug aborts: XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  Total: 0
+Nested aborts: XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  Total: 0
+eax=0 aborts: XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  Total: 0
+Commits: XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  Total: 0
+Fallbacks: XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  Total: 0
+RetriesCommited: XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 Total: 0 PerXact: -nan
+RetriesFallbacked: XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 Total: 0 PerXact: -nan
+RetriesAvg: -nan

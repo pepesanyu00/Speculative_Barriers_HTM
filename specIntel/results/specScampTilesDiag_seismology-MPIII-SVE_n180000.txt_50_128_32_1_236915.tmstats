@@ -1,0 +1,20 @@
+-----------------------------------------
+Output file: ./results/specScampTilesDiag_seismology-MPIII-SVE_n180000.txt_50_128_32_1_236915.tmstats
+----------------- Stats -----------------
+#Threads: 32
+Abort Count: XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 Total: 0
+Explicit aborts: XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  Total: 0
+  »     Subs: XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  Total: 0
+Retry aborts: XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  Total: 0
+  »     Con: XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  Total: 0
+  »     Cap: XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  Total: 0
+Conflict aborts: XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  Total: 0
+Capacity aborts: XID0: 0 0 0 508610 475618 456444 528689 429995 615010 635605 573874 671019 813657 512900 862200 583894 535145 809537 518648 757420 702969 692476 473159 623392 547870 736584 436524 686309 581682 737555 545318 658454  Total: 17710557
+Debug aborts: XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  Total: 0
+Nested aborts: XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  Total: 0
+eax=0 aborts: XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  Total: 0
+Commits: XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  Total: 0
+Fallbacks: XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  Total: 0
+RetriesCommited: XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 Total: 0 PerXact: -nan
+RetriesFallbacked: XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 Total: 0 PerXact: -nan
+RetriesAvg: -nan

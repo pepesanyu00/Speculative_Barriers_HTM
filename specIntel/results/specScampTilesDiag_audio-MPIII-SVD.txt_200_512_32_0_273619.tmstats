@@ -1,0 +1,20 @@
+-----------------------------------------
+Output file: ./results/specScampTilesDiag_audio-MPIII-SVD.txt_200_512_32_0_273619.tmstats
+----------------- Stats -----------------
+#Threads: 32
+Abort Count: XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 Total: 0
+Explicit aborts: XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  Total: 0
+  »     Subs: XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  Total: 0
+Retry aborts: XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  Total: 0
+  »     Con: XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  Total: 0
+  »     Cap: XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  Total: 0
+Conflict aborts: XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  Total: 0
+Capacity aborts: XID0: 0 0 0 473269 420312 483535 431324 278646 353294 488305 477695 243263 478144 472307 204299 492332 487490 507183 422820 462110 418408 452824 466523 516447 507508 418170 482174 342814 259581 443094 507302 491831  Total: 12483004
+Debug aborts: XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  Total: 0
+Nested aborts: XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  Total: 0
+eax=0 aborts: XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  Total: 0
+Commits: XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  Total: 0
+Fallbacks: XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  Total: 0
+RetriesCommited: XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 Total: 0 PerXact: -nan
+RetriesFallbacked: XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 Total: 0 PerXact: -nan
+RetriesAvg: -nan

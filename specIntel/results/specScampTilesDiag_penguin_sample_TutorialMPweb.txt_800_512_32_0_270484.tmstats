@@ -1,0 +1,20 @@
+-----------------------------------------
+Output file: ./results/specScampTilesDiag_penguin_sample_TutorialMPweb.txt_800_512_32_0_270484.tmstats
+----------------- Stats -----------------
+#Threads: 32
+Abort Count: XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 Total: 0
+Explicit aborts: XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  Total: 0
+  »     Subs: XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  Total: 0
+Retry aborts: XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  Total: 0
+  »     Con: XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  Total: 0
+  »     Cap: XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  Total: 0
+Conflict aborts: XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  Total: 0
+Capacity aborts: XID0: 0 0 0 4283069 4148826 3253575 3638223 4170377 2785204 2923674 4205740 2387141 4748633 4481954 2684245 2799281 4102673 2629072 3476532 4106180 3143919 2993188 4248348 3875177 2114596 4435503 4379266 4509934 2113490 4093390 3797027 3747392  Total: 104275629
+Debug aborts: XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  Total: 0
+Nested aborts: XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  Total: 0
+eax=0 aborts: XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  Total: 0
+Commits: XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  Total: 0
+Fallbacks: XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  Total: 0
+RetriesCommited: XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 Total: 0 PerXact: -nan
+RetriesFallbacked: XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 Total: 0 PerXact: -nan
+RetriesAvg: -nan
