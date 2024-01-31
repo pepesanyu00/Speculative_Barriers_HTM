@@ -145,7 +145,6 @@ void scamp(vector<DTYPE> &tSeries, vector<DTYPE> &means, vector<DTYPE> &norms,
           covariance = 0;
           for (ITYPE wi = 0; wi < windowSize; wi++){
             covariance += ((tSeries[i + wi] - means[i]) * (tSeries[jj + wi] - means[jj]));
-            TM_END(tid,0);
           }
           correlation = covariance * norms[i] * norms[jj];
 
