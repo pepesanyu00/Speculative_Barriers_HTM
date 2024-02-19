@@ -21,8 +21,8 @@
 
 #Series largas: 1.8M de muestras
 # "./timeseries/e0103.txt 500"
-benchs=(#"./timeseries/power-MPIII-SVF.txt 1325" 
-"./timeseries/seismology-MPIII-SVE.txt 50")
+benchs=("./timeseries/power-MPIII-SVF.txt 1325") 
+#"./timeseries/seismology-MPIII-SVE.txt 50")
 
 hilos="1 2 4 8 16 32 64 96"
 n=2
