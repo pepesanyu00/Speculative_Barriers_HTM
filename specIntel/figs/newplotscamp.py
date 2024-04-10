@@ -40,14 +40,14 @@ else:
 
 titlesDict = {
              # "power-MPIII-SVF_n180000": "Power",
-             # "seismology-MPIII-SVE_n180000": "Seismology",
+              "seismology-MPIII-SVE_n180000": "Seismology",
              # "seismology-MPIII-SVE": "Seismology",
              # "e0103_n180000": "ECG",
              #"power-MPIII-SVF": "Power_XL",
              # "penguin_sample_TutorialMPweb": "Penguin",
              # "audio-MPIII-SVD": "Audio",
              # "human_activity-MPIII-SVC": "Human activity",
-              "e103": "EGC"
+             # "e103": "EGC"
 }
 
 direc="../results/"
