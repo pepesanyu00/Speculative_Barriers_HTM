@@ -36,7 +36,6 @@ pthread_mutex_t bar_lock;
 pthread_mutex_t global_lock;
 
 fback_lock_t g_fallback_lock = {.ticket = 0, .turn = 1};
-g_spec_vars_t g_specvars = {.tx_order = 1};
 
 int statsFileInit(int argc, char **argv, long thCount, long xCount)
 {
@@ -47,30 +46,9 @@ int statsFileInit(int argc, char **argv, long thCount, long xCount)
   g_ticketlock.turn = 1;
 
   //Saco la extensión con identificador de proceso para tener un archivo único
-  sprintf(ext, "_%d.tmstats", getpid());
-  //El nombre del archivo es la llamada entera al programa con sus parámetros
-  strcat(fname, "./results/");
-  strcat(fname, &(argv[0][2])); //Pongo el nombre del programa sin el ./
-  for (i = 1; i < argc; i++)
-  {
-    strcat(fname, "_");
-    if (strstr(argv[i], "./timeseries/"))
-    {
-      strcat(fname, &(argv[i][13]));
-    }
-    else
-    {
-      if (strstr(argv[i], "timeseries/"))
-      {
-        strcat(fname, &(argv[i][11]));
-      }
-      else
-      {
-        strcat(fname, argv[i]);
-      }
-    }
-  }
-  strcat(fname, ext);
+  sprintf(ext,"stats/%d.stats", getpid());
+  strncpy(fname, ext, sizeof(fname) - 1);
+  printf("Nombre del fichero: %s\n",fname);
   //Inicio los arrays de estadísticas
   threadCount = thCount;
   xactCount = xCount;
@@ -109,6 +87,62 @@ int statsFileInit(int argc, char **argv, long thCount, long xCount)
   }
 
   return 1;
+}
+unsigned long profileAbortStatus(unsigned long eax, long thread, long xid)
+{
+  stats[thread][xid].xabortCount++;
+  if (eax & _XABORT_EXPLICIT)
+  {
+    stats[thread][xid].explicitAborts++;
+    if (_XABORT_CODE(eax) == LOCK_TAKEN)
+      stats[thread][xid].explicitAbortsSubs++;
+  }
+  if (eax & _XABORT_RETRY)
+  {
+    stats[thread][xid].retryAborts++;
+    if (eax & _XABORT_CONFLICT)
+      stats[thread][xid].retryConflictAborts++;
+    if (eax & _XABORT_CAPACITY)
+      stats[thread][xid].retryCapacityAborts++;
+    if (eax & _XABORT_DEBUG)
+      assert(0);
+    if (eax & _XABORT_NESTED)
+      assert(0);
+  }
+  if (eax & _XABORT_CONFLICT)
+  {
+    stats[thread][xid].conflictAborts++;
+  }
+  if (eax & _XABORT_CAPACITY)
+  {
+    stats[thread][xid].capacityAborts++;
+  }
+  if (eax & _XABORT_DEBUG)
+  {
+    stats[thread][xid].debugAborts++;
+  }
+  if (eax & _XABORT_NESTED)
+  {
+    stats[thread][xid].nestedAborts++;
+  }
+  if (eax == 0)
+  {
+    //Todos los bits a cero (puede ocurrir por una llamada a CPUID u otro cosa)
+    //Véase Section 8.3.5 RTM Abort Status Definition del Intel Architecture
+    //Instruction Set Extensions Programming Reference (2012))
+    stats[thread][xid].eaxzeroAborts++;
+  }
+  return 0;
+}
+void profileCommit(long thread, long xid, long retries)
+{
+  stats[thread][xid].xcommitCount++;
+  stats[thread][xid].retryCCount += retries;
+}
+void profileFallback(long thread, long xid, long retries)
+{
+  stats[thread][xid].fallbackCount++;
+  stats[thread][xid].retryFCount += retries;
 }
 
 int dumpStats()
@@ -271,33 +305,4 @@ int dumpStats()
     free(stats[i]);
   free(stats);
   return 1;
-}
-
-  void Barrier_init() {
-  sense = 0;
-  count = 0;
-  pthread_mutex_init(&bar_lock, NULL);
-}
-
-void Barrier_non_breaking(int* local_sense, int id, int num_thr) {
-  volatile int ret;
-
-  if ((*local_sense) == 0)
-    (*local_sense) = 1;
-  else
-    (*local_sense) = 0;
-
-  pthread_mutex_lock(&bar_lock);
-  count++;
-  ret = (count == num_thr);
-  pthread_mutex_unlock(&bar_lock);
-
-  if (ret) {
-    count = 0;
-    sense = (*local_sense);
-  } else {
-    while (sense != (*local_sense)) {
-      //usleep(1);     // For non-simulator runs
-    }
-  }
 }
