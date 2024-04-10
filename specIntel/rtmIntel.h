@@ -9,7 +9,6 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdint.h>
-#include <immintrin.h>
 /*
  * Copyright (c) 2012,2013 Intel Corporation
  * Author: Andi Kleen
@@ -109,6 +108,7 @@ Abort a transaction.
 #define BEGIN_ESCAPE _xsusldtrk()
 #define END_ESCAPE _xresldtrk()
 
+#include <immintrin.h>
 #define INIT_TRANSACTION() \
   unsigned long __p_status, __p_retries
 
@@ -185,9 +185,63 @@ extern struct Stats **stats;
 //Funciones para el fichero de estadísticas
 int statsFileInit(int argc, char **argv, long thCount, long xCount);
 int dumpStats();
-unsigned long profileAbortStatus(unsigned long eax, long thread, long xid);
-void profileCommit(long thread, long xid, long retries);
-void profileFallback(long thread, long xid, long retries);
+
+inline unsigned long profileAbortStatus(unsigned long eax, long thread, long xid)
+{
+  stats[thread][xid].xabortCount++;
+  if (eax & _XABORT_EXPLICIT)
+  {
+    stats[thread][xid].explicitAborts++;
+    if (_XABORT_CODE(eax) == LOCK_TAKEN)
+      stats[thread][xid].explicitAbortsSubs++;
+  }
+  if (eax & _XABORT_RETRY)
+  {
+    stats[thread][xid].retryAborts++;
+    if (eax & _XABORT_CONFLICT)
+      stats[thread][xid].retryConflictAborts++;
+    if (eax & _XABORT_CAPACITY)
+      stats[thread][xid].retryCapacityAborts++;
+    if (eax & _XABORT_DEBUG)
+      assert(0);
+    if (eax & _XABORT_NESTED)
+      assert(0);
+  }
+  if (eax & _XABORT_CONFLICT)
+  {
+    stats[thread][xid].conflictAborts++;
+  }
+  if (eax & _XABORT_CAPACITY)
+  {
+    stats[thread][xid].capacityAborts++;
+  }
+  if (eax & _XABORT_DEBUG)
+  {
+    stats[thread][xid].debugAborts++;
+  }
+  if (eax & _XABORT_NESTED)
+  {
+    stats[thread][xid].nestedAborts++;
+  }
+  if (eax == 0)
+  {
+    //Todos los bits a cero (puede ocurrir por una llamada a CPUID u otro cosa)
+    //Véase Section 8.3.5 RTM Abort Status Definition del Intel Architecture
+    //Instruction Set Extensions Programming Reference (2012))
+    stats[thread][xid].eaxzeroAborts++;
+  }
+  return 0;
+}
+inline void profileCommit(long thread, long xid, long retries)
+{
+  stats[thread][xid].xcommitCount++;
+  stats[thread][xid].retryCCount += retries;
+}
+inline void profileFallback(long thread, long xid, long retries)
+{
+  stats[thread][xid].fallbackCount++;
+  stats[thread][xid].retryFCount += retries;
+}
 
 /* Transaction descriptor. It is aligned (including stats) to CACHELINE_SIZE
  * to avoid aliases with other threads metadata */
@@ -215,6 +269,19 @@ typedef struct tm_tx {
   uint8_t pad2[CACHE_BLOCK_SIZE-sizeof(uint32_t)*3-sizeof(uint8_t)];
 } __attribute__ ((aligned (CACHE_BLOCK_SIZE))) tm_tx_t;
 
+/* Transactional barrier descriptor */
+typedef struct barrier {
+  int nb_threads; /* Number of threads to wait in the barrier */
+  volatile uint32_t remain; /* Remaining threads until unblock */
+} barrier_t;
+
+//RIC creo una estructura para colocar el global tx order y la barrera
+typedef struct global_spec_vars {
+  volatile uint32_t tx_order; //Tiene que ser inicializado a 1
+  uint8_t pad1[CACHE_BLOCK_SIZE-sizeof(uint32_t)];
+  barrier_t barrier;
+  uint8_t pad2[CACHE_BLOCK_SIZE-sizeof(barrier_t)];
+} __attribute__ ((aligned (CACHE_BLOCK_SIZE))) g_spec_vars_t;
 
 typedef struct fback_lock {
   //RIC Para implementar el spinlock del fallback de Haswell
