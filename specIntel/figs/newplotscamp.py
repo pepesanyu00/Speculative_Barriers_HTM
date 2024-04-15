@@ -95,12 +95,12 @@ for i in l:
     plt.title(titlesDict[tseries] + ' w=' + str(w), fontsize=lfs)
     plt.xticks(x,numThreads,fontsize=lfs*0.8)
     plt.yticks(fontsize=lfs*0.8)
-    plt.ylim(top=70)
+    plt.ylim(top=25)
     if (legend != 0):
       plt.legend(frameon=False, fontsize=lfs*0.9, ncol=1, columnspacing=1)
 
   ax = plt.gca()
-  ax.set_aspect(0.09)
+  ax.set_aspect(0.19)
   plt.savefig("./scamp_%s-w%d-l%d.pdf" % (tseries,w,i), format='pdf',bbox_inches='tight')
   plt.savefig("./scamp_%s-w%d-l%d.png" % (tseries,w,i), format='png',bbox_inches='tight')
   plt.clf()
