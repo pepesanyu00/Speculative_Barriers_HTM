@@ -67,11 +67,11 @@ Abort a transaction.
                : "=a"(status))
                */
 //RIC Meto pausa recomendada por Intel para mejorar la eficiencia en spinlocks
-#define CPU_RELAX() asm volatile("pause\n" \
+/*#define CPU_RELAX() asm volatile("pause\n" \
                                  :         \
                                  :         \
-                                 : "memory")
-/*#define CPU_RELAX()*/
+                                 : "memory")*/
+#define CPU_RELAX()
 
 //#include "rtm.h"
 //#define XTEST() _xtest()
@@ -266,7 +266,7 @@ typedef struct tm_tx {
                              * reaches commit but have to remain in speculative mode.
                              * It is also reset after a successful commit. */
   uint32_t status;  /* Transaction status.*/
-  uint8_t pad2[CACHE_BLOCK_SIZE-sizeof(uint32_t)*3-sizeof(uint8_t)];
+  uint8_t pad2[CACHE_BLOCK_SIZE-sizeof(uint32_t)*3-sizeof(uint8_t)]; 
 } __attribute__ ((aligned (CACHE_BLOCK_SIZE))) tm_tx_t;
 
 /* Transactional barrier descriptor */

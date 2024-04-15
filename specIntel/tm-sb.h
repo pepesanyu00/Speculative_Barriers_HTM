@@ -154,7 +154,7 @@ __p_failure:                                                                    
         tx.specLevel = tx.specMax;                                              \
       }                                                                         \
       while (g_fallback_lock.ticket >= g_fallback_lock.turn);                   \
-      if(!_xbegin()) goto __p_failure;                                \
+      if(_xbegin() != _XBEGIN_STARTED) goto __p_failure;                                \
       if (g_fallback_lock.ticket >= g_fallback_lock.turn)                       \
       _xabort(LOCK_TAKEN);/*Early subscription*/                       \
     }                                                                           \

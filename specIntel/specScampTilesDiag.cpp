@@ -146,6 +146,7 @@ void scamp(vector<DTYPE> &tSeries, vector<DTYPE> &means, vector<DTYPE> &norms,
           for (ITYPE wi = 0; wi < windowSize; wi++){
             covariance += ((tSeries[i + wi] - means[i]) * (tSeries[jj + wi] - means[jj]));
           }
+          TM_STOP(tid, 0);
           correlation = covariance * norms[i] * norms[jj];
 
           if (correlation > profile[i])
@@ -265,7 +266,7 @@ void scamp(vector<DTYPE> &tSeries, vector<DTYPE> &means, vector<DTYPE> &norms,
         }
       }TM_BARRIER(tid); //Barrera implícita omp si no se pone nowait
 #ifdef DEBUG
-      cout << "-------------------------" << endl;
+      cout << "PASADA LA BARRERA -------------------------------------------------" << endl;
 #endif
     }TM_LAST_BARRIER(tid);
   }
