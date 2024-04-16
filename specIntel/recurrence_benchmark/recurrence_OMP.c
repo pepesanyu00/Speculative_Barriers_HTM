@@ -262,15 +262,6 @@ int main(int argc, char **argv)
 
   printParams(params);
 
-  //RIC para cargar la PLT (Procedure Linkage Table)
-  volatile int temp = (unsigned int)argv[1] % (unsigned int)argv[0];
-  temp += (int)argv[1] % (int)argv[0];
-  temp += (int)argv[1] * (int)argv[0];
-  temp += (int)argv[1] / (int)argv[0];
-  temp += (unsigned int)argv[1] * (unsigned int)argv[0];
-  temp += (unsigned int)argv[1] / (unsigned int)argv[0];
-  printf("Done with ops\n");
-
   //RIC inicio las estadísticas para Power 8
   if (!statsFileInit(argc, argv, params.nthreads))
   { //RIC para las estadísticas
