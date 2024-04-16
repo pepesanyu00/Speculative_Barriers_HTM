@@ -200,9 +200,10 @@ void kernel_Histogram(void *p)
             break;
         }
       }
+      TM_BARRIER(tid);
       //#pragma omp barrier
-    } TM_BARRIER(tid);
-  }TM_LAST_BARRIER(tid);
+    }TM_LAST_BARRIER(tid);
+  }
 }
 
 int main(int argc, char **argv)
