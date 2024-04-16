@@ -1,0 +1,12 @@
+
+CFLAGS +=
+
+PROG := recurrence_UNP
+
+SRCS += \
+	recurrence.c \
+	$(LIB)/thread.c \
+        $(LIB)/memory.c
+#
+OBJS := ${SRCS:.c=.o}
+
