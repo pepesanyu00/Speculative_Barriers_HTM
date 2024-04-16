@@ -263,7 +263,7 @@ int main(int argc, char **argv)
   printParams(params);
 
   //RIC inicio las estadísticas para Power 8
-  if (!statsFileInit(argc, argv, params.nthreads))
+  if (!statsFileInit(argc, argv, params.nthreads,1))
   { //RIC para las estadísticas
     printf("Error abriendo o inicializando el archivo de estadísticas.\n");
     return 0;
@@ -301,7 +301,7 @@ int main(int argc, char **argv)
     printf("Check was wrong!!!!\n");
   fflush(stdout);
   //RIC
-  if (!dumpStats(TIMER_DIFF_SECONDS(start, stop), status))
+  if (!dumpStats())
     printf("Error volcando las estadísticas.\n");
   
   return 0;
