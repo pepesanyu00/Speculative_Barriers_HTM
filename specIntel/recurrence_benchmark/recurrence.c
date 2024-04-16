@@ -5,7 +5,6 @@
 #include <string.h>
 #include <stdint.h>
 #include "tm.h"
-#include "thread.h"
 //RIC paso de timerutils y pongo el de stamp
 //#include "timerutils.h"
 #include "timer.h"
