@@ -126,33 +126,6 @@ void initArrays(params_t p)
   }
 }
 
-void exitGraph(params_t p)
-{
-  int i;
-
-  // Deallocate matrices
-  for (i = 0; i < p.n; i++)
-  {
-    free(B[i]);
-  }
-  free(B);
-  free(W);
-}
-
-void dumpGraph(params_t p)
-{
-  int i;
-  FILE *fp;
-
-  fp = fopen(p.dumpfile, "w");
-  fprintf(fp, "W\n");
-  for (i = 0; i < p.n; i++)
-  {
-    fprintf(fp, "%.6lf\n", W[i]);
-  }
-
-  fclose(fp);
-}
 
 int checkGraph(params_t p)
 {
@@ -183,30 +156,6 @@ int checkGraph(params_t p)
   return 0;
 }
 
-void dumpGraph2(params_t p, int iter)
-{
-  int i, j;
-  FILE *fp;
-
-  fp = fopen(p.dumpfile, "a");
-  fprintf(fp, "Iter: %d, W:\n", iter);
-  for (i = 0; i < p.n; i++)
-  {
-    fprintf(fp, "%.6lf ", W[i]);
-  }
-  fprintf(fp, "\n\n");
-  for (i = 0; i < p.n; i++)
-  {
-    for (j = 0; j < p.n; j++)
-    {
-      fprintf(fp, "%.6lf ", B[i][j]);
-    }
-    fprintf(fp, "\n");
-  }
-  fprintf(fp, "\n\n");
-  fclose(fp);
-}
-
 //RIC pongo el parámetro como void*
 
 void kernel_Histogram(void *p)
@@ -217,7 +166,7 @@ void kernel_Histogram(void *p)
   numTh = paramPtr->nthreads;
   chunk = paramPtr->chunk;
 
-#pragma omp parallel nowait
+#pragma omp parallel
   {
     TM_THREAD_ENTER();
     tid = omp_get_thread_num();
@@ -323,15 +272,12 @@ int main(int argc, char **argv)
   printf("Done with ops\n");
 
   //RIC inicio las estadísticas para Power 8
-  /*if (!statsFileInit(argc, argv, params.nthreads))
+  if (!statsFileInit(argc, argv, params.nthreads))
   { //RIC para las estadísticas
     printf("Error abriendo o inicializando el archivo de estadísticas.\n");
     return 0;
-  }*/
-  //RIC inicia la barrera para SB
-  //TM_STARTUP(params.nthreads);
-  //Barrier_init();
-  //thread_startup(params.nthreads);
+  }
+
   omp_set_num_threads(params.nthreads);
   TM_STARTUP(params.nthreads);
   printf("Initializing arrays... ");
@@ -345,23 +291,12 @@ int main(int argc, char **argv)
 /***********************************************************************************/
   char mypid[1024];
     sprintf(mypid, " %d", getpid()); 
-
-    ///-------- START PERF
-    int pid = fork();
-    if (0 == pid){
-        //execlp("perf", "perf", "stat", "-p", mypid, "-e", "cache-references,cache-misses,cycles,instructions,branches,faults,migrations",  NULL);
-        //execlp("perf", "perf", "stat", "-p", mypid, "-e", "LLC-load-misses,LLC-store-misses",  NULL);
-        execlp("perf", "perf", "stat", "-p", mypid, "-e", "cache-misses",  NULL);
-    }
-
   
   TIMER_READ(start);
   //thread_start(kernel_Histogram, (void *)&params);
   kernel_Histogram((void *)&params);
   TIMER_READ(stop);
 
-      ///-------- END PERF
-    kill(pid, SIGINT); 
 /***************************************************************************************/
   printf("Done.\n");
   printf("Time = %lf\n", TIMER_DIFF_SECONDS(start, stop));
@@ -374,15 +309,9 @@ int main(int argc, char **argv)
   else
     printf("Check was wrong!!!!\n");
   fflush(stdout);
-  //thread_shutdown();
-  //TM_SHUTDOWN();
   //RIC
-  /*if (!dumpStats(TIMER_DIFF_SECONDS(start, stop), status))
+  if (!dumpStats(TIMER_DIFF_SECONDS(start, stop), status))
     printf("Error volcando las estadísticas.\n");
-  */
-  if (params.dump)
-    dumpGraph(params);
-  dco(params);
-  exitGraph(params);
+  
   return 0;
 }
