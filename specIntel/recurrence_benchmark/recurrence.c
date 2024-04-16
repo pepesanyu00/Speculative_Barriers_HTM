@@ -5,6 +5,7 @@
 #include <string.h>
 #include <stdint.h>
 #include "tm.h"
+#include "thread.h"
 //RIC paso de timerutils y pongo el de stamp
 //#include "timerutils.h"
 #include "timer.h"
@@ -190,7 +191,6 @@ void kernel_Histogram(void * p) {
   chunk = paramPtr->chunk;
 
   TM_THREAD_ENTER();
-  TM_STARTUP(numTh);
   
   limit = N / numTh;
   //if (N % numTh) limit++; //RIC dependiendo de los valores de entrada puede que algún thread se quede sin trabajo

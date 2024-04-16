@@ -3,8 +3,8 @@ LFLAGS = -lm
 
 all: recurrence
 
-recurrence: recurrence.c rtmIntel.h rtmIntel.c
-	g++ $(CFLAGS) recurrence.c rtmIntel.c -o recurrence $(LFLAGS) -mrtm -DSB
+recurrence: recurrence.c rtmIntel.h rtmIntel.c thread.h thread.c memory.h memory.c
+	g++ $(CFLAGS) recurrence.c rtmIntel.c thread.c memory.c -o recurrence $(LFLAGS) -mrtm -DSB
 
 
 clean:
