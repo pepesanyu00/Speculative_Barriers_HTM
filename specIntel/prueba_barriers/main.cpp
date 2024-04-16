@@ -37,8 +37,11 @@ int main() {
         // Barrera antes de combinar los resultados parciales
         #pragma omp barrier
 
-
+        // Sección crítica para combinar los resultados parciales
+        #pragma omp critical
+        {
             totalSum += localSum;
+        }
     }
 
     printf("Suma total de los elementos del arreglo: %d\n", totalSum);
