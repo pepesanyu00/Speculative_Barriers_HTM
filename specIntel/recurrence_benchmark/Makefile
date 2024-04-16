@@ -1,10 +1,10 @@
 CFLAGS = -O2 -Wall -std=c++11 -march=native
-LFLAGS = -lm
+LFLAGS = -lm -fopenmp
 
 all: recurrence
 
-recurrence: recurrence.c rtmIntel.h rtmIntel.c thread.h thread.c memory.h memory.c
-	g++ $(CFLAGS) recurrence.c rtmIntel.c thread.c memory.c -o recurrence $(LFLAGS) -mrtm -DSB
+recurrence: recurrence_OMP.c rtmIntel.h rtmIntel.c types.h
+	g++ $(CFLAGS) recurrence_OMP.c rtmIntel.c -o recurrence $(LFLAGS) -mrtm -DSB
 
 
 clean:
