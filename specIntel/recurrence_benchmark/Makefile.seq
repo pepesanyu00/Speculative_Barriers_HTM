@@ -1,5 +1,0 @@
-
-include ../common/Defines.common.mk
-include ./Defines.common.mk.seq
-include ../common/Makefile.seq
-

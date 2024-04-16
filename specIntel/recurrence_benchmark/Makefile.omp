@@ -1,2 +1,0 @@
-all:
-	gcc -O3 -Wall -I../lib recurrence_OMP.c -o recurrence_UNPOMP -fopenmp -lm

@@ -1,5 +1,0 @@
-
-include ../common/Defines.common.mk
-include ./Defines.common.mk.par
-include ../common/Makefile.par
-
