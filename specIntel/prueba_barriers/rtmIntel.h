@@ -67,11 +67,11 @@ Abort a transaction.
                : "=a"(status))
                */
 //RIC Meto pausa recomendada por Intel para mejorar la eficiencia en spinlocks
-/*#define CPU_RELAX() asm volatile("pause\n" \
+#define CPU_RELAX() asm volatile("pause\n" \
                                  :         \
                                  :         \
-                                 : "memory")*/
-#define CPU_RELAX()
+                                 : "memory")
+//#define CPU_RELAX()
 
 //#include "rtm.h"
 //#define XTEST() _xtest()

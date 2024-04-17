@@ -2,11 +2,14 @@
 #include <stdlib.h>
 #include <omp.h>
 #include "tm.h"
+#include <iostream>
 
-#define N 1000 // Tamaño de las matrices (N x N)
+using namespace std;
+
+#define N 100 // Tamaño de las matrices (N x N)
 #define DTYPE double        /* DATA TYPE */
 #define ITYPE uint64_t /* INDEX TYPE */
-#define NTHREADS 8
+#define NTHREADS 2
 
 // Función para inicializar una matriz con valores aleatorios
 void initializeMatrix(double* matrix, int size) {
@@ -29,7 +32,8 @@ void printMatrix(double* matrix, int size) {
 
 // Función para multiplicar dos matrices (C = A * B)
 void multiplyMatrices(double* A, double* B, double* C, int size) {
-    #pragma omp parallel
+    #pragma omp parallel 
+        {
         TM_THREAD_ENTER();  
         ITYPE tid = omp_get_thread_num();
         #pragma omp for nowait
@@ -42,6 +46,7 @@ void multiplyMatrices(double* A, double* B, double* C, int size) {
                 C[i * size + j] = sum;
             }TM_BARRIER(tid);
         }TM_LAST_BARRIER(tid);
+    }
 }
 
 int main() {
@@ -58,7 +63,7 @@ int main() {
     // Inicializar matrices A y B con valores aleatorios
     initializeMatrix(A, N);
     initializeMatrix(B, N);
-    TM_STARTUP();
+    TM_STARTUP(NTHREADS);
     // Multiplicar matrices A y B para obtener C de forma paralela
     double startTime = omp_get_wtime();
     multiplyMatrices(A, B, C, N);

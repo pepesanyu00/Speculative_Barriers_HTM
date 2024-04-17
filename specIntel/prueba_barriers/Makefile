@@ -3,8 +3,8 @@ LFLAGS = -lm -fopenmp
 
 all: main
 
-main:
-	g++ $(CFLAGS) main.cpp -o main $(LFLAGS)
+main: main.cpp rtmIntel.c rtmIntel.h
+	g++ $(CFLAGS) main.cpp rtmIntel.c -o main $(LFLAGS) -mrtm -DSB
 
 clean:
 	rm -f main
