@@ -183,7 +183,7 @@ extern struct Stats **stats;
 //extern volatile unsigned int g_ticketlock_turn;
 
 //Funciones para el fichero de estadísticas
-int statsFileInit(int argc, char **argv, long thCount, long xCount);
+int statsFileInit( long thCount, long xCount);
 int dumpStats();
 
 inline unsigned long profileAbortStatus(unsigned long eax, long thread, long xid)

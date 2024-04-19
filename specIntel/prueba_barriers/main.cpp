@@ -32,14 +32,16 @@ void printMatrix(double* matrix, int size) {
 
 // Función para multiplicar dos matrices (C = A * B)
 void multiplyMatrices(double* A, double* B, double* C, int size) {
+    double sum = 0.0;
     #pragma omp parallel 
         {
-        TM_THREAD_ENTER();  
         ITYPE tid = omp_get_thread_num();
+        TM_THREAD_ENTER();  
+        //cout << "Thread: " << tid << endl;
         #pragma omp for nowait
         for (int i = 0; i < size; ++i) {
             for (int j = 0; j < size; ++j) {
-                double sum = 0.0;
+                sum = 0.0;
                 for (int k = 0; k < size; ++k) {
                     sum += A[i * size + k] * B[k * size + j];
                 }
@@ -54,16 +56,18 @@ int main() {
     double* B = (double*)malloc(N * N * sizeof(double));
     double* C = (double*)malloc(N * N * sizeof(double));
 
-    /*if (!statsFileInit(argc, argv, NTHREADS,1))
+    if (!statsFileInit(NTHREADS,4))
     { //RIC para las estadísticas
         printf("Error abriendo o inicializando el archivo de estadísticas.\n");
         return 0;
-    }*/
+    }
 
     // Inicializar matrices A y B con valores aleatorios
     initializeMatrix(A, N);
     initializeMatrix(B, N);
     TM_STARTUP(NTHREADS);
+    omp_set_num_threads(NTHREADS);
+
     // Multiplicar matrices A y B para obtener C de forma paralela
     double startTime = omp_get_wtime();
     multiplyMatrices(A, B, C, N);
@@ -79,6 +83,10 @@ int main() {
     // printMatrix(C, N);
     /*if (!dumpStats())
     printf("Error volcando las estadísticas.\n");*/
+
+    if(!dumpStats()){
+      cout << "Error volcando las estadísticas." << endl;
+    }
 
     free(A);
     free(B);

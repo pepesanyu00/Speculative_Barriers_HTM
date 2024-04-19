@@ -67,11 +67,11 @@ Abort a transaction.
                : "=a"(status))
                */
 //RIC Meto pausa recomendada por Intel para mejorar la eficiencia en spinlocks
-#define CPU_RELAX() asm volatile("pause\n" \
+/*#define CPU_RELAX() asm volatile("pause\n" \
                                  :         \
                                  :         \
-                                 : "memory")
-//#define CPU_RELAX()
+                                 : "memory")*/
+#define CPU_RELAX() _mm_pause()
 
 //#include "rtm.h"
 //#define XTEST() _xtest()
@@ -88,7 +88,6 @@ Abort a transaction.
 //RIC
 #define LOCK_TAKEN 0xFF
 
-#define MAX_THREADS 128
 
 #define CACHE_BLOCK_SIZE 64
 
@@ -96,7 +95,7 @@ Abort a transaction.
 
 #define VALIDATION_ERROR 0xFE
 
-#define MAX_THREADS 128
+#define MAX_THREADS 96
 #define MAX_SPEC    4
 #define MAX_RETRIES 5
 
@@ -123,6 +122,7 @@ Abort a transaction.
     {                                                                          \
       unsigned int myticket = __sync_add_and_fetch(&(g_ticketlock.ticket), 1); \
       while (myticket != g_ticketlock.turn)                                    \
+        BEGIN_ESCAPE;                                                          \
         CPU_RELAX();                                                           \
       break;                                                                   \
     }                                                                          \
@@ -183,7 +183,7 @@ extern struct Stats **stats;
 //extern volatile unsigned int g_ticketlock_turn;
 
 //Funciones para el fichero de estadísticas
-int statsFileInit(int argc, char **argv, long thCount, long xCount);
+int statsFileInit(long thCount, long xCount);
 int dumpStats();
 
 inline unsigned long profileAbortStatus(unsigned long eax, long thread, long xid)

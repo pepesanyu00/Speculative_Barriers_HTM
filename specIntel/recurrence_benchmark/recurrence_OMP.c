@@ -20,7 +20,7 @@
 #define DEF_N 1000
 #define DEF_DUMP 0
 #define DEF_CHUNK 1
-#define DEF_NTH 8
+#define DEF_NTH 2
 #define DEF_SEED 1
 #define DEF_DUMPF "recurrence.dump"
 #define DEF_VERBOSE 0
@@ -79,10 +79,7 @@ void printParams(params_t p)
   printf("------------------------\n");
 }
 
-void printUsage(void)
-{
-  printf("usage: ./recurrence [-n <nodes>][-d dump][-o <dumpfile>][-c <chunk>][-t <nthreads>][-h help][-v verbose]\n");
-}
+
 
 /* Display some elements for dead-code elimination */
 void dco(params_t p)
@@ -216,55 +213,10 @@ int main(int argc, char **argv)
   params_t params;
 
   initParams(&params);
-
-  while ((option = getopt(argc, argv, "n:dc:t:ho:vz:")) != -1)
-  {
-    switch (option)
-    {
-    case 'n':
-      /* Size of the array */
-      params.n = atoi(optarg);
-      break;
-    case 'd':
-      /* Dump array into a file? */
-      params.dump = 1;
-      break;
-    case 'c':
-      /* Chunksize per xact. */
-      params.chunk = atoi(optarg);
-      break;
-    case 't':
-      /* Number of threads */
-      params.nthreads = atoi(optarg);
-      break;
-    case 'o':
-      /* Output file (need -d) */
-      strncpy(params.dumpfile, optarg, 100);
-      break;
-    case 'v':
-      /* Verbose mode (not for benchmarking) */
-      params.verbose = 1;
-      break;
-    case 'z':
-      /* Output file (need -z) */
-      strncpy(params.name, optarg, 100);
-      break;
-    case 'h':
-      /* Help */
-      printUsage();
-      exit(EXIT_SUCCESS);
-      break;
-    default:
-      printUsage();
-      exit(EXIT_FAILURE);
-      break;
-    }
-  }
-
   printParams(params);
 
   //RIC inicio las estadísticas para Power 8
-  if (!statsFileInit(argc, argv, params.nthreads,1))
+  if (!statsFileInit(params.nthreads,4))
   { //RIC para las estadísticas
     printf("Error abriendo o inicializando el archivo de estadísticas.\n");
     return 0;
@@ -292,10 +244,8 @@ int main(int argc, char **argv)
 /***************************************************************************************/
   printf("Done.\n");
   printf("Time = %lf\n", TIMER_DIFF_SECONDS(start, stop));
-  u_char status = 0;
   if (!checkGraph(params))
   {
-    status = 1;
     printf("Check was fine!\n");
   }
   else
