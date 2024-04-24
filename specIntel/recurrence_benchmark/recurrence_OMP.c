@@ -17,7 +17,7 @@
 
 #define ABS(a) (((a) > 0) ? (a) : -1 * (a))
 
-#define DEF_N 1000
+#define DEF_N 5000
 #define DEF_DUMP 0
 #define DEF_CHUNK 1
 #define DEF_NTH 2
@@ -158,13 +158,14 @@ int checkGraph(params_t p)
 void kernel_Histogram(void *p)
 {
   params_t *paramPtr = (params_t *)p;
-  int k, t, N, c, chunk, limit, tid, numTh, start, stop, cstart, cstop;
+  int N,chunk,numTh;
   N = paramPtr->n;
   numTh = paramPtr->nthreads;
   chunk = paramPtr->chunk;
 
 #pragma omp parallel
   {
+    int k, t, c, limit, tid, start, stop, cstart, cstop;
     TM_THREAD_ENTER();
     tid = omp_get_thread_num();
     limit = N / numTh;
@@ -195,7 +196,7 @@ void kernel_Histogram(void *p)
           k++;
           if (k >= stop)
             break;
-        }
+        } //TM_STOP(tid);
       }
       TM_BARRIER(tid);
       //#pragma omp barrier
@@ -209,7 +210,6 @@ int main(int argc, char **argv)
   TIMER_T start;
   TIMER_T stop;
 
-  int option;
   params_t params;
 
   initParams(&params);

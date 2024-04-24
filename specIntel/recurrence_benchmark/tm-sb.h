@@ -112,6 +112,7 @@
   /* Now, barrier IS SAFE if a thread re-enters the barrier before it have been reset */ \
   if (tx.speculative) {                                                         \
     BEGIN_ESCAPE;                                                               \
+    /* espera a que todos los demas hilos hayan llegado a la barrera anterior*/ \
     while (tx.order > g_specvars.tx_order);                                     \
     END_ESCAPE;                                                                 \
     /* Llegados a este punto estoy en modo especulativo, en la OUTER tx, que
@@ -153,8 +154,9 @@ __p_failure:                                                                    
         if(tx.specMax > 1) tx.specMax--;                                        \
         tx.specLevel = tx.specMax;                                              \
       }                                                                         \
-      while (g_fallback_lock.ticket >= g_fallback_lock.turn);                   \
-      if(_xbegin() != _XBEGIN_STARTED) goto __p_failure;                                \
+      while (g_fallback_lock.ticket >= g_fallback_lock.turn){                   \
+      }                                                                         \
+      if((tx.status = _xbegin()) != _XBEGIN_STARTED) goto __p_failure;                                \
       if (g_fallback_lock.ticket >= g_fallback_lock.turn)                       \
       _xabort(LOCK_TAKEN);/*Early subscription*/                       \
     }                                                                           \
@@ -193,7 +195,8 @@ __p_failure:                                                                    
      * should appear ordered to the rest of the threads */                      \
     __sync_add_and_fetch(&(g_specvars.tx_order), 1);                            \
   } else {                                                                      \
-    while(tx.order > g_specvars.tx_order) ;                                     \
+    while(tx.order > g_specvars.tx_order) {          \
+    }   \
   }
 
 //RIC definido en transaction.c

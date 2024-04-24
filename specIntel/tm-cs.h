@@ -160,7 +160,9 @@ __p_failure:                                                                    
      * should appear ordered to the rest of the threads */                      \
     __sync_add_and_fetch(&(g_specvars.tx_order), 1);                            \
   } else {                                                                      \
-    while(tx.order > g_specvars.tx_order) ;                                     \
+    while(tx.order > g_specvars.tx_order)  {          \
+        std::cout << "he llegado " << std::endl;                \
+    }                                     \
   }
 
 //RIC definido en transaction.c
