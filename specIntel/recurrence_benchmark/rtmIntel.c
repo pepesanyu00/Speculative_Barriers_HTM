@@ -37,7 +37,7 @@ volatile int count = 0;
 fback_lock_t g_fallback_lock = {.ticket = 0, .turn = 1};
 g_spec_vars_t g_specvars = {.tx_order = 1};
 
-int statsFileInit(int argc, char **argv, long thCount, long xCount)
+int statsFileInit( long thCount, long xCount)
 {
   int i, j;
   char ext[25];
@@ -46,30 +46,9 @@ int statsFileInit(int argc, char **argv, long thCount, long xCount)
   g_ticketlock.turn = 1;
 
   //Saco la extensión con identificador de proceso para tener un archivo único
-  sprintf(ext, "_%d.tmstats", getpid());
-  //El nombre del archivo es la llamada entera al programa con sus parámetros
-  strcat(fname, "./results/");
-  strcat(fname, &(argv[0][2])); //Pongo el nombre del programa sin el ./
-  for (i = 1; i < argc; i++)
-  {
-    strcat(fname, "_");
-    if (strstr(argv[i], "./timeseries/"))
-    {
-      strcat(fname, &(argv[i][13]));
-    }
-    else
-    {
-      if (strstr(argv[i], "timeseries/"))
-      {
-        strcat(fname, &(argv[i][11]));
-      }
-      else
-      {
-        strcat(fname, argv[i]);
-      }
-    }
-  }
-  strcat(fname, ext);
+  sprintf(ext,"stats/%d.stats", getpid());
+  strncpy(fname, ext, sizeof(fname) - 1);
+  printf("Nombre del fichero: %s\n",fname);
   //Inicio los arrays de estadísticas
   threadCount = thCount;
   xactCount = xCount;
