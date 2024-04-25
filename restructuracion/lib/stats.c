@@ -1,38 +1,16 @@
-#include "rtmIntel.h"
+#include "stats.h"
 
-//RIC Defino los global retries en rtmIntel.h como define para que no se introduzca en el Read Set de la transacción
-//volatile char _gpad0[CACHE_BLOCK_SIZE];
-//long global_retries = 3;
+/* Archivo en el que se desarrollan las funciones de inicialización de estadísticas*/
 
-//RIC No podemos presumir que el compilador deje las variables locales tal y como se definen aquí
-//    De hecho, he estado disassembling el código y gpad1, ticket y gpad2 estaban una detrás de otra,
-//    sin embargo turn estaba en un sitio completamente diferente.
-//    Esto puede hacer que haya falsos conflictos por false sharing si turn cae en una línea de caché con
-//    otra variable que se escriba fuera de transacción.
-//    Solución: meterlo en un struct. Lo meto en rtmIntel.h
-
-/*volatile char _gpad1[CACHE_BLOCK_SIZE];
-//RIC Para implementar el spinlock del fallback de Haswell
-volatile unsigned int g_ticketlock_ticket = 0;
-volatile unsigned int g_ticketlock_turn = 1;
-volatile char _gpad2[CACHE_BLOCK_SIZE];*/
-
-//RIC Archivo de estadísticas
-
-unsigned long barrierCounter = 0;
 
 
 
+unsigned long barrierCounter = 0;
 char fname[256];
 long threadCount;
 long xactCount;
 struct Stats **stats;
 struct TicketLock g_ticketlock; //Inicializo en statsFileInit el ticketlock
-
-volatile int sense = 0;
-volatile int count = 0;
-
-
 
 fback_lock_t g_fallback_lock = {.ticket = 0, .turn = 1};
 g_spec_vars_t g_specvars = {.tx_order = 1};
@@ -270,33 +248,4 @@ int dumpStats()
     free(stats[i]);
   free(stats);
   return 1;
-}
-
-  void Barrier_init() {
-  sense = 0;
-  count = 0;
-  pthread_mutex_init(&bar_lock, NULL);
-}
-
-void Barrier_non_breaking(int* local_sense, int id, int num_thr) {
-  volatile int ret;
-
-  if ((*local_sense) == 0)
-    (*local_sense) = 1;
-  else
-    (*local_sense) = 0;
-
-  pthread_mutex_lock(&bar_lock);
-  count++;
-  ret = (count == num_thr);
-  pthread_mutex_unlock(&bar_lock);
-
-  if (ret) {
-    count = 0;
-    sense = (*local_sense);
-  } else {
-    while (sense != (*local_sense)) {
-      //usleep(1);     // For non-simulator runs
-    }
-  }
 }
