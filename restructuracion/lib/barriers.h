@@ -1,7 +1,10 @@
+#ifndef BARRIERS_H_
+#define BARRIERS_H_
+
+
 #include <stdio.h>
 #include <assert.h>
-#include "stats.h"
-
+#include <stdint.h>
 
 /* IMPORTANTE: en este archivo se encuentran tanto las macros dedicadas a las barreras como las dedicadas a 
    las transacciones. Estas transacciones son especiales y están adaptadas a las barreras, si se quiere implementar
@@ -286,3 +289,5 @@ typedef struct fback_lock {
 } __attribute__ ((aligned (CACHE_BLOCK_SIZE))) fback_lock_t;
 
 extern fback_lock_t g_fallback_lock;
+
+#endif

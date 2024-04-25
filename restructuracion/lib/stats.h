@@ -1,5 +1,5 @@
-#ifndef TRANSACTION_H_
-#define TRANSACTION_H_
+#ifndef STATS_H_
+#define STATS_H_
 
 #include <pthread.h>
 #include <assert.h>
@@ -11,7 +11,6 @@
 #include <stdint.h>
 #include <immintrin.h>
 #include "barriers.h"
-
 
 // MACROS DEFINIDAS EN BARRIERS.H
 //#define CACHE_BLOCK_SIZE 64

@@ -5,23 +5,16 @@
 
 
 
-unsigned long barrierCounter = 0;
 char fname[256];
 long threadCount;
 long xactCount;
 struct Stats **stats;
-struct TicketLock g_ticketlock; //Inicializo en statsFileInit el ticketlock
 
-fback_lock_t g_fallback_lock = {.ticket = 0, .turn = 1};
-g_spec_vars_t g_specvars = {.tx_order = 1};
 
 int statsFileInit(int argc, char **argv, long thCount, long xCount)
 {
   int i, j;
   char ext[25];
-  //Inicializo el ticket lock
-  g_ticketlock.ticket = 0;
-  g_ticketlock.turn = 1;
 
   //Saco la extensión con identificador de proceso para tener un archivo único
   sprintf(ext, "_%d.tmstats", getpid());
