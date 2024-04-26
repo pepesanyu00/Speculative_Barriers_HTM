@@ -28,7 +28,7 @@
 
 #define MAX_RETRIES 5
 
-#define MAX_XACT_IDS 4
+#define MAX_XACT_IDS 1
 
 /* Esta macro se define para indicar que transacción es la correspondiente a la barrera,
    para que se puedan definir transacciones junto con la barrera y que esta sea la última
@@ -66,7 +66,7 @@
   {                                                                            \
     assert(xId != SPEC_XACT_ID);                                               \
     if (tx.retries){                                                          \
-      profileAbortStatus(tx.status, xId);                                     \
+      profileAbortStatus(tx.status, thId, xId);                                     \
     }                                                                          \
     tx.retries++;                                                             \
     if (tx.retries > GLOBAL_RETRIES)                                          \
@@ -98,6 +98,7 @@
         if (tx.order <= g_specvars.tx_order) {                                  \
           END_ESCAPE;                                                           \
           _xend();                                                    \
+          /*      REVISAR                                 ----------------------------------------------------------------------*/  \
           profileCommit(thId, SPEC_XACT_ID, tx.retries-1); /* ID de la xact especulativa abierta en SB_BARRIER*/ \
           /* Restore metadata */                                                \
           tx.speculative = 0;                                                   \
@@ -131,6 +132,7 @@
     /* Aquí ya he terminado una barrera así que puedo commitear la transacción para después*/ \
     /* empezar la de la siguiente.*/   \
     _xend();                                                          \
+    /*          REVISAR       -------------------------------------------------------*/  \
     profileCommit(thId, SPEC_XACT_ID, tx.retries-1);                            \
     /* Restore metadata */                                                      \
     tx.speculative = 0;                                                         \
@@ -149,6 +151,7 @@
   } else {                                                                      \
     __label__ __p_failure;                                                      \
 __p_failure:                                                                    \
+    /*          REVISAR -------------------------------------------------------------*/ \
     if(tx.retries) profileAbortStatus(tx.status, thId, SPEC_XACT_ID);      \
     tx.retries++;                                                               \
     if (tx.order <= g_specvars.tx_order) {                                      \

@@ -48,6 +48,9 @@ extern struct Stats **stats;
 int statsFileInit(int argc, char **argv, long thCount, long xCount);
 int dumpStats();
 
+// Funciones de profile de estadísticas (hechas inline para mejorar el rendimiento)
+
+
 // Función para determinar el tipo de aborto
 inline unsigned long profileAbortStatus(unsigned long eax, long thread, long xid)
 {

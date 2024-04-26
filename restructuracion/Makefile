@@ -12,3 +12,4 @@ scampTilesDiag: scampTilesDiag.cpp
 clean:
 	rm -f specScampTilesDiag
 	rm -f stats/*
+	rm -f results/*
