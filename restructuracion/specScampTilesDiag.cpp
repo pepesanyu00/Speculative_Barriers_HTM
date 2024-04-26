@@ -297,7 +297,7 @@ int main(int argc, char *argv[])
     numThreads = atoi(argv[4]);
     BARRIER_DESCRIPTOR_INIT(numThreads);
 
-    if(!statsFileInit(argc,argv,numThreads,1)){
+    if(!statsFileInit(argc,argv,numThreads,MAX_XACT_IDS)){
       cout << "Error abriendo o inicializando el archivo de estadísticas." << endl;
       return 0;
     }

@@ -28,6 +28,7 @@
 
 #define MAX_RETRIES 5
 
+// Esta macro siempre debe coincidir con el número de transacciones(xacts) que se pasen a statsFileInit, sino las estadísticas estarán mal.
 #define MAX_XACT_IDS 1
 
 /* Esta macro se define para indicar que transacción es la correspondiente a la barrera,
@@ -98,7 +99,6 @@
         if (tx.order <= g_specvars.tx_order) {                                  \
           END_ESCAPE;                                                           \
           _xend();                                                    \
-          /*      REVISAR                                 ----------------------------------------------------------------------*/  \
           profileCommit(thId, SPEC_XACT_ID, tx.retries-1); /* ID de la xact especulativa abierta en SB_BARRIER*/ \
           /* Restore metadata */                                                \
           tx.speculative = 0;                                                   \
@@ -124,7 +124,7 @@
 
 // Define una barrera transaccional
 #define SB_BARRIER(thId)                                                        \
-  /* Se comprueba si el hilo entra por primera vez a la barrera */ \
+  /* Se comprueba si el hilo entra por primera vez a la barrera (si está en modo especulativo o no) */ \
   if (tx.speculative) {                                                         \
     BEGIN_ESCAPE;                                                               \
     while (tx.order > g_specvars.tx_order);                                     \
@@ -132,7 +132,6 @@
     /* Aquí ya he terminado una barrera así que puedo commitear la transacción para después*/ \
     /* empezar la de la siguiente.*/   \
     _xend();                                                          \
-    /*          REVISAR       -------------------------------------------------------*/  \
     profileCommit(thId, SPEC_XACT_ID, tx.retries-1);                            \
     /* Restore metadata */                                                      \
     tx.speculative = 0;                                                         \
@@ -151,7 +150,6 @@
   } else {                                                                      \
     __label__ __p_failure;                                                      \
 __p_failure:                                                                    \
-    /*          REVISAR -------------------------------------------------------------*/ \
     if(tx.retries) profileAbortStatus(tx.status, thId, SPEC_XACT_ID);      \
     tx.retries++;                                                               \
     if (tx.order <= g_specvars.tx_order) {                                      \
@@ -167,7 +165,7 @@ __p_failure:                                                                    
       while (g_fallback_lock.ticket >= g_fallback_lock.turn);                   \
       if((tx.status = _xbegin()) != _XBEGIN_STARTED) goto __p_failure;                                \
       if (g_fallback_lock.ticket >= g_fallback_lock.turn)                       \
-      _xabort(LOCK_TAKEN);/*Early subscription*/                       \
+        _xabort(LOCK_TAKEN);/*Early subscription*/                       \
     }                                                                           \
   }
 
