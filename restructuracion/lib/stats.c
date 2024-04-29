@@ -110,7 +110,7 @@ int dumpStats()
   }
   fprintf(f, " Total: %lu\n", tmp);
 
-  fprintf(f, "  »     Con:");
+  fprintf(f, "  »     Conflict:");
   for (j = 0, tmp = 0; j < xactCount; j++)
   {
     fprintf(f, " XID%d: ", j);
@@ -119,7 +119,7 @@ int dumpStats()
   }
   fprintf(f, " Total: %lu\n", tmp);
 
-  fprintf(f, "  »     Cap:");
+  fprintf(f, "  »     Capacity:");
   for (j = 0, tmp = 0; j < xactCount; j++)
   {
     fprintf(f, " XID%d: ", j);
