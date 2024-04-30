@@ -1,14 +1,19 @@
 CFLAGS = -O2 -Wall -std=c++11 -march=native
 LFLAGS = -lm -fopenmp
 
-all: recurrence
+all: recurrence sin_trans
 
-recurrence: recurrence_OMP.c rtmIntel.h rtmIntel.c types.h
-	g++  $(CFLAGS) recurrence_OMP.c rtmIntel.c -o recurrence $(LFLAGS) -mrtm -DSB
+recurrence: recurrence_OMP.c lib/barriers.c lib/stats.c types.h
+	g++  $(CFLAGS) recurrence_OMP.c lib/barriers.c lib/stats.c -o recurrence $(LFLAGS) -mrtm
 
-copy: recurrence_OMP_copy.c rtmIntel.h rtmIntel.c types.h
-	g++ -g $(CFLAGS) recurrence_OMP_copy.c rtmIntel.c -o recurrence $(LFLAGS) -mrtm -DSB
+sin_trans: sin_trans.c types.h
+	g++  $(CFLAGS) sin_trans.c -o sin_trans $(LFLAGS) -mrtm
+
+
+copy: debug_ddd.c lib/barriers.c lib/stats.c
+	g++ -g $(CFLAGS) debug_ddd.c lib/barriers.c lib/stats.c -o debug $(LFLAGS) -mrtm
 
 clean:
 	rm -f recurrence
 	rm -f stats/*
+	rm -f debug

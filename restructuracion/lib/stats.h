@@ -113,9 +113,4 @@ inline void profileFallback(long thread, long xid, long retries)
   stats[thread][xid].fallbackCount++;
   stats[thread][xid].retryFCount += retries;
 }
-
-inline void profileInit(long thread, long xid)
-{
-  stats[thread][xid].xbeginCount++;
-}
 #endif

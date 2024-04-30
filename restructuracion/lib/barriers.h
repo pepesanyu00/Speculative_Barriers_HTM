@@ -135,7 +135,9 @@
     /* Aquí ya he terminado una barrera así que puedo commitear la transacción para después*/ \
     /* empezar la de la siguiente.*/   \
     _xend();                                                          \
+        BEGIN_ESCAPE;                                                               \
     profileCommit(thId, SPEC_XACT_ID, tx.retries-1);                            \
+        END_ESCAPE;                                                                 \
     /* Restore metadata */                                                      \
     tx.speculative = 0;                                                         \
     tx.retries = 0;                                                             \
@@ -153,24 +155,30 @@
   } else {                                                                      \
     __label__ __p_failure;                                                      \
 __p_failure:                                                                    \
-    if(tx.retries) profileAbortStatus(tx.status, thId, SPEC_XACT_ID);      \
+    if(tx.retries){                                                             \
+      BEGIN_ESCAPE;                                                             \
+      profileAbortStatus(tx.status, thId, SPEC_XACT_ID);                       \
+      END_ESCAPE;                                                                 \
+    }                                                                           \
     tx.retries++;                                                               \
+    BEGIN_ESCAPE;                                                                \
     if (tx.order <= g_specvars.tx_order) {                                      \
+    END_ESCAPE;                                                                 \
       tx.speculative = 0;                                                       \
       tx.retries = 0;                                                           \
       tx.specLevel = tx.specMax;                                                \
     } else {                                                                    \
+      END_ESCAPE;                                                               \
       tx.speculative = 1;                                                       \
       if (tx.retries > MAX_RETRIES) {                                           \
         if(tx.specMax > 1) tx.specMax--;                                        \
         tx.specLevel = tx.specMax;                                              \
       }                                                                         \
       if ( (tx.status & _XABORT_RETRY) && (tx.status & _XABORT_CONFLICT)){          \
-          random_delay();                                                        \
+        random_delay();                                                        \
       }                                                                         \
       while (g_fallback_lock.ticket >= g_fallback_lock.turn);                   \
       if((tx.status = _xbegin()) != _XBEGIN_STARTED) {goto __p_failure;}        \
-      else{ profileInit(thId, SPEC_XACT_ID);}                                   \
       if (g_fallback_lock.ticket >= g_fallback_lock.turn)                       \
         _xabort(LOCK_TAKEN);/*Early subscription*/                              \
     }                                                                           \
@@ -302,7 +310,7 @@ extern fback_lock_t g_fallback_lock;
 // Recomendado por el manual optimization reference de intel (apartado 16.3.5)
 inline void random_delay(){
       srand(time(NULL));
-      usleep((rand() % 100));
+      usleep((rand() % 70));
 }
 
 #endif

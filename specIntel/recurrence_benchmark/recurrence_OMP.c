@@ -5,10 +5,8 @@
 #include <string.h>
 #include <stdint.h>
 #include <omp.h>
-#include "tm.h"
-//#include "thread.h"
-//RIC paso de timerutils y pongo el de stamp
-//#include "timerutils.h"
+#include "lib/barriers.h"
+#include "lib/stats.h"
 #include "timer.h"
 
 #include <unistd.h>
@@ -20,7 +18,7 @@
 #define DEF_N 5000
 #define DEF_DUMP 0
 #define DEF_CHUNK 1
-#define DEF_NTH 2
+#define DEF_NTH 64
 #define DEF_SEED 1
 #define DEF_DUMPF "recurrence.dump"
 #define DEF_VERBOSE 0
@@ -52,12 +50,12 @@ typedef struct
   char name[100];
 } params_t;
 
-void initParams(params_t *p)
+void initParams(params_t *p, char **argv)
 {
-  p->n = DEF_N;
+  p->n = argv[1];
   p->dump = DEF_DUMP;
   p->chunk = DEF_CHUNK;
-  p->nthreads = DEF_NTH;
+  p->nthreads = argv[2];
   p->seed = DEF_SEED;
   p->verbose = DEF_VERBOSE;
   strncpy(p->dumpfile, DEF_DUMPF, 100);
@@ -166,7 +164,7 @@ void kernel_Histogram(void *p)
 #pragma omp parallel
   {
     int k, t, c, limit, tid, start, stop, cstart, cstop;
-    TM_THREAD_ENTER();
+    TX_DESCRIPTOR_INIT();
     tid = omp_get_thread_num();
     limit = N / numTh;
     //if (N % numTh) limit++; //RIC dependiendo de los valores de entrada puede que algún thread se quede sin trabajo
@@ -198,9 +196,9 @@ void kernel_Histogram(void *p)
             break;
         } //TM_STOP(tid);
       }
-      TM_BARRIER(tid);
+      SB_BARRIER(tid);
       //#pragma omp barrier
-    }TM_LAST_BARRIER(tid);
+    }LAST_BARRIER(tid);
   }
 }
 
@@ -211,19 +209,25 @@ int main(int argc, char **argv)
   TIMER_T stop;
 
   params_t params;
+  
+  if (argc < 2)
+  {
+    printf("Usage: %s <n> <nthreads>\n", argv[0]);
+    exit(1);
+  }
 
-  initParams(&params);
+  initParams(&params,argv);
   printParams(params);
 
   //RIC inicio las estadísticas para Power 8
-  if (!statsFileInit(params.nthreads,4))
+  if (!statsFileInit(argc,argv,params.nthreads,MAX_XACT_IDS))
   { //RIC para las estadísticas
     printf("Error abriendo o inicializando el archivo de estadísticas.\n");
     return 0;
   }
 
   omp_set_num_threads(params.nthreads);
-  TM_STARTUP(params.nthreads);
+  BARRIER_DESCRIPTOR_INIT(params.nthreads);
   printf("Initializing arrays... ");
   fflush(stdout);
   initArrays(params);

@@ -75,15 +75,6 @@ int dumpStats()
   fprintf(f, "-----------------------------------------\nOutput file: %s\n----------------- Stats -----------------\n", fname);
   fprintf(f, "#Threads: %li\n", threadCount);
 
-  fprintf(f, "Begins: ");
-  for (j = 0, tmp = 0; j < xactCount; j++)
-  {
-    fprintf(f, "XID%d: ", j);
-    for (i = 0; i < threadCount; tmp += stats[i++][j].xbeginCount)
-      fprintf(f, "%lu ", stats[i][j].xbeginCount);
-  }
-  fprintf(f, "Total: %lu\n", tmp);
-
   fprintf(f, "Abort Count:");
   for (j = 0, tmp = 0; j < xactCount; j++)
   {
