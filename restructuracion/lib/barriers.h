@@ -5,6 +5,9 @@
 #include <stdio.h>
 #include <assert.h>
 #include <stdint.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <time.h>
 
 /* IMPORTANTE: en este archivo se encuentran tanto las macros dedicadas a las barreras como las dedicadas a 
    las transacciones. Estas transacciones son especiales y están adaptadas a las barreras, si se quiere implementar
@@ -162,10 +165,14 @@ __p_failure:                                                                    
         if(tx.specMax > 1) tx.specMax--;                                        \
         tx.specLevel = tx.specMax;                                              \
       }                                                                         \
+      if ( (tx.status & _XABORT_RETRY) && (tx.status & _XABORT_CONFLICT)){          \
+          random_delay();                                                        \
+      }                                                                         \
       while (g_fallback_lock.ticket >= g_fallback_lock.turn);                   \
-      if((tx.status = _xbegin()) != _XBEGIN_STARTED) goto __p_failure;                                \
+      if((tx.status = _xbegin()) != _XBEGIN_STARTED) {goto __p_failure;}        \
+      else{ profileInit(thId, SPEC_XACT_ID);}                                   \
       if (g_fallback_lock.ticket >= g_fallback_lock.turn)                       \
-        _xabort(LOCK_TAKEN);/*Early subscription*/                       \
+        _xabort(LOCK_TAKEN);/*Early subscription*/                              \
     }                                                                           \
   }
 
@@ -290,5 +297,12 @@ typedef struct fback_lock {
 } __attribute__ ((aligned (CACHE_BLOCK_SIZE))) fback_lock_t;
 
 extern fback_lock_t g_fallback_lock;
+
+// Función para implementar un delay antes de reintentar la transacción después de un aborto por conflicto
+// Recomendado por el manual optimization reference de intel (apartado 16.3.5)
+inline void random_delay(){
+      srand(time(NULL));
+      usleep((rand() % 100));
+}
 
 #endif

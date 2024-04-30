@@ -54,6 +54,7 @@ int statsFileInit(int argc, char **argv, long thCount, long xCount)
       stats[i][j].fallbackCount = 0;
       stats[i][j].retryCCount = 0;
       stats[i][j].retryFCount = 0;
+      stats[i][j].xbeginCount = 0;
     }
   }
 
@@ -73,6 +74,15 @@ int dumpStats()
   printf("Writing TM stats to: %s\n", fname);
   fprintf(f, "-----------------------------------------\nOutput file: %s\n----------------- Stats -----------------\n", fname);
   fprintf(f, "#Threads: %li\n", threadCount);
+
+  fprintf(f, "Begins: ");
+  for (j = 0, tmp = 0; j < xactCount; j++)
+  {
+    fprintf(f, "XID%d: ", j);
+    for (i = 0; i < threadCount; tmp += stats[i++][j].xbeginCount)
+      fprintf(f, "%lu ", stats[i][j].xbeginCount);
+  }
+  fprintf(f, "Total: %lu\n", tmp);
 
   fprintf(f, "Abort Count:");
   for (j = 0, tmp = 0; j < xactCount; j++)

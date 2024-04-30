@@ -38,6 +38,7 @@ struct Stats
   unsigned long int fallbackCount;       //Número de fallbacks
   unsigned long int retryCCount;         //Número de retries de las que commitan
   unsigned long int retryFCount;         //Número de retries de las que entran en fallback
+  unsigned long int xbeginCount;         //Número de transacciones que se han abierto
   volatile char pad2[CACHE_BLOCK_SIZE];
 };
 
@@ -111,5 +112,10 @@ inline void profileFallback(long thread, long xid, long retries)
 {
   stats[thread][xid].fallbackCount++;
   stats[thread][xid].retryFCount += retries;
+}
+
+inline void profileInit(long thread, long xid)
+{
+  stats[thread][xid].xbeginCount++;
 }
 #endif
