@@ -47,7 +47,7 @@ extern struct Stats **stats;
 
 //Funciones para el fichero de estadísticas
 int statsFileInit(int argc, char **argv, long thCount, long xCount);
-int dumpStats();
+int dumpStats(double time);
 
 // Funciones de profile de estadísticas (hechas inline para mejorar el rendimiento)
 

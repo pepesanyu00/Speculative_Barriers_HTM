@@ -61,7 +61,7 @@ int statsFileInit(int argc, char **argv, long thCount, long xCount)
   return 1;
 }
 
-int dumpStats()
+int dumpStats(double time)
 {
   FILE *f;
   int i, j;
@@ -74,6 +74,7 @@ int dumpStats()
   printf("Writing TM stats to: %s\n", fname);
   fprintf(f, "-----------------------------------------\nOutput file: %s\n----------------- Stats -----------------\n", fname);
   fprintf(f, "#Threads: %li\n", threadCount);
+  fprintf(f, "time: %f\n", time);
 
   fprintf(f, "Abort Count:");
   for (j = 0, tmp = 0; j < xactCount; j++)

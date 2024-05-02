@@ -52,10 +52,10 @@ typedef struct
 
 void initParams(params_t *p, char **argv)
 {
-  p->n = argv[1];
+  p->n = atoi(argv[1]);
   p->dump = DEF_DUMP;
   p->chunk = DEF_CHUNK;
-  p->nthreads = argv[2];
+  p->nthreads = atoi(argv[2]);
   p->seed = DEF_SEED;
   p->verbose = DEF_VERBOSE;
   strncpy(p->dumpfile, DEF_DUMPF, 100);
@@ -256,7 +256,7 @@ int main(int argc, char **argv)
     printf("Check was wrong!!!!\n");
   fflush(stdout);
   //RIC
-  if (!dumpStats())
+  if (!dumpStats(TIMER_DIFF_SECONDS(start, stop)))
     printf("Error volcando las estadísticas.\n");
   
   return 0;

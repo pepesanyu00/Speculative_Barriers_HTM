@@ -19,7 +19,7 @@
 #define PATH_RESULTS "./results/"
 
 #define DTYPE double        /* DATA TYPE */
-#define ITYPE uint64_t /* INDEX TYPE */
+#define ITYPE uint16_t /* INDEX TYPE */
 
 #define ALIGN 64
 
@@ -431,7 +431,7 @@ int main(int argc, char *argv[])
     statsFile.close();
     cout << endl;
 
-    if(!dumpStats()){
+    if(!dumpStats(telapsed.count())){
       cout << "Error volcando las estadísticas." << endl;
     }
 
