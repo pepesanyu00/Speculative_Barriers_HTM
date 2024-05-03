@@ -313,8 +313,9 @@ extern fback_lock_t g_fallback_lock;
 // Función para implementar un delay antes de reintentar la transacción después de un aborto por conflicto
 // Recomendado por el manual optimization reference de intel (apartado 16.3.5)
 inline void random_delay(){
-      srand(time(NULL));
-      usleep((rand() % 70));
+      //srand(time(NULL));
+      //usleep((rand() % 10));
+      usleep(9);
 }
 
 #endif
