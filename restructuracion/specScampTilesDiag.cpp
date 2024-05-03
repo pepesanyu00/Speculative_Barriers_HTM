@@ -309,6 +309,7 @@ int main(int argc, char *argv[])
     // Set the exclusion zone to 0.25
     exclusionZone = (ITYPE)(windowSize * 0.25);
     omp_set_num_threads(numThreads);
+    srand(time(NULL));
 
     vector<DTYPE> tSeries;
     string inputfilename = argv[1];

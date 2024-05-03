@@ -1,0 +1,21 @@
+-----------------------------------------
+Output file: stats/64426.stats
+----------------- Stats -----------------
+#Threads: 16
+time: 0.075844
+Abort Count: XID0: 565 591 703 693 491 644 464 516 645 354 425 532 577 543 505 485 Total: 8733
+Explicit aborts: XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  Total: 0
+  »     Subs: XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  Total: 0
+Retry aborts: XID0: 294 360 393 420 326 388 314 329 402 245 281 318 392 360 338 323  Total: 5483
+  »     Conflict: XID0: 294 360 393 420 326 388 314 329 402 245 281 318 392 360 338 323  Total: 5483
+  »     Capacity: XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  Total: 0
+Conflict aborts: XID0: 302 377 408 436 335 404 322 342 408 261 294 337 409 372 349 340  Total: 5696
+Capacity aborts: XID0: 263 213 295 255 155 239 141 174 235 93 130 194 166 171 156 145  Total: 3025
+Debug aborts: XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  Total: 0
+Nested aborts: XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  Total: 0
+eax=0 aborts: XID0: 0 1 0 2 1 1 1 0 2 0 1 1 2 0 0 0  Total: 12
+Commits: XID0: 3 7 8 8 8 8 8 9 10 7 8 7 10 10 7 5  Total: 123
+Fallbacks: XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  Total: 0
+RetriesCommited: XID0: 24 115 129 152 72 141 90 126 176 95 145 95 134 184 88 50 Total: 1816 PerXact: 14.764228
+RetriesFallbacked: XID0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 Total: 0 PerXact: -nan
+RetriesAvg: 14.764228
