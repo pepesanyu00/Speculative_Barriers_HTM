@@ -77,11 +77,15 @@
     {                                                                          \
       unsigned int myticket = __sync_add_and_fetch(&(g_ticketlock.ticket), 1); \
       while (myticket != g_ticketlock.turn)                                    \
+        BEGIN_ESCAPE;                                                         \
         CPU_RELAX();                                                           \
+        END_ESCAPE;                                                           \
       break;                                                                   \
     }                                                                          \
     while (g_ticketlock.ticket >= g_ticketlock.turn)                           \
+      BEGIN_ESCAPE;                                                           \
       CPU_RELAX(); /* Avoid Lemming effect */                                  \
+      END_ESCAPE;                                                             \
   } while ((tx.status = _xbegin()) != _XBEGIN_STARTED)
 
 

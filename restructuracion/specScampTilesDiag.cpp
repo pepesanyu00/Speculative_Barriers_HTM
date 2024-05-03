@@ -19,7 +19,7 @@
 #define PATH_RESULTS "./results/"
 
 #define DTYPE double        /* DATA TYPE */
-#define ITYPE uint16_t /* INDEX TYPE */
+#define ITYPE uint64_t /* INDEX TYPE */
 
 #define ALIGN 64
 
@@ -143,7 +143,7 @@ void scamp(vector<DTYPE> &tSeries, vector<DTYPE> &means, vector<DTYPE> &norms,
           for (ITYPE wi = 0; wi < windowSize; wi++){
             covariance += ((tSeries[i + wi] - means[i]) * (tSeries[jj + wi] - means[jj]));
           }
-          //CHECK_SPEC(tid, 0);
+          CHECK_SPEC(tid, 0);
           correlation = covariance * norms[i] * norms[jj];
 
           if (correlation > profile[i])
@@ -435,8 +435,8 @@ int main(int argc, char *argv[])
       cout << "Error volcando las estadísticas." << endl;
     }
 
-    ALIGNED_ARRAY_DEL(profile);
-    ALIGNED_ARRAY_DEL(profileIndex);
+    //ALIGNED_ARRAY_DEL(profile);
+    //ALIGNED_ARRAY_DEL(profileIndex);
     return 0;
   }
   catch (exception &e)

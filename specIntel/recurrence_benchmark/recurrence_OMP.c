@@ -15,7 +15,7 @@
 
 #define ABS(a) (((a) > 0) ? (a) : -1 * (a))
 
-#define DEF_N 5000
+#define DEF_N 10000
 #define DEF_DUMP 0
 #define DEF_CHUNK 1
 #define DEF_NTH 64

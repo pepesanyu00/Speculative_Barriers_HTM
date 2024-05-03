@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "immintrin.h": "c",
-        "stdint.h": "c"
+        "stdint.h": "c",
+        "ostream": "cpp"
     }
 }
