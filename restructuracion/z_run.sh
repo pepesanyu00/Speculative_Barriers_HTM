@@ -10,20 +10,18 @@
 
 #Series cortas
 benchs=(#"./timeseries/power-MPIII-SVF_n180000.txt 1325"
-    "./timeseries/seismology-MPIII-SVE_n180000.txt 50"
+#    "./timeseries/seismology-MPIII-SVE_n180000.txt 50"
 #    "./timeseries/e0103_n40000.txt 500"
 #    "./timeseries/penguin_sample_TutorialMPweb.txt 800"
 #        "./timeseries/audio-MPIII-SVD.txt 200"
 #       "./timeseries/human_activity-MPIII-SVC.txt 120"
+#        series XL
+#        "./timeseries/power-MPIII-SVF.txt 1325"
+"./timeseries/e0103.txt 500"
+#       "./timeseries/seismology-MPIII-SVE.txt 50"
 )
 
 
-
-#Series largas: 1.8M de muestras
-#benchs=(#"./timeseries/power-MPIII-SVF.txt 1325"
-#"./timeseries/e0103.txt 500"
-#"./timeseries/seismology-MPIII-SVE.txt 50"
-#)
 
 hilos="1 2 4 8 16 32 64 96"
 n=2

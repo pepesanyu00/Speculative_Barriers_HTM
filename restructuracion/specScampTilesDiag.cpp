@@ -99,7 +99,6 @@ void scamp(vector<DTYPE> &tSeries, vector<DTYPE> &means, vector<DTYPE> &norms,
   // Private structures
   //vector<DTYPE> profile_tmp(profileLength * numThreads);
   //vector<ITYPE> profileIndex_tmp(profileLength * numThreads);
-
 #pragma omp parallel //proc_bind(spread)
   {
     TX_DESCRIPTOR_INIT();
@@ -436,8 +435,8 @@ int main(int argc, char *argv[])
       cout << "Error volcando las estadísticas." << endl;
     }
 
-    //ALIGNED_ARRAY_DEL(profile);
-    //ALIGNED_ARRAY_DEL(profileIndex);
+    ALIGNED_ARRAY_DEL(profile);
+    ALIGNED_ARRAY_DEL(profileIndex);
     return 0;
   }
   catch (exception &e)

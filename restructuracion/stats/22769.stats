@@ -1,0 +1,21 @@
+-----------------------------------------
+Output file: stats/22769.stats
+----------------- Stats -----------------
+#Threads: 4
+time: 719.294107
+Abort Count: XID0: 4878549 5095862 3726750 4642798 Total: 18343959
+Explicit aborts: XID0: 0 0 0 0  Total: 0
+  »     Subs: XID0: 0 0 0 0  Total: 0
+Retry aborts: XID0: 96756 71268 79400 71709  Total: 319133
+  »     Conflict: XID0: 96756 71268 79400 71709  Total: 319133
+  »     Capacity: XID0: 0 0 0 0  Total: 0
+Conflict aborts: XID0: 102347 76450 83104 76442  Total: 338343
+Capacity aborts: XID0: 495187 425681 522809 453664  Total: 1897341
+Debug aborts: XID0: 0 0 0 0  Total: 0
+Nested aborts: XID0: 0 0 0 0  Total: 0
+eax=0 aborts: XID0: 4281015 4593731 3120837 4112692  Total: 16108275
+Commits: XID0: 0 4 3 1  Total: 8
+Fallbacks: XID0: 0 0 0 0  Total: 0
+RetriesCommited: XID0: 0 20994 11640 22 Total: 32656 PerXact: 4082.000000
+RetriesFallbacked: XID0: 0 0 0 0 Total: 0 PerXact: -nan
+RetriesAvg: 4082.000000

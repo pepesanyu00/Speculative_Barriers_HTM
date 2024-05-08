@@ -179,7 +179,10 @@ __p_failure:                                                                    
         tx.specLevel = tx.specMax;                                              \
       }                                                                         \
       if ( (tx.status & _XABORT_RETRY) && (tx.status & _XABORT_CONFLICT)){          \
-        random_delay();                                                        \
+            BEGIN_ESCAPE;                                                       \
+              srand(time(NULL));                                                 \
+            usleep((rand() % 10));                                              \
+            END_ESCAPE;                                                         \
       }                                                                         \
       while (g_fallback_lock.ticket >= g_fallback_lock.turn);                   \
       if((tx.status = _xbegin()) != _XBEGIN_STARTED) {goto __p_failure;}        \
@@ -312,9 +315,11 @@ extern fback_lock_t g_fallback_lock;
 
 // Función para implementar un delay antes de reintentar la transacción después de un aborto por conflicto
 // Recomendado por el manual optimization reference de intel (apartado 16.3.5)
-inline void random_delay(){
+/*inline void random_delay(){
+      BEGIN_ESCAPE;
       usleep((rand() % 10));
+      END_ESCAPE;
       //usleep(9);
-}
+}*/
 
 #endif
