@@ -114,9 +114,11 @@ void scamp(vector<DTYPE> &tSeries, vector<DTYPE> &means, vector<DTYPE> &norms,
     for (ITYPE tileii = 0; tileii < profileLength; tileii += maxTileHeight)
     {
       //Sin protección en el acceso al profile hace falta barrera
+    //BEGIN_ESCAPE;
 #pragma omp for schedule(dynamic) nowait
       for (ITYPE tilej = tileii; tilej < profileLength; tilej += maxTileWidth)
       {
+              //END_ESCAPE;
         //Para recorrer en diagonal los tiles
         ITYPE tilei = tilej - tileii;
         //Para recorrer en el orden de los for
@@ -260,6 +262,7 @@ void scamp(vector<DTYPE> &tSeries, vector<DTYPE> &means, vector<DTYPE> &norms,
           cout << "Lower triangle | tid: " << tid << " tilei(ini,fin): " << iini << "," << ifin << " tilej(ini,fin): " << jini << "," << jfin << endl;
 #endif
         }
+        //BEGIN_ESCAPE;
       }SB_BARRIER(tid); //Barrera implícita omp si no se pone nowait
 #ifdef DEBUG
       cout << "PASADA LA BARRERA -------------------------------------------------" << endl;
@@ -308,7 +311,6 @@ int main(int argc, char *argv[])
     // Set the exclusion zone to 0.25
     exclusionZone = (ITYPE)(windowSize * 0.25);
     omp_set_num_threads(numThreads);
-    srand(time(NULL));
 
     vector<DTYPE> tSeries;
     string inputfilename = argv[1];
