@@ -15,7 +15,7 @@
 #define CACHE_BLOCK_SIZE 128
 
 #define MAX_THREADS 128
-#define MAX_SPEC    4
+#define MAX_SPEC    2
 #define MAX_RETRIES 5
 
 // Esta macro siempre debe coincidir con el número de transacciones(xacts) que se pasen a statsFileInit, sino las estadísticas estarán mal.
@@ -149,6 +149,12 @@ __p_failure:                                                                    
         if(tx.specMax > 1) tx.specMax--;                                        \
         tx.specLevel = tx.specMax;                                              \
       }                                                                         \
+      if(_TEXASRU_TRANSACTION_CONFLICT(__p_abortCause) || _TEXASRU_FOOTPRINT_OVERFLOW(__p_abortCause)){			\
+	BEGIN_ESCAPE;								\
+	srand(time(NULL));							\
+	END_ESCAPE;								\
+	usleep((rand() % 10));							\
+      }										\
       while (g_fallback_lock.ticket >= g_fallback_lock.turn);                   \
       if(!__builtin_tbegin(0)) goto __p_failure;                                \
       if (g_fallback_lock.ticket >= g_fallback_lock.turn)                       \
@@ -184,7 +190,7 @@ __p_failure:                                                                    
     while(tx.order > g_specvars.tx_order) ;                                     \
   }
 
-#define CHECK_SPEC(thId, xId)                                                      \
+#define CHECK_SPEC(thId)                                                      \
       if(tx.speculative) {                                                      \
         BEGIN_ESCAPE;                                                           \
         if (tx.order <= g_specvars.tx_order) {                                  \
@@ -198,8 +204,6 @@ __p_failure:                                                                    
         } else {                                                                \
           END_ESCAPE;                                                           \
           /* If we can not, decrement our speclevel */                          \
-          tx.specLevel--;                                                       \
-          if (tx.specLevel == 0) {                                              \
             BEGIN_ESCAPE;                                                       \
             while (tx.order > g_specvars.tx_order);                             \
             END_ESCAPE;                                                         \
@@ -209,7 +213,6 @@ __p_failure:                                                                    
             tx.speculative = 0;                                                 \
             tx.retries = 0;                                                     \
             tx.specLevel = tx.specMax;                                          \
-          }                                                                     \
         }                                                                       \
       }
 
@@ -246,6 +249,7 @@ typedef struct tm_tx {
                              * This is decremented in xact. mode when a nested xact.
                              * reaches commit but have to remain in speculative mode.
                              * It is also reset after a successful commit. */
+  uint32_t capAbort;
   uint8_t pad2[CACHE_BLOCK_SIZE-sizeof(uint32_t)*3-sizeof(uint8_t)];
 } __attribute__ ((aligned (CACHE_BLOCK_SIZE))) tm_tx_t;
 

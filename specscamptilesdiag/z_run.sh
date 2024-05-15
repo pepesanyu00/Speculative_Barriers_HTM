@@ -19,8 +19,9 @@ export OMP_PLACES=cores
 
 
 #Series largas: 1.8M de muestras
-# "./timeseries/e0103.txt 500"
-benchs=("./timeseries/seismology-MPIII-SVE.txt 50")
+benchs=( "./timeseries/e0103.txt 500"
+#"./timeseries/seismology-MPIII-SVE.txt 50"
+)
 
 hilos="1 2 4 8 16 32 64 128"
 n=2

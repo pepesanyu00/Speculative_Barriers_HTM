@@ -88,12 +88,12 @@ inline unsigned long profileAbortStatus(texasru_t cause, long thread, long xid) 
   return 0;
 }
 
-void profileCommit(long thread, long xid, long retries) {
+inline void profileCommit(long thread, long xid, long retries) {
   stats[thread][xid].xcommitCount++;
   stats[thread][xid].retryCCount += retries;
 }
 
-void profileFallback(long thread, long xid, long retries) {
+inline void profileFallback(long thread, long xid, long retries) {
   stats[thread][xid].fallbackCount++;
   stats[thread][xid].retryFCount += retries;
 }

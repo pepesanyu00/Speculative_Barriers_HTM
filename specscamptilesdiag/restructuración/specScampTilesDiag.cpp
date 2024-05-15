@@ -145,9 +145,7 @@ void scamp(vector<DTYPE> &tSeries, vector<DTYPE> &means, vector<DTYPE> &norms,
           covariance = 0;
           for (ITYPE wi = 0; wi < windowSize; wi++)
             covariance += ((tSeries[i + wi] - means[i]) * (tSeries[jj + wi] - means[jj]));
-
           correlation = covariance * norms[i] * norms[jj];
-
           if (correlation > profile[i])
           {
             profile[i] = correlation; //Actúo sobre el array global
@@ -165,7 +163,7 @@ void scamp(vector<DTYPE> &tSeries, vector<DTYPE> &means, vector<DTYPE> &norms,
           {
             covariance += (df[i - 1] * dg[jjj - 1] + df[jjj - 1] * dg[i - 1]);
             correlation = covariance * norms[i] * norms[jjj];
-
+	    //CHECK_SPEC(tid);
             if (correlation > profile[i])
             {
               profile[i] = correlation;
@@ -176,6 +174,7 @@ void scamp(vector<DTYPE> &tSeries, vector<DTYPE> &means, vector<DTYPE> &norms,
               profile[jjj] = correlation;
               profileIndex[jjj] = i;
             }
+	   //CHECK_SPEC(tid);
 
 #ifdef DEBUG
             jfin = jjj;
