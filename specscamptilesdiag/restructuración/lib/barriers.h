@@ -149,12 +149,6 @@ __p_failure:                                                                    
         if(tx.specMax > 1) tx.specMax--;                                        \
         tx.specLevel = tx.specMax;                                              \
       }                                                                         \
-      if(_TEXASRU_TRANSACTION_CONFLICT(__p_abortCause)){			\
-	BEGIN_ESCAPE;								\
-	srand(time(NULL));							\
-	END_ESCAPE;								\
-	usleep((rand() % 10));							\
-      }										\
       while (g_fallback_lock.ticket >= g_fallback_lock.turn);                   \
       if(!__builtin_tbegin(0)) goto __p_failure;                                \
       if (g_fallback_lock.ticket >= g_fallback_lock.turn)                       \
