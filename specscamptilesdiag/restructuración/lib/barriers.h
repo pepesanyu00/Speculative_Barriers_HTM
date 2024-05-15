@@ -149,7 +149,7 @@ __p_failure:                                                                    
         if(tx.specMax > 1) tx.specMax--;                                        \
         tx.specLevel = tx.specMax;                                              \
       }                                                                         \
-      if(_TEXASRU_TRANSACTION_CONFLICT(__p_abortCause) || _TEXASRU_FOOTPRINT_OVERFLOW(__p_abortCause)){			\
+      if(_TEXASRU_TRANSACTION_CONFLICT(__p_abortCause)){			\
 	BEGIN_ESCAPE;								\
 	srand(time(NULL));							\
 	END_ESCAPE;								\
