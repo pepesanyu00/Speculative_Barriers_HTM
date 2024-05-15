@@ -149,10 +149,11 @@ __p_failure:                                                                    
         if(tx.specMax > 1) tx.specMax--;                                        \
         tx.specLevel = tx.specMax;                                              \
       }                                                                         \
-      while (g_fallback_lock.ticket >= g_fallback_lock.turn);                   \
+      if(_TEXASRU_TRANSACTION_CONFLICT(__p_abortCause) || _TEXASRU_FOOTPRINT_OVERFLOW(__p_abortCause)){			\
+        srand(time(NULL));							                                        \
+        usleep((rand() % 10));							                                    \
+      }										                                                      \
       if(!__builtin_tbegin(0)) goto __p_failure;                                \
-      if (g_fallback_lock.ticket >= g_fallback_lock.turn)                       \
-      __builtin_tabort(LOCK_TAKEN);/*Early subscription*/                       \
     }                                                                           \
   }
 
