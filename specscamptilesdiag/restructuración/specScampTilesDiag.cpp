@@ -143,8 +143,8 @@ void scamp(vector<DTYPE> &tSeries, vector<DTYPE> &means, vector<DTYPE> &norms,
           //Si no, el upper triangle tb se calcula
           //Triángulo superior
           covariance = 0;
-          for (ITYPE wi = 0; wi < windowSize; wi++)
           BEGIN_ESCAPE;
+          for (ITYPE wi = 0; wi < windowSize; wi++)
             covariance += ((tSeries[i + wi] - means[i]) * (tSeries[jj + wi] - means[jj]));
           correlation = covariance * norms[i] * norms[jj];
           END_ESCAPE;
@@ -218,11 +218,11 @@ void scamp(vector<DTYPE> &tSeries, vector<DTYPE> &means, vector<DTYPE> &norms,
             //Si no, el upper triangle tb se calcula
             //Triángulo superior
             covariance = 0;
-            for (ITYPE wi = 0; wi < windowSize; wi++)
             BEGIN_ESCAPE;
+            for (ITYPE wi = 0; wi < windowSize; wi++)
               covariance += ((tSeries[ii + wi] - means[ii]) * (tSeries[j + wi] - means[j]));
-            END_ESCAPE;
             correlation = covariance * norms[ii] * norms[j];
+            END_ESCAPE;
 
             if (correlation > profile[ii])
             {
