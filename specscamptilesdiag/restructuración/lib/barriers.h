@@ -153,11 +153,7 @@ __p_failure:                                                                    
         tx.specLevel = tx.specMax;                                              \
       }                                                                         \
       if(_TEXASRU_FAILURE_PERSISTENT(__p_abortCause)){                         \
-          if (_TEXASRU_FOOTPRINT_OVERFLOW(__p_abortCause) && tx.capRetries < MAX_CAPACITY_RETRIES ){                     \
-            tx.capRetries++;                                                    \
-            if(!__builtin_tbegin(0)) goto __p_failure;                                \
-          } else{                                                             \
-            while (tx.order > g_specvars.tx_order);                               \
+          if (_TEXASRU_FOOTPRINT_OVERFLOW(__p_abortCause) ){                     \
             tx.speculative = 0;                                                   \
             tx.retries = 0;                                                       \
             tx.specLevel = tx.specMax;                                            \
