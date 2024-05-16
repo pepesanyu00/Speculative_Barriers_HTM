@@ -123,10 +123,10 @@ __p_failure:                                                                    
     tx.speculative = 0;                                                         \
     tx.retries = 0;                                                             \
     tx.specLevel = tx.specMax;                                                  \
+    __builtin_set_texasru (0);                                        \
   }                                                                             \
   /* We are now in speculative mode until global order increases */             \
   tx.order += 1;                                                                \
-  __builtin_set_texasru (0);                                        \
   /* Determine if thread is last to enter the barrier */                        \
   if (__sync_add_and_fetch(&(g_specvars.barrier.remain),-1) == 0) {             \
     /* If we are last thread to enter in barrier, reset & update global order.  
@@ -152,7 +152,7 @@ __p_failure:                                                                    
         if(tx.specMax > 1) tx.specMax--;                                        \
         tx.specLevel = tx.specMax;                                              \
       }                                                                         \
-      if(_TEXASRU_FAILURE_PERSISTENT(__p_abortCause) || tx.retries >= 100){                         \
+      if(_TEXASRU_FAILURE_PERSISTENT(__p_abortCause)){                         \
           if (_TEXASRU_FOOTPRINT_OVERFLOW(__p_abortCause) && tx.capRetries < MAX_CAPACITY_RETRIES ){                     \
             tx.capRetries++;                                                    \
             if(!__builtin_tbegin(0)) goto __p_failure;                                \
