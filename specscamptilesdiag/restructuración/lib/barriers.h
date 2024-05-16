@@ -115,7 +115,6 @@ __p_failure:                                                                    
   /* Now, barrier IS SAFE if a thread re-enters the barrier before it have been reset */ \
   if (tx.speculative) {                                                         \
     BEGIN_ESCAPE;                                                               \
-    while (tx.order > g_specvars.tx_order);                                     \
     END_ESCAPE;                                                                 \
     __builtin_tend(0);                                                          \
     profileCommit(thId, SPEC_XACT_ID, tx.retries-1);                            \
@@ -153,7 +152,6 @@ __p_failure:                                                                    
       }                                                                         \
       if(_TEXASRU_FAILURE_PERSISTENT(__p_abortCause)){                         \
           if (_TEXASRU_FOOTPRINT_OVERFLOW(__p_abortCause) ){                     \
-              while (tx.order > g_specvars.tx_order);                                     \
             tx.speculative = 0;                                                   \
             tx.retries = 0;                                                       \
             tx.specLevel = tx.specMax;                                            \
