@@ -151,7 +151,7 @@ __p_failure:                                                                    
         if(tx.specMax > 1) tx.specMax--;                                        \
         tx.specLevel = tx.specMax;                                              \
       }                                                                         \
-      if(_TEXASRU_FAILURE_PERSISTENT(__p_abortCause) || tx.retries >= 500){                         \
+      if(_TEXASRU_FAILURE_PERSISTENT(__p_abortCause) || tx.retries >= 100){                         \
           if (_TEXASRU_FOOTPRINT_OVERFLOW(__p_abortCause) && tx.capRetries < MAX_CAPACITY_RETRIES ){                     \
             tx.capRetries++;                                                    \
           } else{                                                             \
