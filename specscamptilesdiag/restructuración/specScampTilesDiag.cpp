@@ -219,7 +219,6 @@ void scamp(vector<DTYPE> &tSeries, vector<DTYPE> &means, vector<DTYPE> &norms,
             //Triángulo superior
             covariance = 0;
             BEGIN_ESCAPE;
-            cout << tx.speculative << " spec" << endl;
             for (ITYPE wi = 0; wi < windowSize; wi++)
               covariance += ((tSeries[ii + wi] - means[ii]) * (tSeries[j + wi] - means[j]));
             correlation = covariance * norms[ii] * norms[j];
