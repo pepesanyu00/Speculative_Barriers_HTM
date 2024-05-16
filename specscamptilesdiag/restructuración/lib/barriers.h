@@ -17,7 +17,7 @@
 #define MAX_THREADS 128
 #define MAX_SPEC    2
 #define MAX_RETRIES 5
-#define MAX_CAPACITY_RETRIES 4
+#define MAX_CAPACITY_RETRIES 50000
 
 // Esta macro siempre debe coincidir con el número de transacciones(xacts) que se pasen a statsFileInit, sino las estadísticas estarán mal.
 #define MAX_XACT_IDS 1
