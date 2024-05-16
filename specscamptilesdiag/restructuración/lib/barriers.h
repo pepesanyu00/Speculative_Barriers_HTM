@@ -163,7 +163,7 @@ __p_failure:                                                                    
       } else {                                                                  \
         if(_TEXASRU_TRANSACTION_CONFLICT(__p_abortCause)){			                \
           srand(time(NULL));							                                      \
-          usleep((rand() % 20));							                                  \
+          usleep((rand() % 30));							                                  \
         }										                                                    \
         if(!__builtin_tbegin(0)) goto __p_failure;                                \
       }                                                                         \
