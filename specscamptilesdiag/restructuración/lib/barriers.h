@@ -17,6 +17,7 @@
 #define MAX_THREADS 128
 #define MAX_SPEC    2
 #define MAX_RETRIES 5
+#define MAX_CAPACITY_RETRIES 4
 
 // Esta macro siempre debe coincidir con el número de transacciones(xacts) que se pasen a statsFileInit, sino las estadísticas estarán mal.
 #define MAX_XACT_IDS 1
@@ -149,11 +150,21 @@ __p_failure:                                                                    
         if(tx.specMax > 1) tx.specMax--;                                        \
         tx.specLevel = tx.specMax;                                              \
       }                                                                         \
-      if(_TEXASRU_TRANSACTION_CONFLICT(__p_abortCause) || _TEXASRU_FOOTPRINT_OVERFLOW(__p_abortCause)){			\
-        srand(time(NULL));							                                        \
-        usleep((rand() % 10));							                                    \
-      }										                                                      \
-      if(!__builtin_tbegin(0)) goto __p_failure;                                \
+      if(!_TEXASRU_FAILURE_PERSISTENT(__p_abortCause) || tx.capRetries >= MAX_CAPACITY_RETRIES){                         \
+          while (tx.order > g_specvars.tx_order);                               \
+          tx.speculative = 0;                                                   \
+          tx.retries = 0;                                                       \
+          tx.specLevel = tx.specMax;                                            \
+      } else {                                                                  \
+        if(_TEXASRU_TRANSACTION_CONFLICT(__p_abortCause)){			                \
+          srand(time(NULL));							                                      \
+          usleep((rand() % 10));							                                  \
+        }										                                                    \
+        if(_TEXASRU_FOOTPRINT_OVERFLOW(__p_abortCause)){			                  \
+          tx.capRetries++;							                                        \
+        }										                                                    \
+        if(!__builtin_tbegin(0)) goto __p_failure;                                \
+      }                                                                         \
     }                                                                           \
   }
 
@@ -244,7 +255,7 @@ typedef struct tm_tx {
                              * This is decremented in xact. mode when a nested xact.
                              * reaches commit but have to remain in speculative mode.
                              * It is also reset after a successful commit. */
-  uint32_t capAbort;
+  uint32_t capRetries;
   uint8_t pad2[CACHE_BLOCK_SIZE-sizeof(uint32_t)*3-sizeof(uint8_t)];
 } __attribute__ ((aligned (CACHE_BLOCK_SIZE))) tm_tx_t;
 
