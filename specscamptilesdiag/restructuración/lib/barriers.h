@@ -154,6 +154,7 @@ __p_failure:                                                                    
       if(_TEXASRU_FAILURE_PERSISTENT(__p_abortCause) || tx.retries >= 100){                         \
           if (_TEXASRU_FOOTPRINT_OVERFLOW(__p_abortCause) && tx.capRetries < MAX_CAPACITY_RETRIES ){                     \
             tx.capRetries++;                                                    \
+            if(!__builtin_tbegin(0)) goto __p_failure;                                \
           } else{                                                             \
             while (tx.order > g_specvars.tx_order);                               \
             tx.speculative = 0;                                                   \
