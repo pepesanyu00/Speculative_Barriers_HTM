@@ -114,9 +114,9 @@ __p_failure:                                                                    
 #define SB_BARRIER(thId)                                                        \
   /* Now, barrier IS SAFE if a thread re-enters the barrier before it have been reset */ \
   if (tx.speculative) {                                                         \
-    BEGIN_ESCAPE;                                                               \
-    while (tx.order > g_specvars.tx_order);                                     \
-    END_ESCAPE;                                                                 \
+    /*BEGIN_ESCAPE;  */                                                             \
+    /*while (tx.order > g_specvars.tx_order);*/                                     \
+    /*END_ESCAPE;                              */                                   \
     __builtin_tend(0);                                                          \
     profileCommit(thId, SPEC_XACT_ID, tx.retries-1);                            \
     /* Restore metadata */                                                      \
@@ -147,7 +147,6 @@ __p_failure:                                                                    
       tx.retries = 0;                                                           \
       tx.specLevel = tx.specMax;                                                \
     } else {                                                                    \
-      tx.speculative = 1;                                                       \
       if (tx.retries > MAX_RETRIES) {                                           \
         if(tx.specMax > 1) tx.specMax--;                                        \
         tx.specLevel = tx.specMax;                                              \
@@ -159,6 +158,7 @@ __p_failure:                                                                    
             tx.specLevel = tx.specMax;                                            \
           }                                                                     \
       } else {                                                                  \
+            tx.speculative = 1;                                                       \
         if(_TEXASRU_TRANSACTION_CONFLICT(__p_abortCause)){			                \
           srand(time(NULL));							                                      \
           usleep((rand() % 40));							                                  \
