@@ -151,18 +151,19 @@ __p_failure:                                                                    
         if(tx.specMax > 1) tx.specMax--;                                        \
         tx.specLevel = tx.specMax;                                              \
       }                                                                         \
-      if(tx.retries > 1 && (!_TEXASRU_FAILURE_PERSISTENT(__p_abortCause) || tx.capRetries >= MAX_CAPACITY_RETRIES)){                         \
-          while (tx.order > g_specvars.tx_order);                               \
-          tx.speculative = 0;                                                   \
-          tx.retries = 0;                                                       \
-          tx.specLevel = tx.specMax;                                            \
+      if(_TEXASRU_FAILURE_PERSISTENT(__p_abortCause)){                         \
+          if (_TEXASRU_FOOTPRINT_OVERFLOW(__p_abortCause) && tx.capRetries < MAX_CAPACITY_RETRIES ){                     \
+            tx.capRetries++;                                                    \
+          } else{                                                             \
+            while (tx.order > g_specvars.tx_order);                               \
+            tx.speculative = 0;                                                   \
+            tx.retries = 0;                                                       \
+            tx.specLevel = tx.specMax;                                            \
+          }                                                                     \
       } else {                                                                  \
         if(_TEXASRU_TRANSACTION_CONFLICT(__p_abortCause)){			                \
           srand(time(NULL));							                                      \
           usleep((rand() % 10));							                                  \
-        }										                                                    \
-        if(_TEXASRU_FOOTPRINT_OVERFLOW(__p_abortCause)){			                  \
-          tx.capRetries++;							                                        \
         }										                                                    \
         if(!__builtin_tbegin(0)) goto __p_failure;                                \
       }                                                                         \
