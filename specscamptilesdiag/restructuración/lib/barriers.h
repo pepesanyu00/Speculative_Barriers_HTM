@@ -160,7 +160,7 @@ __p_failure:                                                                    
             tx.speculative = 1;                                                       \
         if(_TEXASRU_TRANSACTION_CONFLICT(__p_abortCause)){			                \
           srand(time(NULL));							                                      \
-          usleep((rand() % 40));							                                  \
+          usleep((rand() % 10));							                                  \
         }										                                                    \
         if(!__builtin_tbegin(0)) goto __p_failure;                                \
       }                                                                         \
