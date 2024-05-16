@@ -144,7 +144,7 @@ void scamp(vector<DTYPE> &tSeries, vector<DTYPE> &means, vector<DTYPE> &norms,
           //Triángulo superior
           covariance = 0;
           BEGIN_ESCAPE;
-          cout << __builtin_tcheck() << endl;
+          cout << __builtin_ttest() << endl;
           for (ITYPE wi = 0; wi < windowSize; wi++)
             covariance += ((tSeries[i + wi] - means[i]) * (tSeries[jj + wi] - means[jj]));
           correlation = covariance * norms[i] * norms[jj];
