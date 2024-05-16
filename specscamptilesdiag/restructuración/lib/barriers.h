@@ -40,7 +40,8 @@
                                     tx.retries = 0;                             \
                                     tx.specMax = MAX_SPEC;                      \
                                     tx.specLevel = tx.specMax;                  \
-                                    tx.speculative = 0
+                                    tx.speculative = 0;                         \
+                                    tx.capRetries = 0
 
 
 // Inicializa las variables globales necesarias para las barreras
