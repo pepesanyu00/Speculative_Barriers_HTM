@@ -151,7 +151,7 @@ __p_failure:                                                                    
         if(tx.specMax > 1) tx.specMax--;                                        \
         tx.specLevel = tx.specMax;                                              \
       }                                                                         \
-      if(!_TEXASRU_FAILURE_PERSISTENT(__p_abortCause) || tx.capRetries >= MAX_CAPACITY_RETRIES){                         \
+      if(tx.retries > 1 && (!_TEXASRU_FAILURE_PERSISTENT(__p_abortCause) || tx.capRetries >= MAX_CAPACITY_RETRIES)){                         \
           while (tx.order > g_specvars.tx_order);                               \
           tx.speculative = 0;                                                   \
           tx.retries = 0;                                                       \
