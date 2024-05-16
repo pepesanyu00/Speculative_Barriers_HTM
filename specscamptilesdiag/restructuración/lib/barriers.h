@@ -114,9 +114,9 @@ __p_failure:                                                                    
 #define SB_BARRIER(thId)                                                        \
   /* Now, barrier IS SAFE if a thread re-enters the barrier before it have been reset */ \
   if (tx.speculative) {                                                         \
-    /*BEGIN_ESCAPE;  */                                                             \
-    /*while (tx.order > g_specvars.tx_order);*/                                     \
-    /*END_ESCAPE;                              */                                   \
+    BEGIN_ESCAPE;                                                               \
+    while (tx.order > g_specvars.tx_order);                                     \
+    END_ESCAPE;                                                                 \
     __builtin_tend(0);                                                          \
     profileCommit(thId, SPEC_XACT_ID, tx.retries-1);                            \
     /* Restore metadata */                                                      \
