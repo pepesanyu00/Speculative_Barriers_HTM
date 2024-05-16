@@ -146,8 +146,8 @@ void scamp(vector<DTYPE> &tSeries, vector<DTYPE> &means, vector<DTYPE> &norms,
           BEGIN_ESCAPE;
           for (ITYPE wi = 0; wi < windowSize; wi++)
             covariance += ((tSeries[i + wi] - means[i]) * (tSeries[jj + wi] - means[jj]));
-          END_ESCAPE;
           correlation = covariance * norms[i] * norms[jj];
+          END_ESCAPE;
           //CHECK_SPEC(tid);
           if (correlation > profile[i])
           {
@@ -166,8 +166,8 @@ void scamp(vector<DTYPE> &tSeries, vector<DTYPE> &means, vector<DTYPE> &norms,
           {
             BEGIN_ESCAPE;
             covariance += (df[i - 1] * dg[jjj - 1] + df[jjj - 1] * dg[i - 1]);
-            END_ESCAPE;
             correlation = covariance * norms[i] * norms[jjj];
+	          END_ESCAPE;
             //CHECK_SPEC(tid);
             if (correlation > profile[i])
             {
@@ -221,8 +221,8 @@ void scamp(vector<DTYPE> &tSeries, vector<DTYPE> &means, vector<DTYPE> &norms,
             BEGIN_ESCAPE;
             for (ITYPE wi = 0; wi < windowSize; wi++)
               covariance += ((tSeries[ii + wi] - means[ii]) * (tSeries[j + wi] - means[j]));
-            END_ESCAPE;
             correlation = covariance * norms[ii] * norms[j];
+            END_ESCAPE;
 
             if (correlation > profile[ii])
             {
@@ -243,8 +243,8 @@ void scamp(vector<DTYPE> &tSeries, vector<DTYPE> &means, vector<DTYPE> &norms,
             {
               BEGIN_ESCAPE;
               covariance += (df[iii - 1] * dg[j - 1] + df[j - 1] * dg[iii - 1]);
-              END_ESCAPE;
               correlation = covariance * norms[iii] * norms[j];
+              END_ESCAPE;
               if (correlation > profile[iii])
               {
                 profile[iii] = correlation;

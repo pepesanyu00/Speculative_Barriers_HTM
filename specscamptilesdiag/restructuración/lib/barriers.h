@@ -126,6 +126,7 @@ __p_failure:                                                                    
   }                                                                             \
   /* We are now in speculative mode until global order increases */             \
   tx.order += 1;                                                                \
+  __builtin_set_texasru (0);                                        \
   /* Determine if thread is last to enter the barrier */                        \
   if (__sync_add_and_fetch(&(g_specvars.barrier.remain),-1) == 0) {             \
     /* If we are last thread to enter in barrier, reset & update global order.  
