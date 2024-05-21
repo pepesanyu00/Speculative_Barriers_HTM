@@ -17,6 +17,7 @@
 #define MAX_THREADS 128
 #define MAX_SPEC    2
 #define MAX_RETRIES 5
+#define MAX_CAPACITY_RETRIES 3
 
 // Esta macro siempre debe coincidir con el número de transacciones(xacts) que se pasen a statsFileInit, sino las estadísticas estarán mal.
 #define MAX_XACT_IDS 1
@@ -39,7 +40,8 @@
                                     tx.retries = 0;                             \
                                     tx.specMax = MAX_SPEC;                      \
                                     tx.specLevel = tx.specMax;                  \
-                                    tx.speculative = 0
+                                    tx.speculative = 0;                         \
+                                    tx.capRetries = 0
 
 
 // Inicializa las variables globales necesarias para las barreras
@@ -121,6 +123,7 @@ __p_failure:                                                                    
     tx.speculative = 0;                                                         \
     tx.retries = 0;                                                             \
     tx.specLevel = tx.specMax;                                                  \
+    __builtin_set_texasru (0);                                        \
   }                                                                             \
   /* We are now in speculative mode until global order increases */             \
   tx.order += 1;                                                                \
@@ -144,15 +147,25 @@ __p_failure:                                                                    
       tx.retries = 0;                                                           \
       tx.specLevel = tx.specMax;                                                \
     } else {                                                                    \
-      tx.speculative = 1;                                                       \
       if (tx.retries > MAX_RETRIES) {                                           \
         if(tx.specMax > 1) tx.specMax--;                                        \
         tx.specLevel = tx.specMax;                                              \
       }                                                                         \
-      while (g_fallback_lock.ticket >= g_fallback_lock.turn);                   \
-      if(!__builtin_tbegin(0)) goto __p_failure;                                \
-      if (g_fallback_lock.ticket >= g_fallback_lock.turn)                       \
-      __builtin_tabort(LOCK_TAKEN);/*Early subscription*/                       \
+      if(_TEXASRU_FAILURE_PERSISTENT(__p_abortCause)){                         \
+          if (_TEXASRU_FOOTPRINT_OVERFLOW(__p_abortCause) ){                     \
+              while (tx.order > g_specvars.tx_order);                                     \
+            tx.speculative = 0;                                                   \
+            tx.retries = 0;                                                       \
+            tx.specLevel = tx.specMax;                                            \
+          }                                                                     \
+      } else {                                                                  \
+            tx.speculative = 1;                                                       \
+        if(_TEXASRU_TRANSACTION_CONFLICT(__p_abortCause)){			                \
+          srand(time(NULL));							                                      \
+          usleep((rand() % 10));							                                  \
+        }										                                                    \
+        if(!__builtin_tbegin(0)) goto __p_failure;                                \
+      }                                                                         \
     }                                                                           \
   }
 
@@ -198,8 +211,6 @@ __p_failure:                                                                    
         } else {                                                                \
           END_ESCAPE;                                                           \
           /* If we can not, decrement our speclevel */                          \
-          tx.specLevel--;                                                       \
-          if (tx.specLevel == 0) {                                              \
             BEGIN_ESCAPE;                                                       \
             while (tx.order > g_specvars.tx_order);                             \
             END_ESCAPE;                                                         \
@@ -209,7 +220,6 @@ __p_failure:                                                                    
             tx.speculative = 0;                                                 \
             tx.retries = 0;                                                     \
             tx.specLevel = tx.specMax;                                          \
-          }                                                                     \
         }                                                                       \
       }
 
@@ -246,6 +256,7 @@ typedef struct tm_tx {
                              * This is decremented in xact. mode when a nested xact.
                              * reaches commit but have to remain in speculative mode.
                              * It is also reset after a successful commit. */
+  uint32_t capRetries;
   uint8_t pad2[CACHE_BLOCK_SIZE-sizeof(uint32_t)*3-sizeof(uint8_t)];
 } __attribute__ ((aligned (CACHE_BLOCK_SIZE))) tm_tx_t;
 
