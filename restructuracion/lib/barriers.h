@@ -31,6 +31,8 @@
 
 #define MAX_RETRIES 5
 
+#define MAX_CAPACITY_RETRIES 50
+
 // Esta macro siempre debe coincidir con el número de transacciones(xacts) que se pasen a statsFileInit, sino las estadísticas estarán mal.
 #define MAX_XACT_IDS 1
 
@@ -53,7 +55,8 @@
                                     tx.order = 1;                               \
                                     tx.retries = 0;                             \
                                     tx.speculative = 0;                         \
-                                    tx.status = 0
+                                    tx.status = 0;                              \
+                                    tx.capRetries = 0
 
 // Inicializa las variables globales necesarias para las barreras
 #define BARRIER_DESCRIPTOR_INIT(numTh) g_specvars.barrier.nb_threads = numTh;   \
@@ -143,6 +146,7 @@
   }                                                                             \
   /* incrementamos el orden del hilo */             \
   tx.order += 1;                                                                \
+  tx.status = 0;                                                                \
   /* Determina si el thread es el último en entrar a la barrera */                        \
   if (__sync_add_and_fetch(&(g_specvars.barrier.remain),-1) == 0) {             \
     /* Si se es el último en cruzar la barrera, se hace un reset y se incrementa el global order*/                                    \
@@ -162,17 +166,12 @@ __p_failure:                                                                    
       tx.retries = 0;                                                           \
     } else {                                                                    \
       tx.speculative = 1;                                                       \
-      if ( (tx.status & _XABORT_RETRY) && (tx.status & _XABORT_CONFLICT)){          \
-            BEGIN_ESCAPE;                                                       \
-            srand(time(NULL));                                                 \
-            usleep((rand() % 10));                                              \
-            END_ESCAPE;                                                         \
+        if(tx.status & _XABORT_CONFLICT){			                \
+          srand(time(NULL));							                                      \
+          usleep((rand() % 40));							                                  \
+        }										                                                    \
+        if((tx.status = _xbegin()) != _XBEGIN_STARTED) {goto __p_failure;}        \
       }                                                                         \
-      /*while (g_fallback_lock.ticket >= g_fallback_lock.turn);*/                   \
-      if((tx.status = _xbegin()) != _XBEGIN_STARTED) {goto __p_failure;}        \
-      /*if (g_fallback_lock.ticket >= g_fallback_lock.turn)*/                       \
-      /*  _xabort(LOCK_TAKEN); *//*Early subscription*/                               \
-    }                                                                           \
   }
                                                                   
 
@@ -252,6 +251,7 @@ typedef struct tm_tx {
                         * mode (outside the xact.) in aborts and tm_commit 
                         * and upon reach a tm_barrier to switch to speculative */
   uint32_t status;  /* Transaction status.*/
+  uint32_t capRetries;
   uint8_t pad2[CACHE_BLOCK_SIZE-sizeof(uint32_t)*3-sizeof(uint8_t)]; 
 } __attribute__ ((aligned (CACHE_BLOCK_SIZE))) tm_tx_t;
 
