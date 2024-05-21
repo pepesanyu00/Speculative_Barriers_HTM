@@ -4,7 +4,9 @@
 #include <getopt.h> //RIC en solaris no hace falta
 #include <string.h>
 #include <stdint.h>
-#include "tm.h"
+#include "lib/barriers.h"
+#include "lib/stats.h"
+#include "lib/thread.h"
 //RIC paso de timerutils y pongo el de stamp
 //#include "timerutils.h"
 #include "timer.h"
@@ -43,11 +45,11 @@ typedef struct {
   char name[100];
 } params_t;
 
-void initParams(params_t* p) {
-  p->n = DEF_N;
+void initParams(params_t* p,char **argv) {
+  p->n = atoi(argv[1]);
   p->dump = DEF_DUMP;
   p->chunk = DEF_CHUNK;
-  p->nthreads = DEF_NTH;
+  p->nthreads = atoi(argv[2]);
   p->seed = DEF_SEED;
   p->verbose = DEF_VERBOSE;
   strncpy(p->dumpfile, DEF_DUMPF, 100);
@@ -189,7 +191,7 @@ void kernel_Histogram(void * p) {
   tid = thread_getId();
   chunk = paramPtr->chunk;
 
-  TM_THREAD_ENTER();
+  TX_DESCRIPTOR_INIT();
   
   limit = N / numTh;
   //if (N % numTh) limit++; //RIC dependiendo de los valores de entrada puede que algún thread se quede sin trabajo
@@ -208,7 +210,7 @@ void kernel_Histogram(void * p) {
     for (k = start; k < stop;) {
       //printf("thread: %d (%d to %d). chunk (%d to %d)\n",tid, start,stop, k, k+chunk);
 #ifndef SEQ
-      TM_BEGIN(tid, 0);
+      //TM_BEGIN(tid, 0);
       for (c = cstart; c < cstop; c++) {
 #endif
         if (k < (N - t - 1)) {
@@ -221,13 +223,13 @@ void kernel_Histogram(void * p) {
 #ifdef ORD
       TM_END(tid, 0, k+1);
 #else
-      TM_END(tid, 0);
+      //TM_END(tid, 0);
 #endif
 #endif
     }
-    TM_BARRIER(tid);
+    SB_BARRIER(tid);
   }
-  TM_LAST_BARRIER(tid);
+  LAST_BARRIER(tid);
 }
 
 int main(int argc, char** argv) {
@@ -238,68 +240,25 @@ int main(int argc, char** argv) {
   int option;
   params_t params;
 
-  initParams(&params);
-
-  while ((option = getopt(argc, argv, "n:dc:t:ho:vz:")) != -1) {
-    switch (option) {
-      case 'n':
-        /* Size of the array */
-        params.n = atoi(optarg);
-        break;
-      case 'd':
-        /* Dump array into a file? */
-        params.dump = 1;
-        break;
-      case 'c':
-        /* Chunksize per xact. */
-        params.chunk = atoi(optarg);
-        break;
-      case 't':
-        /* Number of threads */
-        params.nthreads = atoi(optarg);
-        break;
-      case 'o':
-        /* Output file (need -d) */
-        strncpy(params.dumpfile, optarg, 100);
-        break;
-      case 'v':
-        /* Verbose mode (not for benchmarking) */
-        params.verbose = 1;
-        break;
-      case 'z':
-        /* Output file (need -z) */
-        strncpy(params.name, optarg, 100);
-        break;
-      case 'h':
-        /* Help */
-        printUsage();
-        exit(EXIT_SUCCESS);
-        break;
-      default:
-        printUsage();
-        exit(EXIT_FAILURE);
-        break;
-    }
+  if (argc < 2)
+  {
+    printf("Usage: %s <n> <nthreads>\n", argv[0]);
+    exit(1);
   }
 
+  initParams(&params,argv);
+
   printParams(params);
-  
-  //RIC para cargar la PLT (Procedure Linkage Table)
-  volatile int temp = (unsigned int) argv[1] % (unsigned int) argv[0];
-  temp += (int) argv[1] % (int) argv[0];
-  temp += (int) argv[1] * (int) argv[0];
-  temp += (int) argv[1] / (int) argv[0];
-  temp += (unsigned int) argv[1] * (unsigned int) argv[0];
-  temp += (unsigned int) argv[1] / (unsigned int) argv[0];
-  printf("Done with ops\n");
+
 
   //RIC inicio las estadísticas para Power 8
-  if(!statsFileInit(argc, argv, params.nthreads)) { //RIC para las estadísticas
+  if (!statsFileInit(argc,argv,params.nthreads,MAX_XACT_IDS))
+  { //RIC para las estadísticas
     printf("Error abriendo o inicializando el archivo de estadísticas.\n");
     return 0;
-  }  
+  }
   //RIC inicia la barrera para SB
-  TM_STARTUP(params.nthreads);
+  BARRIER_DESCRIPTOR_INIT(params.nthreads);
   //Barrier_init();
   thread_startup(params.nthreads);
   printf("Initializing arrays... ");
@@ -314,16 +273,15 @@ int main(int argc, char** argv) {
   TIMER_READ(stop);
   printf("Done.\n");
   printf("Time = %lf\n", TIMER_DIFF_SECONDS(start, stop));
-  bool_t status = FALSE;
+  bool_t status = 0;
   if(!checkGraph(params)) {
-    status = TRUE;
+    status = 1;
     printf("Check was fine!\n");
   } else printf("Check was wrong!!!!\n");
   fflush(stdout);
   thread_shutdown();
-  TM_SHUTDOWN();
   //RIC
-  if(!dumpStats(TIMER_DIFF_SECONDS(start, stop), status))
+  if (!dumpStats(TIMER_DIFF_SECONDS(start, stop)))
     printf("Error volcando las estadísticas.\n");
    
   if (params.dump) dumpGraph(params);
