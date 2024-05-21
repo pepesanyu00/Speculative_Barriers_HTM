@@ -35,7 +35,7 @@ struct Stats {
   unsigned long int tlbAborts; //Abortos con eax = 0
   unsigned long int implementationAborts; //Abortos con eax = 0
   unsigned long int fetchAborts; //Abortos con eax = 0
-  unsigned long int otherAborts; //Número de commits
+  unsigned long int otherAborts; //deberian ser 0
   unsigned long int xcommitCount; //Número de commits
   unsigned long int fallbackCount; //Número de fallbacks
   unsigned long int retryCCount; //Número de retries de las commitan
@@ -88,12 +88,12 @@ inline unsigned long profileAbortStatus(texasru_t cause, long thread, long xid) 
   return 0;
 }
 
-void profileCommit(long thread, long xid, long retries) {
+inline void profileCommit(long thread, long xid, long retries) {
   stats[thread][xid].xcommitCount++;
   stats[thread][xid].retryCCount += retries;
 }
 
-void profileFallback(long thread, long xid, long retries) {
+inline void profileFallback(long thread, long xid, long retries) {
   stats[thread][xid].fallbackCount++;
   stats[thread][xid].retryFCount += retries;
 }

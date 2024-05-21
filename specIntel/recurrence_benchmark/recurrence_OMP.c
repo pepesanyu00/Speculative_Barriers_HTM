@@ -99,10 +99,9 @@ void initArrays(params_t p)
   // Allocate arrays
   W = (type_t *)malloc(p.n * sizeof(type_t));
   assert(W);
-  memset(W,0,p.n * sizeof(type_t));
+
   B = (type_t **)malloc(p.n * sizeof(type_t *));
   assert(B);
-    memset(B,0,p.n * sizeof(type_t *));
   for (i = 0; i < p.n; i++)
   {
     B[i] = (type_t *)malloc(p.n * sizeof(type_t));

@@ -15,7 +15,7 @@
 #define CACHE_BLOCK_SIZE 128
 
 #define MAX_THREADS 128
-#define MAX_SPEC    4
+#define MAX_SPEC    2
 #define MAX_RETRIES 5
 
 // Esta macro siempre debe coincidir con el número de transacciones(xacts) que se pasen a statsFileInit, sino las estadísticas estarán mal.
@@ -184,7 +184,7 @@ __p_failure:                                                                    
     while(tx.order > g_specvars.tx_order) ;                                     \
   }
 
-#define CHECK_SPEC(thId, xId)                                                      \
+#define CHECK_SPEC(thId)                                                      \
       if(tx.speculative) {                                                      \
         BEGIN_ESCAPE;                                                           \
         if (tx.order <= g_specvars.tx_order) {                                  \

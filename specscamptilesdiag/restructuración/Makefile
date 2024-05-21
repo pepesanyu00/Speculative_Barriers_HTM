@@ -4,7 +4,7 @@ LFLAGS = -lm -fopenmp
 all: specScampTilesDiag scampTilesDiag scamp scampTilesUnprot
 
 specScampTilesDiag: specScampTilesDiag.cpp transaction.c
-	g++ $(CFLAGS) specScampTilesDiag.cpp transaction.c -o specScampTilesDiag $(LFLAGS) -DSB
+	g++ $(CFLAGS) specScampTilesDiag.cpp transaction.c -o specScampTilesDiag $(LFLAGS)
 #	g++ $(CFLAGS) specScampTilesDiag.cpp transaction.c -o specScampTilesDiag $(LFLAGS) -DCS
 
 scampTilesDiag: scampTilesDiag.cpp

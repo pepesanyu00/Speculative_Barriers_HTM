@@ -135,9 +135,7 @@
     /* Aquí ya he terminado una barrera así que puedo commitear la transacción para después*/ \
     /* empezar la de la siguiente.*/   \
     _xend();                                                          \
-        BEGIN_ESCAPE;                                                               \
     profileCommit(thId, SPEC_XACT_ID, tx.retries-1);                            \
-        END_ESCAPE;                                                                 \
     /* Restore metadata */                                                      \
     tx.speculative = 0;                                                         \
     tx.retries = 0;                                                             \
@@ -156,34 +154,27 @@
     __label__ __p_failure;                                                      \
 __p_failure:                                                                    \
     if(tx.retries){                                                             \
-      BEGIN_ESCAPE;                                                             \
       profileAbortStatus(tx.status, thId, SPEC_XACT_ID);                       \
-      END_ESCAPE;                                                                 \
     }                                                                           \
     tx.retries++;                                                               \
-    BEGIN_ESCAPE;                                                                \
     if (tx.order <= g_specvars.tx_order) {                                      \
-    END_ESCAPE;                                                                 \
       tx.speculative = 0;                                                       \
       tx.retries = 0;                                                           \
       tx.specLevel = tx.specMax;                                                \
     } else {                                                                    \
-      END_ESCAPE;                                                               \
       tx.speculative = 1;                                                       \
       if (tx.retries > MAX_RETRIES) {                                           \
         if(tx.specMax > 1) tx.specMax--;                                        \
         tx.specLevel = tx.specMax;                                              \
       }                                                                         \
       if ( (tx.status & _XABORT_RETRY) && (tx.status & _XABORT_CONFLICT)){          \
-            BEGIN_ESCAPE;                                                       \
-            srand(time(NULL));                                                 \
-            usleep((rand() % 10));                                              \
-            END_ESCAPE;                                                         \
+           srand(time(NULL));                                                \
+            usleep((rand() % 10));                                             \
       }                                                                         \
-      while (g_fallback_lock.ticket >= g_fallback_lock.turn);                   \
+      /*while (g_fallback_lock.ticket >= g_fallback_lock.turn);*/                   \
       if((tx.status = _xbegin()) != _XBEGIN_STARTED) {goto __p_failure;}        \
-      if (g_fallback_lock.ticket >= g_fallback_lock.turn)                       \
-        _xabort(LOCK_TAKEN);/*Early subscription*/                              \
+      /*if (g_fallback_lock.ticket >= g_fallback_lock.turn)    */                   \
+        /*_xabort(LOCK_TAKEN);*//*Early subscription*/                              \
     }                                                                           \
   }
 
