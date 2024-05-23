@@ -55,8 +55,7 @@
                                     tx.order = 1;                               \
                                     tx.retries = 0;                             \
                                     tx.speculative = 0;                         \
-                                    tx.status = 0;                              \
-                                    tx.capRetries = 0
+                                    tx.status = 0
 
 // Inicializa las variables globales necesarias para las barreras
 #define BARRIER_DESCRIPTOR_INIT(numTh) g_specvars.barrier.nb_threads = numTh;   \
@@ -168,7 +167,7 @@ __p_failure:                                                                    
       tx.speculative = 1;                                                       \
         if(tx.status & _XABORT_CONFLICT){			                \
           srand(time(NULL));							                                      \
-          usleep((rand() % 40));							                                  \
+          usleep((rand() % 30));							                                \
         }										                                                    \
         if((tx.status = _xbegin()) != _XBEGIN_STARTED) {goto __p_failure;}        \
       }                                                                         \
