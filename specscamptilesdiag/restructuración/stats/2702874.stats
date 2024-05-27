@@ -1,0 +1,28 @@
+-----------------------------------------
+Output file: stats/2702874.stats
+----------------- Stats -----------------
+#Threads: 16
+Verification passed.
+
+Time(s): 9.968191
+
+Abort Count:  XIDSB: 272882 1576998 634663 1369227 372615 559860 274136 307955 320971 399961 698666 744743 805388 1029120 383801 351281 Total: 10102267
+Explicit aborts:  XIDSB: 38 48 50 52 52 62 48 36 48 46 37 34 22 24 22 26 Total: 645
+  »     Subs:  XIDSB: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 Total: 0
+  »  AddPath:  XIDSB: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 Total: 0
+-Disallowed aborts:  XIDSB: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 Total: 0
+-Nesting overflow aborts:  XIDSB: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 Total: 0
+-Footprint overflow aborts:  XIDSB: 224748 1544705 582315 1318652 308826 503389 237994 273147 276629 349148 644836 707449 774599 987754 352302 305293 Total: 9391786
+-Self-induced conflict aborts:  XIDSB: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 Total: 0
+  » Persistent:  XIDSB: 224748 1544705 582315 1318652 308826 503389 237994 273147 276629 349148 644836 707449 774599 987754 352302 305293 Total: 9391786
+Non-transactional conflict aborts:  XIDSB: 583 331 676 803 848 737 382 405 429 518 283 185 227 259 185 183 Total: 7034
+Transactional conflict aborts:  XIDSB: 47386 31756 51520 49701 62753 55646 35683 34364 43713 50213 53373 36977 30513 40920 31208 45673 Total: 701399
+TLB invalidation aborts:  XIDSB: 0 0 40 0 0 22 4 0 1 5 0 2 0 1 0 2 Total: 77
+Implementation specific aborts:  XIDSB: 127 158 62 19 136 4 25 3 151 31 137 96 27 162 84 104 Total: 1326
+Instruction fetch conflict aborts:  XIDSB: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 Total: 0
+Other aborts (deberían ser 0):  XIDSB: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 Total: 0
+Commits:  XIDSB: 1 3 2 2 1 2 2 0 0 0 3 0 4 2 0 3 Total: 25
+Fallbacks:  XIDSB: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 Total: 0
+RetriesCommited:  XIDSB: 3477 41058 10287 5130 3516 3934 3834 0 0 0 189727 0 97142 335068 0 7921 Total: 701094 PerXact: 28043.759766
+RetriesFallbacked: XIDSB: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 Total: 0 PerXact: nan
+RetriesAvg: 28043.759766
