@@ -38,11 +38,7 @@ void prueba(void)
 #pragma omp for schedule(dynamic) nowait
       for (int i = 0; i < g_xLength; i++)
       {
-        // END_ESCAPE;
-        // if (!flag)
-        //{
         BEGIN_TRANSACTION(tid, 0);
-        //}
         BEGIN_ESCAPE;
         if (tid == 1)
           while (!g_flag.flag)
@@ -51,15 +47,9 @@ void prueba(void)
         suma += g_x[i];
         if (tid == 0)
           g_flag.flag = 1;
-        // if (!flag)
-        //{
+
         COMMIT_TRANSACTION(tid, 0);
-        //}
-        // else
-        //{
-        //  COMMIT_TRANSACTION(tid, 1);
-        //  flag = 0;
-        //}
+
         if (tid == 1)
         {
           g_flag2.flag = 1;
@@ -72,9 +62,6 @@ void prueba(void)
           g_flag2.flag = 0;
         }
       }
-      // BEGIN_TRANSACTION(tid, 1);
-      // flag = 1;
-      // BEGIN_ESCAPE;
     }
     printf("La suma del thread %d es: %ld\n", tid, suma);
   }
