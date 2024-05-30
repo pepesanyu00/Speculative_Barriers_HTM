@@ -148,7 +148,7 @@ void scamp(vector<DTYPE> &tSeries, vector<DTYPE> &means, vector<DTYPE> &norms,
             covariance += ((tSeries[i + wi] - means[i]) * (tSeries[jj + wi] - means[jj]));
           correlation = covariance * norms[i] * norms[jj];
           //END_ESCAPE;
-          //CHECK_SPEC(tid);
+          CHECK_SPEC(tid);
           if (correlation > profile[i])
           {
             profile[i] = correlation; //Actúo sobre el array global
