@@ -1,0 +1,21 @@
+-----------------------------------------
+Output file: stats/8742.stats
+----------------- Stats -----------------
+#Threads: 2
+time: 0.000000
+Abort Count: XID0: 0 88  XID1: 0 0  XID2: 0 0 Total: 88
+Explicit aborts: XID0: 0 0  XID1: 0 0  XID2: 0 0  Total: 0
+  »     Subs: XID0: 0 0  XID1: 0 0  XID2: 0 0  Total: 0
+Retry aborts: XID0: 0 88  XID1: 0 0  XID2: 0 0  Total: 88
+  »     Conflict: XID0: 0 88  XID1: 0 0  XID2: 0 0  Total: 88
+  »     Capacity: XID0: 0 0  XID1: 0 0  XID2: 0 0  Total: 0
+Conflict aborts: XID0: 0 88  XID1: 0 0  XID2: 0 0  Total: 88
+Capacity aborts: XID0: 0 0  XID1: 0 0  XID2: 0 0  Total: 0
+Debug aborts: XID0: 0 0  XID1: 0 0  XID2: 0 0  Total: 0
+Nested aborts: XID0: 0 0  XID1: 0 0  XID2: 0 0  Total: 0
+eax=0 aborts: XID0: 0 0  XID1: 0 0  XID2: 0 0  Total: 0
+Commits: XID0: 50 50  XID1: 0 0  XID2: 0 0  Total: 100
+Fallbacks: XID0: 0 0  XID1: 0 0  XID2: 0 0  Total: 0
+RetriesCommited: XID0: 0 88  XID1: 0 0  XID2: 0 0 Total: 88 PerXact: 0.880000
+RetriesFallbacked: XID0: 0 0  XID1: 0 0  XID2: 0 0 Total: 0 PerXact: -nan
+RetriesAvg: 0.880000

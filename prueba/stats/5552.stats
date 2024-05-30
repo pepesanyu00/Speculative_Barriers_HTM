@@ -1,0 +1,21 @@
+-----------------------------------------
+Output file: stats/5552.stats
+----------------- Stats -----------------
+#Threads: 2
+time: 0.000000
+Abort Count: XID0: 0 48  XID1: 0 0  XID2: 0 0 Total: 48
+Explicit aborts: XID0: 0 0  XID1: 0 0  XID2: 0 0  Total: 0
+  »     Subs: XID0: 0 0  XID1: 0 0  XID2: 0 0  Total: 0
+Retry aborts: XID0: 0 48  XID1: 0 0  XID2: 0 0  Total: 48
+  »     Conflict: XID0: 0 48  XID1: 0 0  XID2: 0 0  Total: 48
+  »     Capacity: XID0: 0 0  XID1: 0 0  XID2: 0 0  Total: 0
+Conflict aborts: XID0: 0 48  XID1: 0 0  XID2: 0 0  Total: 48
+Capacity aborts: XID0: 0 0  XID1: 0 0  XID2: 0 0  Total: 0
+Debug aborts: XID0: 0 0  XID1: 0 0  XID2: 0 0  Total: 0
+Nested aborts: XID0: 0 0  XID1: 0 0  XID2: 0 0  Total: 0
+eax=0 aborts: XID0: 0 0  XID1: 0 0  XID2: 0 0  Total: 0
+Commits: XID0: 50 50  XID1: 0 0  XID2: 0 0  Total: 100
+Fallbacks: XID0: 0 0  XID1: 0 0  XID2: 0 0  Total: 0
+RetriesCommited: XID0: 0 48  XID1: 0 0  XID2: 0 0 Total: 48 PerXact: 0.480000
+RetriesFallbacked: XID0: 0 0  XID1: 0 0  XID2: 0 0 Total: 0 PerXact: -nan
+RetriesAvg: 0.480000
