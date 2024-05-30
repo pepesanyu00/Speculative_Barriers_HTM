@@ -165,7 +165,7 @@ __p_failure:                                                                    
       tx.retries = 0;                                                           \
     } else {                                                                    \
       tx.speculative = 1;                                                       \
-        if(tx.status & _XABORT_CONFLICT){			                \
+        if((tx.status & _XABORT_CONFLICT) || (tx.status & _XABORT_CAPACITY)){			                \
           srand(time(NULL));							                                      \
           usleep((rand() % 30));							                                \
         }										                                                    \
