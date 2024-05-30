@@ -38,10 +38,7 @@
                                     /* Initialise tx descriptor */              \
                                     tx.order = 1; /* In p8-ordwsb-nt the order updates in barriers, not in start nor commit */ \
                                     tx.retries = 0;                             \
-                                    tx.specMax = MAX_SPEC;                      \
-                                    tx.specLevel = tx.specMax;                  \
-                                    tx.speculative = 0;                         \
-                                    tx.capRetries = 0
+                                    tx.speculative = 0
 
 
 // Inicializa las variables globales necesarias para las barreras
@@ -122,7 +119,6 @@ __p_failure:                                                                    
     /* Restore metadata */                                                      \
     tx.speculative = 0;                                                         \
     tx.retries = 0;                                                             \
-    tx.specLevel = tx.specMax;                                                  \
     __builtin_set_texasru (0);                                        \
   }                                                                             \
   /* We are now in speculative mode until global order increases */             \
@@ -145,29 +141,15 @@ __p_failure:                                                                    
     if (tx.order <= g_specvars.tx_order) {                                      \
       tx.speculative = 0;                                                       \
       tx.retries = 0;                                                           \
-      tx.specLevel = tx.specMax;                                                \
     } else {                                                                    \
-      if (tx.retries > MAX_RETRIES) {                                           \
-        if(tx.specMax > 1) tx.specMax--;                                        \
-        tx.specLevel = tx.specMax;                                              \
+            tx.speculative = 1;                                                 \
+        if(_TEXASRU_TRANSACTION_CONFLICT(__p_abortCause) || _TEXASRU_FOOTPRINT_OVERFLOW(__p_abortCause)){			\
+          srand(time(NULL));							\
+          usleep((rand() % 30));					        \
+        }                                                                       \
+        if(!__builtin_tbegin(0)) goto __p_failure;                              \
       }                                                                         \
-      if(_TEXASRU_FAILURE_PERSISTENT(__p_abortCause)){                         \
-          if (_TEXASRU_FOOTPRINT_OVERFLOW(__p_abortCause) ){                     \
-              while (tx.order > g_specvars.tx_order);                                     \
-            tx.speculative = 0;                                                   \
-            tx.retries = 0;                                                       \
-            tx.specLevel = tx.specMax;                                            \
-          }                                                                     \
-      } else {                                                                  \
-            tx.speculative = 1;                                                       \
-        if(_TEXASRU_TRANSACTION_CONFLICT(__p_abortCause)){			                \
-          srand(time(NULL));							                                      \
-          usleep((rand() % 10));							                                  \
-        }										                                                    \
-        if(!__builtin_tbegin(0)) goto __p_failure;                                \
-      }                                                                         \
-    }                                                                           \
-  }
+    }
 
 
 #define LAST_BARRIER(thId)                                                      \
@@ -181,7 +163,6 @@ __p_failure:                                                                    
     /* Restore metadata */                                                      \
     tx.speculative = 0;                                                         \
     tx.retries = 0;                                                             \
-    tx.specLevel = tx.specMax;                                                  \
   }                                                                             \
   /* We are now in speculative mode until global order increases */             \
   tx.order += 1;                                                                \
@@ -207,7 +188,6 @@ __p_failure:                                                                    
           /* Restore metadata */                                                \
           tx.speculative = 0;                                                   \
           tx.retries = 0;                                                       \
-          tx.specLevel = tx.specMax;                                            \
         } else {                                                                \
           END_ESCAPE;                                                           \
           /* If we can not, decrement our speclevel */                          \
@@ -219,7 +199,6 @@ __p_failure:                                                                    
             /* Restore metadata */                                              \
             tx.speculative = 0;                                                 \
             tx.retries = 0;                                                     \
-            tx.specLevel = tx.specMax;                                          \
         }                                                                       \
       }
 
@@ -249,14 +228,6 @@ typedef struct tm_tx {
                         * (tm_start, abort) and it is updated in non-xact.
                         * mode (outside the xact.) in aborts and tm_commit 
                         * and upon reach a tm_barrier to switch to speculative */
-  uint32_t specMax; /* Max level of speculation before wait for commit. This
-                    * is updated only in non-xact mode (after a series of
-                    * aborts in speculative mode). */
-  uint32_t specLevel; /* Number of transactions remaining until wait for commit.
-                             * This is decremented in xact. mode when a nested xact.
-                             * reaches commit but have to remain in speculative mode.
-                             * It is also reset after a successful commit. */
-  uint32_t capRetries;
   uint8_t pad2[CACHE_BLOCK_SIZE-sizeof(uint32_t)*3-sizeof(uint8_t)];
 } __attribute__ ((aligned (CACHE_BLOCK_SIZE))) tm_tx_t;
 

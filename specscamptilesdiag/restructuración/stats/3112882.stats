@@ -1,0 +1,28 @@
+-----------------------------------------
+Output file: stats/3112882.stats
+----------------- Stats -----------------
+#Threads: 16
+Verification passed.
+
+Time(s): 7.097034
+
+Abort Count:  XIDSB: 21716 11989 13098 10428 18484 12748 9758 11221 14807 14455 19328 15610 14187 10051 14313 9218 Total: 221411
+Explicit aborts:  XIDSB: 114 71 74 61 102 74 57 62 86 80 108 88 84 60 87 57 Total: 1265
+  »     Subs:  XIDSB: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 Total: 0
+  »  AddPath:  XIDSB: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 Total: 0
+-Disallowed aborts:  XIDSB: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 Total: 0
+-Nesting overflow aborts:  XIDSB: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 Total: 0
+-Footprint overflow aborts:  XIDSB: 21275 11641 12744 10122 18030 12411 9486 10911 14404 14086 18894 15242 13808 9759 13901 8951 Total: 215665
+-Self-induced conflict aborts:  XIDSB: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 Total: 0
+  » Persistent:  XIDSB: 21275 11641 12744 10122 18030 12411 9486 10911 14404 14086 18894 15242 13808 9759 13901 8951 Total: 215665
+Non-transactional conflict aborts:  XIDSB: 24 20 22 14 17 25 22 21 37 19 20 25 17 26 19 14 Total: 342
+Transactional conflict aborts:  XIDSB: 292 255 251 230 320 238 186 223 275 270 291 245 277 206 306 195 Total: 4060
+TLB invalidation aborts:  XIDSB: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 Total: 0
+Implementation specific aborts:  XIDSB: 11 2 7 1 15 0 7 4 5 0 15 10 1 0 0 1 Total: 79
+Instruction fetch conflict aborts:  XIDSB: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 Total: 0
+Other aborts (deberían ser 0):  XIDSB: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 Total: 0
+Commits:  XIDSB: 2 8 7 2 8 9 5 7 6 12 10 5 8 9 8 10 Total: 116
+Fallbacks:  XIDSB: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 Total: 0
+RetriesCommited:  XIDSB: 370 1733 1405 4 2367 1280 679 946 1641 2839 1339 732 1626 1936 2363 1805 Total: 23065 PerXact: 198.836212
+RetriesFallbacked: XIDSB: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 Total: 0 PerXact: nan
+RetriesAvg: 198.836212

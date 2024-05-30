@@ -143,12 +143,12 @@ void scamp(vector<DTYPE> &tSeries, vector<DTYPE> &means, vector<DTYPE> &norms,
           //Si no, el upper triangle tb se calcula
           //Triángulo superior
           covariance = 0;
-          BEGIN_ESCAPE;
+          //BEGIN_ESCAPE;
           for (ITYPE wi = 0; wi < windowSize; wi++)
             covariance += ((tSeries[i + wi] - means[i]) * (tSeries[jj + wi] - means[jj]));
           correlation = covariance * norms[i] * norms[jj];
-          END_ESCAPE;
-          //CHECK_SPEC(tid);
+          //END_ESCAPE;
+          CHECK_SPEC(tid);
           if (correlation > profile[i])
           {
             profile[i] = correlation; //Actúo sobre el array global
@@ -164,10 +164,10 @@ void scamp(vector<DTYPE> &tSeries, vector<DTYPE> &means, vector<DTYPE> &norms,
 
           for (ITYPE jjj = jj + 1; jjj < MIN(tilej + maxTileWidth, profileLength); jjj++, i++)
           {
-            BEGIN_ESCAPE;
+            //BEGIN_ESCAPE;
             covariance += (df[i - 1] * dg[jjj - 1] + df[jjj - 1] * dg[i - 1]);
             correlation = covariance * norms[i] * norms[jjj];
-	          END_ESCAPE;
+	          //END_ESCAPE;
             //CHECK_SPEC(tid);
             if (correlation > profile[i])
             {
@@ -218,11 +218,11 @@ void scamp(vector<DTYPE> &tSeries, vector<DTYPE> &means, vector<DTYPE> &norms,
             //Si no, el upper triangle tb se calcula
             //Triángulo superior
             covariance = 0;
-            BEGIN_ESCAPE;
+            //BEGIN_ESCAPE;
             for (ITYPE wi = 0; wi < windowSize; wi++)
               covariance += ((tSeries[ii + wi] - means[ii]) * (tSeries[j + wi] - means[j]));
             correlation = covariance * norms[ii] * norms[j];
-            END_ESCAPE;
+            //END_ESCAPE;
 
             if (correlation > profile[ii])
             {
@@ -241,10 +241,10 @@ void scamp(vector<DTYPE> &tSeries, vector<DTYPE> &means, vector<DTYPE> &norms,
                                      (j < profileLength);
                  iii++, j++)
             {
-              BEGIN_ESCAPE;
+              //BEGIN_ESCAPE;
               covariance += (df[iii - 1] * dg[j - 1] + df[j - 1] * dg[iii - 1]);
               correlation = covariance * norms[iii] * norms[j];
-              END_ESCAPE;
+              //END_ESCAPE;
               if (correlation > profile[iii])
               {
                 profile[iii] = correlation;

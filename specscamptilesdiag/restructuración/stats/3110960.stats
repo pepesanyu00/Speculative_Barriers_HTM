@@ -1,0 +1,28 @@
+-----------------------------------------
+Output file: stats/3110960.stats
+----------------- Stats -----------------
+#Threads: 32
+Verification passed.
+
+Time(s): 4.532676
+
+Abort Count:  XIDSB: 1843 1935 1928 1914 2039 2002 2051 2074 1954 2017 2236 2371 2616 2625 2572 2641 2583 2774 2856 2685 1954 2066 1957 2021 2055 2078 2040 1931 1945 1994 2313 2562 Total: 70632
+Explicit aborts:  XIDSB: 3 4 4 4 5 4 4 4 4 3 4 4 6 7 6 5 6 6 6 6 4 2 4 3 4 3 4 4 3 4 4 4 Total: 138
+  »     Subs:  XIDSB: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 Total: 0
+  »  AddPath:  XIDSB: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 Total: 0
+-Disallowed aborts:  XIDSB: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 Total: 0
+-Nesting overflow aborts:  XIDSB: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 Total: 0
+-Footprint overflow aborts:  XIDSB: 0 0 1 0 1 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 1 1 2 0 0 0 0 0 Total: 8
+-Self-induced conflict aborts:  XIDSB: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 Total: 0
+  » Persistent:  XIDSB: 0 0 1 0 1 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 1 1 2 0 0 0 0 0 Total: 8
+Non-transactional conflict aborts:  XIDSB: 1379 1368 1351 1392 1462 1495 1529 1526 1445 1513 1669 1817 1808 1763 1778 1797 1791 1949 1978 1841 1472 1549 1399 1450 1490 1511 1511 1396 1411 1453 1796 2004 Total: 51093
+Transactional conflict aborts:  XIDSB: 455 550 565 507 562 492 511 538 499 494 557 536 801 855 788 839 786 819 872 836 463 507 540 559 548 559 518 520 523 534 498 546 Total: 19177
+TLB invalidation aborts:  XIDSB: 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 Total: 2
+Implementation specific aborts:  XIDSB: 6 13 7 11 9 11 7 5 6 7 5 13 1 0 0 0 0 0 0 2 15 8 14 9 12 4 5 11 8 2 15 8 Total: 214
+Instruction fetch conflict aborts:  XIDSB: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 Total: 0
+Other aborts (deberían ser 0):  XIDSB: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 Total: 0
+Commits:  XIDSB: 313 366 375 352 375 343 337 355 353 333 378 364 477 535 506 533 499 511 534 504 313 324 375 370 369 371 345 354 343 354 335 366 Total: 12562
+Fallbacks:  XIDSB: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 Total: 0
+RetriesCommited:  XIDSB: 558 687 652 674 758 690 658 738 626 654 901 972 1126 1159 1083 1275 1106 1307 1365 1095 623 679 695 764 757 741 676 649 668 681 919 1051 Total: 26987 PerXact: 2.148304
+RetriesFallbacked: XIDSB: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 Total: 0 PerXact: nan
+RetriesAvg: 2.148304

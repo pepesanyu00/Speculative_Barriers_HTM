@@ -4,9 +4,6 @@ LFLAGS = -lm -fopenmp
 all: specScampTilesDiag scampTilesDiag scamp scampTilesUnprot
 
 
-specScampTilesDiag: specScampTilesDiag.cpp transaction.c
-	g++ $(CFLAGS) specScampTilesDiag.cpp transaction.c -o specScampTilesDiag $(LFLAGS)
-
 specScampTilesDiag: specScampTilesDiag.cpp lib/barriers.c lib/stats.c
 	g++ $(CFLAGS) specScampTilesDiag.cpp lib/barriers.c lib/stats.c -o specScampTilesDiag $(LFLAGS)
 
@@ -23,5 +20,5 @@ scampTilesUnprot: scampTilesUnprot.cpp
 
 clean:
 	rm -f scampTilesDiag specScampTilesDiag scamp scampTilesUnprot
-	rm -f stats/*
-	rm -f results/*
+	#rm -f stats/*
+	#rm -f results/*
