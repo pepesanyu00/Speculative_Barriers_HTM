@@ -146,7 +146,6 @@ void scamp(vector<DTYPE> &tSeries, vector<DTYPE> &means, vector<DTYPE> &norms,
           }
           //CHECK_SPEC(tid, 0);
           correlation = covariance * norms[i] * norms[jj];
-
           if (correlation > profile[i])
           {
             profile[i] = correlation; //Actúo sobre el array global
@@ -162,9 +161,9 @@ void scamp(vector<DTYPE> &tSeries, vector<DTYPE> &means, vector<DTYPE> &norms,
 
           for (ITYPE jjj = jj + 1; jjj < MIN(tilej + maxTileWidth, profileLength); jjj++, i++)
           {
-            covariance += (df[i - 1] * dg[jjj - 1] + df[jjj - 1] * dg[i - 1]);
-            correlation = covariance * norms[i] * norms[jjj];
-
+              covariance += (df[i - 1] * dg[jjj - 1] + df[jjj - 1] * dg[i - 1]);
+              correlation = covariance * norms[i] * norms[jjj];
+            
             if (correlation > profile[i])
             {
               profile[i] = correlation;
@@ -217,7 +216,6 @@ void scamp(vector<DTYPE> &tSeries, vector<DTYPE> &means, vector<DTYPE> &norms,
               covariance += ((tSeries[ii + wi] - means[ii]) * (tSeries[j + wi] - means[j]));
 
             correlation = covariance * norms[ii] * norms[j];
-
             if (correlation > profile[ii])
             {
               profile[ii] = correlation; //Actúo sobre el array global
@@ -237,7 +235,6 @@ void scamp(vector<DTYPE> &tSeries, vector<DTYPE> &means, vector<DTYPE> &norms,
             {
               covariance += (df[iii - 1] * dg[j - 1] + df[j - 1] * dg[iii - 1]);
               correlation = covariance * norms[iii] * norms[j];
-
               if (correlation > profile[iii])
               {
                 profile[iii] = correlation;
@@ -262,7 +259,6 @@ void scamp(vector<DTYPE> &tSeries, vector<DTYPE> &means, vector<DTYPE> &norms,
           cout << "Lower triangle | tid: " << tid << " tilei(ini,fin): " << iini << "," << ifin << " tilej(ini,fin): " << jini << "," << jfin << endl;
 #endif
         }
-        //BEGIN_ESCAPE;
       }SB_BARRIER(tid); //Barrera implícita omp si no se pone nowait
 #ifdef DEBUG
       cout << "PASADA LA BARRERA -------------------------------------------------" << endl;

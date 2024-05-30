@@ -1,0 +1,21 @@
+-----------------------------------------
+Output file: stats/7080.stats
+----------------- Stats -----------------
+#Threads: 2
+time: 80.434491
+Abort Count: XID0: 94913 30646 Total: 125559
+Explicit aborts: XID0: 0 0  Total: 0
+  »     Subs: XID0: 0 0  Total: 0
+Retry aborts: XID0: 277 200  Total: 477
+  »     Conflict: XID0: 277 200  Total: 477
+  »     Capacity: XID0: 0 0  Total: 0
+Conflict aborts: XID0: 278 203  Total: 481
+Capacity aborts: XID0: 368 358  Total: 726
+Debug aborts: XID0: 0 0  Total: 0
+Nested aborts: XID0: 0 0  Total: 0
+eax=0 aborts: XID0: 94267 30085  Total: 124352
+Commits: XID0: 1 0  Total: 1
+Fallbacks: XID0: 0 0  Total: 0
+RetriesCommited: XID0: 1 0 Total: 1 PerXact: 1.000000
+RetriesFallbacked: XID0: 0 0 Total: 0 PerXact: -nan
+RetriesAvg: 1.000000

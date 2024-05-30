@@ -1,0 +1,28 @@
+-----------------------------------------
+Output file: stats/3093870.stats
+----------------- Stats -----------------
+#Threads: 8
+Verification passed.
+
+Time(s): 0.697723
+
+Abort Count:  XIDSB: 6804 6790 6777 6256 0 4566 6674 4573 Total: 42440
+Explicit aborts:  XIDSB: 42 42 42 37 0 27 28 24 Total: 242
+  »     Subs:  XIDSB: 0 0 0 0 0 0 0 0 Total: 0
+  »  AddPath:  XIDSB: 0 0 0 0 0 0 0 0 Total: 0
+-Disallowed aborts:  XIDSB: 0 0 0 0 0 0 0 0 Total: 0
+-Nesting overflow aborts:  XIDSB: 0 0 0 0 0 0 0 0 Total: 0
+-Footprint overflow aborts:  XIDSB: 6661 6659 6650 6159 0 4472 6525 4511 Total: 41637
+-Self-induced conflict aborts:  XIDSB: 0 0 0 0 0 0 0 0 Total: 0
+  » Persistent:  XIDSB: 6661 6659 6650 6159 0 4472 6525 4511 Total: 41637
+Non-transactional conflict aborts:  XIDSB: 80 75 71 49 0 63 115 32 Total: 485
+Transactional conflict aborts:  XIDSB: 15 14 10 11 0 4 6 6 Total: 66
+TLB invalidation aborts:  XIDSB: 0 0 0 0 0 0 0 0 Total: 0
+Implementation specific aborts:  XIDSB: 6 0 4 0 0 0 0 0 Total: 10
+Instruction fetch conflict aborts:  XIDSB: 0 0 0 0 0 0 0 0 Total: 0
+Other aborts (deberían ser 0):  XIDSB: 0 0 0 0 0 0 0 0 Total: 0
+Commits:  XIDSB: 2 2 2 2 0 3 2 2 Total: 15
+Fallbacks:  XIDSB: 0 0 0 0 0 0 0 0 Total: 0
+RetriesCommited:  XIDSB: 6803 6789 6776 6255 0 4566 6673 2354 Total: 40216 PerXact: 2681.066650
+RetriesFallbacked: XIDSB: 0 0 0 0 0 0 0 0 Total: 0 PerXact: nan
+RetriesAvg: 2681.066650

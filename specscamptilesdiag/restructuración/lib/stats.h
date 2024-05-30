@@ -35,7 +35,7 @@ struct Stats {
   unsigned long int tlbAborts; //Abortos con eax = 0
   unsigned long int implementationAborts; //Abortos con eax = 0
   unsigned long int fetchAborts; //Abortos con eax = 0
-  unsigned long int otherAborts; //Número de commits
+  unsigned long int otherAborts; //deberian ser 0
   unsigned long int xcommitCount; //Número de commits
   unsigned long int fallbackCount; //Número de fallbacks
   unsigned long int retryCCount; //Número de retries de las commitan

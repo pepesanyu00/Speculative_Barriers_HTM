@@ -9,7 +9,7 @@ export OMP_PLACES=cores
 
 #Series cortas
 benchs=("./timeseries/power-MPIII-SVF_n180000.txt 1325"
-#    "./timeseries/seismology-MPIII-SVE_n180000.txt 50"
+    "./timeseries/seismology-MPIII-SVE_n180000.txt 50"
     "./timeseries/e0103_n180000.txt 500"
     "./timeseries/penguin_sample_TutorialMPweb.txt 800"
 "./timeseries/audio-MPIII-SVD.txt 200"
@@ -34,15 +34,15 @@ for (( j=0; j<$n; j++ )); do
             ./specScampTilesDiag $i 512 $t $dumpStats
             ./specScampTilesDiag $i 2048 $t $dumpStats
             ./specScampTilesDiag $i 8192 $t $dumpStats
-	    ./scampTilesDiag $i 128 $t $dumpStats
-            ./scampTilesDiag $i 512 $t $dumpStats
-            ./scampTilesDiag $i 2048 $t $dumpStats
-            ./scampTilesDiag $i 8192 $t $dumpStats
-            ./scamp $i $t $dumpStats
-            ./scampTilesUnprot $i 128 $t $dumpStats
-            ./scampTilesUnprot $i 512 $t $dumpStats
-            ./scampTilesUnprot $i 2048 $t $dumpStats
-            ./scampTilesUnprot $i 8192 $t $dumpStats
+	    #./scampTilesDiag $i 128 $t $dumpStats
+            #./scampTilesDiag $i 512 $t $dumpStats
+            #./scampTilesDiag $i 2048 $t $dumpStats
+            #./scampTilesDiag $i 8192 $t $dumpStats
+            #./scamp $i $t $dumpStats
+            #./scampTilesUnprot $i 128 $t $dumpStats
+            #./scampTilesUnprot $i 512 $t $dumpStats
+            #./scampTilesUnprot $i 2048 $t $dumpStats
+            #./scampTilesUnprot $i 8192 $t $dumpStats
         done;
     done;
     dumpStats=0

@@ -2,6 +2,8 @@
     "files.associations": {
         "immintrin.h": "c",
         "stdint.h": "c",
-        "ostream": "cpp"
+        "ostream": "cpp",
+        "unistd.h": "c",
+        "tm.h": "c"
     }
 }

@@ -143,7 +143,7 @@ __p_failure:                                                                    
       tx.retries = 0;                                                           \
     } else {                                                                    \
             tx.speculative = 1;                                                 \
-        if(_TEXASRU_TRANSACTION_CONFLICT(__p_abortCause)){			\
+        if(_TEXASRU_TRANSACTION_CONFLICT(__p_abortCause) || _TEXASRU_FOOTPRINT_OVERFLOW(__p_abortCause)){			\
           srand(time(NULL));							\
           usleep((rand() % 30));					        \
         }                                                                       \
