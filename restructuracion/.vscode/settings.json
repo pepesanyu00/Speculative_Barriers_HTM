@@ -1,6 +1,9 @@
 {
     "files.associations": {
         "assert.h": "c",
-        "random": "cpp"
+        "random": "cpp",
+        "iosfwd": "cpp",
+        "limits": "cpp",
+        "iomanip": "cpp"
     }
 }
