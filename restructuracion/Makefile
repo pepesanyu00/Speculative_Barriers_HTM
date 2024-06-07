@@ -1,4 +1,4 @@
-CFLAGS =  -Wall -march=native
+CFLAGS =  -Wall -march=native -static
 LFLAGS = -lm -qopenmp
 L2FLAGS = -lm -fopenmp
 
