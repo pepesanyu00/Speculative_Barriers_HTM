@@ -13,6 +13,7 @@
 #include <typeinfo> //To obtain type name as string
 #include "lib/barriers.h"
 #include "lib/stats.h"
+#include <immintrin.h>
 #define MIN(a, b) (((a) < (b)) ? (a) : (b))
 #define MAX(a, b) (((a) > (b)) ? (a) : (b))
 

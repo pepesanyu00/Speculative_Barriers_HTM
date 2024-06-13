@@ -1,11 +1,11 @@
-CFLAGS =  -Wall -march=native -static
-LFLAGS = -lm -qopenmp
+CFLAGS = -O2  -march=sapphirerapids --static
+LFLAGS =  -qopenmp
 L2FLAGS = -lm -fopenmp
 
 all: specScampTilesDiag scampTilesDiag scamp scampTilesUnprot
 
 specScampTilesDiag: specScampTilesDiag.cpp lib/barriers.c lib/stats.c
-	g++  $(CFLAGS) specScampTilesDiag.cpp lib/barriers.c lib/stats.c  -o specScampTilesDiag $(L2FLAGS) -mrtm
+	g++ $(CFLAGS) specScampTilesDiag.cpp lib/barriers.c lib/stats.c -o specScampTilesDiag $(L2FLAGS) -mrtm 
 
 scampTilesDiag: scampTilesDiag.cpp
 	g++ $(CFLAGS) scampTilesDiag.cpp -o scampTilesDiag $(L2FLAGS)
