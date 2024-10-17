@@ -1,4 +1,4 @@
-CFLAGS = -O2  -march=sapphirerapids --static
+CFLAGS = -O2  -Wall -std=c++11 -march=native
 LFLAGS =  -qopenmp
 L2FLAGS = -lm -fopenmp
 

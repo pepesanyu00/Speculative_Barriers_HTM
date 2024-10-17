@@ -23,7 +23,7 @@ benchs=(#"./timeseries/power-MPIII-SVF_n180000.txt 1325"
 
 
 
-hilos="2 4 8 16 32 64 96"
+hilos="1 2 4 8 16 32 64 96"
 n=2
 #RIC una tirada con dump stats a 1. Se pone a 0 para las siguientes
 dumpStats=1
