@@ -13,7 +13,7 @@ benchs=(#"./timeseries/power-MPIII-SVF_n180000.txt 1325"
     #"./timeseries/seismology-MPIII-SVE_n180000.txt 50"
     #"./timeseries/e0103_n180000.txt 500"
     #"./timeseries/penguin_sample_TutorialMPweb.txt 800"
-        "./timeseries/audio-MPIII-SVD.txt 50"
+        "./timeseries/audio-MPIII-SVD.txt 200"
        #"./timeseries/human_activity-MPIII-SVC.txt 120"
 #        series XL
 #        "./timeseries/power-MPIII-SVF.txt 1325"
